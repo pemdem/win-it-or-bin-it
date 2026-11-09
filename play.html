@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794201059;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794201388;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Win It or Bin It</title>
@@ -484,6 +484,10 @@ div.dopt{cursor:default}
 .vp-st.on{border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold);background:var(--warnbg)}
 .vp-log{margin-top:10px;padding-top:8px;border-top:1px dashed var(--line)}
 .sd-note{background:var(--soft);border-radius:6px;padding:7px 9px}
+.follow button{display:inline-flex;align-items:center}
+.follow button i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pc);margin-right:6px}
+.spec-plist li>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.spec-plist .num{min-width:2.2em;text-align:right}
 .qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 </style></head>
 <body>
@@ -1606,10 +1610,10 @@ function vStand(){
  const ph=S.pollHist;const p1=ph[ph.length-2],p2=ph[ph.length-1];let loser='';
  if(p1&&p2){const ds=Object.keys(p2.v).filter(id=>p1.v[id]!=null&&cand(id)).map(id=>({id,d:p2.v[id]-p1.v[id]})).sort((x,y)=>x.d-y.d);const l=ds[0];if(l&&l.d<=-0.3){const c=cand(l.id);loser=`Biggest loser in the national poll last week: <b>${c.isPlayer?'you':esc(dispName(c))}</b>, ${f1(l.d)}.`;}}
  return standCard({win,lose,drops,unit,lab:prim?'States still to vote':'Every state',hasPrev:!!a,loser});}
-function standCard({win,lose,drops,unit,lab,hasPrev,loser}){
+function standCard({win,lose,drops,unit,lab,hasPrev,loser,title}){
  const sum=l=>l.reduce((s,r)=>s+r.w,0);
  const li=r=>`<li><button class="stand-st" data-act="pickSt" data-st="${r.st}"><b>${r.st}</b><span>${esc(STATES[r.st].n)}</span><em class="${r.m>=0?'up':'down'}">${sgn(r.m)}</em></button></li>`;
- return `<section class="card stand"><div class="card-h"><h2>Where you stand</h2><span class="lab">${lab} · closest first</span></div>
+ return `<section class="card stand"><div class="card-h"><h2>${title||'Where you stand'}</h2><span class="lab">${lab} · closest first</span></div>
   <div class="stand-cols">
    <div><p class="stand-h"><span>Winning</span><b class="up">${win.length} · ${sum(win)} ${unit}</b></p><ul>${win.slice(0,6).map(li).join('')||'<li class="small muted">Nowhere yet.</li>'}</ul></div>
    <div><p class="stand-h"><span>Losing</span><b class="down">${lose.length} · ${sum(lose)} ${unit}</b></p><ul>${lose.slice(0,6).map(li).join('')||'<li class="small muted">Nowhere. Nice.</li>'}</ul></div>
@@ -2053,6 +2057,7 @@ function hostData(pid,d,conn){
  else if(d.t==='plan'&&M.phase==='week'){M.week.plans[pid]=mpCleanPlan(d.plan);M.week.ready[pid]=true;if(!mpCheckAll())mpBroadcast();}
  else if(d.t==='unplan'&&M.phase==='week'){delete M.week.ready[pid];mpBroadcast();}
  else if(d.t==='dans'&&M.phase==='debate'){const g=mpGroupOf(p.cid);if(g&&!g.reveal&&!g.done&&num(d.i,-1)===g.i){g.answers[p.cid]={k:cleanTxt(d.k,8),target:cleanTxt(d.target,6),text:cleanTxt(d.text,700)};if(!mpCheckAll())mpBroadcast();}}
+ else if(d.t==='audq'){mpAudQ(p,pid,d.txt);}
  else if(d.t==='vp'&&M.phase==='conv'&&M.conv.vp[pid]){const e=M.conv.vp[pid];const i=num(d.i,-1);if(e.opts[i]){e.pick=i;e.speech=['unity','pivot','base'].includes(d.speech)?d.speech:'unity';M.acks[pid]=true;if(!mpCheckAll())mpBroadcast();}}
  else if(d.t==='ack'){M.acks[pid]=true;const g=M.phase==='debate'&&mpGroupOf(p.cid);if(g&&(g.reveal||g.done))g.acks[pid]=true;if(!mpCheckAll())mpBroadcast();}
  else if(d.t==='choice'&&M.phase==='conv'&&M.conv.pending[pid]){const ch=d.v==='indie'?'indie':'spec';M.conv.choice[pid]=ch;delete M.conv.pending[pid];if(ch==='indie')M.conv.vp[pid]={opts:vpGeneric(M.cands[p.cid]),pick:null,speech:null};if(!mpCheckAll())mpBroadcast();}
@@ -2118,7 +2123,7 @@ function mpEnterStep(){
   Object.values(M.cands).forEach(c=>{if(c.human&&!c.spec){c.energy=clamp(c.energy+20,0,100);c.funds+=(0.3+c.recog*0.015)*(BGS[c.bg].grass||1)*(M.track==='general'?2:1);}});
   if(!M.pollHist.length)mpRecord('Start');
   if(!actors().length)setTimeout(()=>{if(M&&MP.isHost&&M.phase==='week')mpResolveWeek();},1500);
- }else if(st.t==='debate'){M.phase='debate';M.dgroups=mpMakeGroups();if(!M.dgroups.length){M.step++;return mpEnterStep();}}
+ }else if(st.t==='debate'){M.phase='debate';M.dgroups=mpMakeGroups();mpUseAudQ();if(!M.dgroups.length){M.step++;return mpEnterStep();}}
  else if(st.t==='contest'){if(!['D','R'].some(pt=>M.prim[pt].active&&!M.prim[pt].nominee)){M.step++;return mpEnterStep();}mpRunContest(st.id);M.phase='contest';}
  else if(st.t==='conv'){mpConvention();}
  else if(st.t==='night'){const err=rnd(-1.5,1.5);const final={},first={};ST_KEYS.forEach(s=>{first[s]=mpShares(s,err+gauss()*2.5);final[s]=rcvMP(s,first[s]);});
@@ -2341,7 +2346,7 @@ function mpStats(){const c=myCand();if(!c||c.spec)return '';const s=(l,v,cls='')
 function mpSub(){if(!M)return 'Multiplayer';if(M.phase==='lobby')return `${M.name} · waiting room`;const st=stepNow();if(M.phase==='week')return `${M.track==='primary'?'Primary season':'General election'} · ${M.week.date}, 2028`;if(M.phase==='debate')return st.name;if(M.phase==='contest')return `${M.results.name} · ${M.results.date}`;if(M.phase==='conv')return 'Conventions';return 'Election Night · Nov 7, 2028';}
 function vMPNav(){
  const inRoom=MP.code&&M;
- const c=M&&M.cands&&myCand();const tabs=M&&M.phase==='week'&&c&&!c.spec?[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']].map(([k,l])=>`<button class="tab ${MP.tab===k||(!MP.tab&&k==='campaign')?'on':''}" data-act="mpTab" data-k="${k}">${l}</button>`).join(''):'<span class="tab on">Multiplayer</span>';
+ const c=M&&M.cands&&myCand();const tabs=M&&M.phase==='week'&&(c&&!c.spec||viewCand())?(c&&!c.spec?[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']]:[['campaign','The race'],['map','Map & Analytics'],['platform','Platforms']]).map(([k,l])=>`<button class="tab ${MP.tab===k||(!MP.tab&&k==='campaign')?'on':''}" data-act="mpTab" data-k="${k}">${l}</button>`).join(''):'<span class="tab on">Multiplayer</span>';
  return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="mpExit" title="Leave multiplayer">Win It <span>or</span> Bin It</button><div class="tabs">${tabs}</div><div class="stats">${M&&M.cands?mpStats():''}</div>${inRoom?`<span class="navbtn">Room ${esc(MP.code.toUpperCase())}</span><button class="navbtn" data-act="mpLeave">Leave game</button>`:`<button class="navbtn" data-act="mpExit">Back to title</button>`}<button class="navbtn" data-act="prefs">Settings</button></div></header>
  <div class="subbar"><div class="wrap"><b>${esc(mpSub())}</b><span class="muted">${MP.status==='online'?'● Online':MP.status==='connecting'?'Connecting…':'Offline'}</span></div></div>`;
 }
@@ -2353,7 +2358,7 @@ function vMP(){
  if(MP.screen==='home'||!M)return vMPHome();
  if(M.phase==='lobby')return vMPRoom();
  const c=myCand();
- if(M.phase==='week'){if(!c||c.spec)return vMPWatch();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():vMPWeek();}
+ if(M.phase==='week'){if(!c||c.spec)return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatView():vMPWatch();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():vMPWeek();}
  if(M.phase==='debate')return vMPDebate();
  if(M.phase==='contest')return vMPContest();
  if(M.phase==='conv')return vMPConv();
@@ -2536,7 +2541,7 @@ function vMPSetupMove(){
  return `<div class="setup"><div><b>${mv.name}.</b> ${mv.max?`Pick up to ${mv.max} state${mv.max>1?'s':''}.`:''}${mv.max&&M.track==='primary'&&c.inPrimary?' Only states voting in the next two contests count (dashed outline).':''}</div>${body}</div>`;
 }
 function mpRaceBar(final,shown){
- const c=myCand();
+ const c=viewCand();
  if(M.track==='primary'&&!final){
   const pts=['D','R'].filter(pt=>M.prim[pt].active);const mine=c&&c.inPrimary&&!c.spec?c.party:pts[0];
   if(!mine)return `<section class="race"><p class="small">Both major-party nominees are set. Third-party and independent candidates are building up for November.</p></section>`;
@@ -2553,7 +2558,7 @@ function mpRaceBar(final,shown){
  <div class="race-legend"><span>270 to win</span>${final?'':`<span><i style="background:var(--toss)"></i>Toss-up ${toss}</span><span>Lighter = leaning</span>`}</div></section>`;
 }
 function mpFill(){
- const c=myCand();
+ const c=viewCand();
  if(M.track==='general')return st=>{const pr=mpProj();const sh=pr.st[st];const win=winKey(sh);return{...partyFill(mpKeyColor(win),leadM(sh)),tip:`${mpWhoName(win)} +${f1(leadM(sh))}${c&&!c.spec?` · you ${sgn(marginFor(c.id,sh))}`:''}`};};
  const pt=c&&c.inPrimary?c.party:(['D','R'].find(x=>M.prim[x].active)||null);
  const done={};if(pt)M.prim[pt].log.forEach(r=>done[r.st]=r.w);
@@ -2599,7 +2604,7 @@ function vMPWatch(){
 function vMPDebate(){
  const c=myCand();const g=c&&M.dgroups.find(x=>x.parts.includes(c.id));
  const chat=`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
- if(!g){const acked=M.acks[MP.myPid];return `<section class="card mp-msg"><h2>${esc(stepNow().name)}</h2><p>${c&&!c.inPrimary&&M.track==='primary'?'You’re not in a primary, so you skip this debate.':'You’re not on this debate stage.'} ${M.dgroups.map(x=>`${x.key==='G'?'General':PARTIES[x.key].name+' debate'}: ${x.finished?'done':'question '+Math.min(x.i+1,3)+' of 3'}`).join(' · ')}</p><div class="btns">${acked?'<span class="small muted">Waiting for the debate to finish.</span>':'<button class="btn go" data-act="mpAck">OK</button>'}${isHostMe()?'<button class="link small" data-act="mpForce">Don’t wait</button>':''}</div></section>${chat}`;}
+ if(!g)return vMPDebateWatch(c,chat);
  const head=`<div class="card-h"><div><span class="lab">${esc(stepNow().city||'')} · ${g.key==='G'?'general-election voters':PARTIES[g.key].name+' primary voters'}</span><h2 style="font-size:1.9rem">${esc(g.key==='G'?stepNow().name:PARTIES[g.key].name+' Primary Debate')}</h2></div>${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}</div>`;
  const pods=`<div class="stage">${g.parts.map(id=>{const x=M.cands[id];const a=g.scores[id];const v=a.length?Math.round(a.reduce((p,q)=>p+q,0)/a.length):null;return `<div class="pod" style="--pc:${g.key==='G'?genColor(id):x.color}"><b>${esc(cName(id,false))}</b><span>${esc(ownerOf(x))}</span><span class="num">${v==null?'—':v}</span></div>`;}).join('')}</div>`;
  const hs=g.parts.map(id=>M.cands[id]).filter(x=>x.human&&!M.players.find(p=>p.pid===x.pid)?.left);
@@ -2619,7 +2624,7 @@ function vMPDebate(){
    <button class="dopt" data-act="mpDans" data-k="pivot"><b>Pivot to your best issue</b><span>Safe once. Repeats get noticed.</span></button>
    <div class="dopt"><b>Go after someone</b><span>Big swings both ways.</span><div class="row" style="margin-top:6px"><select id="mp-dtarget" style="flex:1 1 120px">${others.map(o=>`<option value="${o}" ${MP.form.dtarget===o?'selected':''}>${esc(M.cands[o].name)}</option>`).join('')}</select><button class="btn sm" data-act="mpDans" data-k="attack">Go</button></div></div></div>
   <div class="write"><label class="lab" for="mp-dans">Or answer in your own words</label><textarea id="mp-dans" rows="3" maxlength="700" placeholder="${hang?'You can answer '+esc(cName(hang.from,true))+' here too.':'Your answer. Everyone on stage sees it.'}">${esc(MP.form['mp-dans']||'')}</textarea><div class="btns"><button class="btn go" data-act="mpDans" data-k="typed">Give this answer</button><span class="small muted">Specific answers that match your platform score best.</span></div></div>`;}
- return `<section class="card">${head}${pods}<span class="lab">Question ${g.i+1} of ${g.qs.length} · ${AREA[q.area].short}</span><p class="modq">“${esc(q.q)}”</p>${body}</section>${chat}`;
+ return `<section class="card">${head}${pods}<span class="lab">Question ${g.i+1} of ${g.qs.length} · ${AREA[q.area].short}${q.from?' · audience question':''}</span><p class="modq">“${esc(q.q)}”</p>${q.from?`<p class="small muted" style="margin:-6px 0 10px">Sent in by ${esc(q.from)}, who’s watching.</p>`:''}${body}</section>${chat}`;
 }
 function vMPContest(){
  const r=M.results;const c=myCand();const pt=c&&c.inPrimary&&r.by[c.party]?c.party:Object.keys(r.by)[0];const acked=M.acks[MP.myPid];const wl=watchers().filter(p=>!M.acks[p.pid]).map(p=>p.name);
@@ -2724,7 +2729,7 @@ function vMPAdv(){const msgs=(MP.adv||[]).slice(-6);
  <div class="adv-msgs">${msgs.length?msgs.map(m=>`<div class="msg ${m.who==='me'?'me':''}">${m.who!=='me'&&m.t?`<time>${esc(m.t)}</time>`:''}${esc(m.txt)}</div>`).join(''):'<div class="msg">I’ll send you a briefing every week.</div>'}</div>
  <div class="adv-ask"><input type="text" id="mp-advq" maxlength="200" placeholder="Ask Riley something" value="${esc(MP.form['mp-advq']||'')}" autocomplete="off"><button class="btn go" data-act="mpAskAdv">Ask</button></div></section>`;}
 let mpSimCache={key:''};
-function mpSim(n=400){const c=myCand();const key=M.rev+':'+c.id;if(mpSimCache.key===key)return mpSimCache.v;const pr=mpProj(),ids=genIds();let wins=0;const sw={};ST_KEYS.forEach(s=>sw[s]=0);
+function mpSim(n=400){const c=viewCand();const key=M.rev+':'+c.id;if(mpSimCache.key===key)return mpSimCache.v;const pr=mpProj(),ids=genIds();let wins=0;const sw={};ST_KEYS.forEach(s=>sw[s]=0);
  for(let i=0;i<n;i++){const nat=gauss()*2.6;const ev={};ids.forEach(k=>ev[k]=0);
   for(const st of ST_KEYS){const b=pr.st[st];const e=nat+gauss()*2.4;let best=null,bv=-1;ids.forEach(k=>{const v=b[k]+(k===M.gen.D?e/2:k===M.gen.R?-e/2:gauss()*1.5);if(v>bv){bv=v;best=k;}});ev[best]+=STATES[st].ev;if(best===c.id)sw[st]++;}
   let win=ev[c.id]>=270;if(!ids.some(k=>ev[k]>=270))win=c.id===(ev[M.gen.R]>=ev[M.gen.D]?M.gen.R:M.gen.D);if(win)wins++;}
@@ -2733,7 +2738,7 @@ function mpProjDels(pt){const f=primField(pt);const tot={};f.forEach(c=>tot[c.id
 const mpContestOf=st=>M.steps.find(s=>s.t==='contest'&&MPC[s.id].states.includes(st))?.id;
 const histFor=(c,st)=>(M.hist||[]).filter(h=>h.m[c.id]).map(h=>h.m[c.id][st]);
 function mpModeFill(mode){
- const c=myCand();
+ const c=viewCand();
  if(mode==='lead'||mode==='proj')return mpFill();
  if(mode==='ground')return st=>{const p=c.presence[st]||0;return{fill:p?mix(c.color,clamp(Math.round(Math.sqrt(p)*40),15,100)):'var(--none)',ink:p>2?'#fff':'var(--ink)',tip:`You: ${c.visits[st]||0} visits, ${money(c.ads[st]||0)} in ads`};};
  if(mode==='opp')return st=>{const os=rivalsOf(c);const o=os.reduce((a,b)=>(b.presence[st]||0)>(a.presence[st]||0)?b:a,os[0]);const p=o?o.presence[st]||0:0;return{fill:p?mix('var(--c2)',clamp(Math.round(Math.sqrt(p)*40),15,100)):'var(--none)',ink:p>2?'#fff':'var(--ink)',tip:o?`${o.name}: ${o.visits[st]||0} visits, ${money(o.ads[st]||0)} in ads`:''};};
@@ -2742,8 +2747,9 @@ function mpModeFill(mode){
  if(mode==='win'){const s=mpSim();return st=>{const w=s.sw[st];const m=Math.abs(w-50);return{fill:m<10?'var(--toss)':mix(w>=50?genColor(c.id):'var(--muted)',clamp(Math.round(m*2),20,100)),ink:m>30?'#fff':'var(--ink)',tip:`Your chance: ${Math.round(w)}%`,sub:Math.round(w)+'%'};};}
  return mpFill();
 }
-function vMPStateDetail(st){
- const c=myCand();const s=STATES[st];const tr=histFor(c,st).filter(v=>v!=null);
+function vMPStateDetail(st){return specWords(vMPStateDetail0(st));}
+function vMPStateDetail0(st){
+ const c=viewCand();const s=STATES[st];const tr=histFor(c,st).filter(v=>v!=null);
  if(M.track==='primary'&&c.inPrimary&&!M.prim[c.party].nominee){const pt=c.party;const done=M.prim[pt].log.find(r=>r.st===st);const p=pollP(pt,st);const ids=Object.keys(p).sort((a,b)=>p[b]-p[a]);const cid=mpContestOf(st);
   return `<h3>${s.n}</h3><p class="sub">${delsP(pt,st)} delegates · ${cid?MPC[cid].name+', '+MPC[cid].date:''} · ${REGIONS[s.reg]}</p>
   ${done?`<div class="sd-sec"><p><b>Already voted.</b> Won by ${esc(cName(done.w,false))}.</p></div>`:`<div class="sd-sec"><span class="lab">Primary poll</span>${ids.map(id=>`<div class="meter"><span>${esc(cName(id,true))}</span><div class="bar"><i style="width:${p[id]}%;--c:${M.cands[id].color}"></i></div><b>${f1(p[id])}</b></div>`).join('')}</div>`}
@@ -2759,8 +2765,9 @@ function vMPStateDetail(st){
   <div class="sd-sec"><button class="btn go" data-act="mpPlanState" data-st="${st}">Campaign here</button></div>`;}
  return `<h3>${s.n}</h3><p class="sub">${s.ev} electoral votes · ${REGIONS[s.reg]} · baseline ${leanText(st)}</p><div class="sd-sec"><div class="kv"><span>Your visits</span><b>${c.visits[st]||0}</b></div><div class="kv"><span>Your ads</span><b>${money(c.ads[st]||0)}</b></div></div><div class="sd-sec"><button class="btn go" data-act="mpPlanState" data-st="${st}">Campaign here</button></div>`;
 }
-function vMPMapTab(){
- const c=myCand();const prim=M.track==='primary';const inPrim=prim&&c.inPrimary&&!M.prim[c.party].nominee;
+function vMPMapTab(){return isSpec()?mpFollowStrip()+specWords(vMPMapTab0()):vMPMapTab0();}
+function vMPMapTab0(){
+ const c=viewCand();const prim=M.track==='primary';const inPrim=prim&&c.inPrimary&&!M.prim[c.party].nominee;
  const modes=prim?(inPrim?[['lead','Primary polls'],['results','Results so far'],['swing','This week’s swing'],['ground','Your ground game']]:[['ground','Your ground game'],['opp','Rivals’ spending'],['results','Primary results']]):[['proj','Forecast'],['win','Win chance'],['swing','This week’s swing'],['ground','Your ground game'],['opp','Opponent spending']];
  const mode=modes.some(m=>m[0]===MP.mapMode)?MP.mapMode:modes[0][0];let sel=MP.selSt&&STATES[MP.selSt]?MP.selSt:null;let kpis,table='';
  if(inPrim){const pt=c.party;const proj=mpProjDels(pt);const rem=upcomingMP(10).reduce((a,id)=>a+MPC[id].states.reduce((x,s)=>x+delsP(pt,s),0),0);
@@ -2825,7 +2832,7 @@ function mpVpCard(ready){
   <p class="lab" style="margin-bottom:6px">Their week${ready?' · locked in':''}</p><div class="seg vp-acts">${VP_ACTS.map(([k,l])=>`<button class="${P.k===k?'on':''}" data-act="mpVpK" data-k="${k}" ${dis}>${l}</button>`).join('')}</div>
   <div class="vp-body">${body}</div>${last?`<p class="small vp-log"><b>Last week:</b> ${esc(last.txt.replace(/^running mate /,''))}.</p>`:''}</section>`;}
 function mpStandCard(){
- const c=myCand();if(!c||c.spec)return '';let rows=null,unit='EV',lab='Every state';
+ const c=viewCand();if(!c||c.spec)return '';let rows=null,unit='EV',lab='Every state';
  if(M.track==='general'&&M.gen&&genIds().includes(c.id)){const pr=mpProj();rows=ST_KEYS.map(st=>({st,m:marginFor(c.id,pr.st[st]),w:STATES[st].ev}));}
  else if(M.track==='primary'&&c.inPrimary&&!M.prim[c.party].nominee){const pt=c.party;const voted=new Set(M.prim[pt].log.map(r=>r.st));unit='del.';lab='States still to vote';
   rows=ST_KEYS.filter(st=>!voted.has(st)).map(st=>{const p=pollP(pt,st);const top=Math.max(0,...Object.keys(p).filter(k=>k!==c.id).map(k=>p[k]));return{st,m:(p[c.id]||0)-top,w:delsP(pt,st)};});}
@@ -2835,7 +2842,7 @@ function mpStandCard(){
  const drops=a&&b?ST_KEYS.filter(st=>live.has(st)&&a.m[c.id][st]!=null&&b.m[c.id][st]!=null).map(st=>({st,d:b.m[c.id][st]-a.m[c.id][st]})).filter(r=>r.d<=-0.1).sort((x,y)=>x.d-y.d).slice(0,5):[];
  const ph=M.pollHist||[];const p1=ph[ph.length-2],p2=ph[ph.length-1];let loser='';
  if(p1&&p2){const ds=Object.keys(p2.v).filter(id=>p1.v[id]!=null&&M.cands[id]).map(id=>({id,d:p2.v[id]-p1.v[id]})).sort((x,y)=>x.d-y.d);const l=ds[0];if(l&&l.d<=-0.3)loser=`Biggest loser in the national poll last week: <b>${esc(cName(l.id,false))}</b>, ${f1(l.d)}.`;}
- return standCard({win,lose,drops,unit,lab,hasPrev:!!a,loser});}
+ return standCard({win,lose,drops,unit,lab,hasPrev:!!a,loser,title:isSpec()?`Where ${esc(c.name.split(' ').slice(-1)[0])} stands`:null});}
 function slicesMP(st){
  if(!M||!M.cands)return null;const c=myCand();
  const gen=(first,fin,label)=>{const rows=Object.keys(first).filter(k=>first[k]>0.05&&mpWho(k)).map(k=>{const w=mpWho(k);return{name:w.pid&&w.pid===MP.myPid?'You':w.name,color:mpKeyColor(k),pct:first[k],me:!!(w.pid&&w.pid===MP.myPid)};});
@@ -2847,6 +2854,67 @@ function slicesMP(st){
  const row=(id,pct)=>{const x=M.cands[id];return{name:x.pid===MP.myPid?'You':x.name,color:x.color,pct,me:x.pid===MP.myPid};};
  const done=M.prim[pt].log.find(r=>r.st===st);if(done&&done.res)return{label:`${PARTIES[pt].name} primary result · ${delsP(pt,st)} delegates`,rows:done.res.filter(r=>M.cands[r.id]).map(r=>row(r.id,r.pct))};
  const p=pollP(pt,st);return{label:`${PARTIES[pt].name} primary poll · ${delsP(pt,st)} delegates`,rows:Object.keys(p).filter(id=>M.cands[id]).map(id=>row(id,p[id]))};}
+
+/* ---------- watching: see everything, follow anyone, ask debate questions ---------- */
+const isSpec=()=>{const c=myCand();return !c||!!c.spec;};
+function followList(){if(!M||!M.cands)return[];return Object.values(M.cands).filter(x=>!x.out&&!x.spec&&(M.track==='general'&&M.gen?genIds().includes(x.id):(x.inPrimary?(!M.prim[x.party].nominee||M.prim[x.party].nominee===x.id):true)));}
+function viewCand(){const c=myCand();if(c&&!c.spec)return c;const L=followList();if(!L.length)return null;const f=L.find(x=>x.id===MP.follow);if(f)return f;return L.find(x=>x.human)||L[0];}
+function specWords(h){if(!isSpec())return h;const c=viewCand();if(!c)return h;const n=esc(c.name.split(' ').slice(-1)[0]);
+ return h.replace(/<div class="sd-sec"><button class="btn go" data-act="mpPlanState"[^<]*<\/button><\/div>/g,'').replace(/\bYour\b/g,n+'’s').replace(/>You</g,'>'+n+'<').replace(/\bYou:/g,n+':').replace(/\byou’ve\b/g,'they’ve');}
+function mpFollowBar(){const L=followList();const f=viewCand();return `<div class="seg follow" role="group" aria-label="Follow a candidate">${L.map(x=>`<button class="${f&&x.id===f.id?'on':''}" data-act="mpFollow" data-id="${x.id}" style="--pc:${M.track==='general'&&M.gen?genColor(x.id):x.color}"><i></i>${esc(x.name.split(' ').slice(-1)[0])}</button>`).join('')}</div>`;}
+const mpFollowStrip=()=>`<section class="card mp-strip"><div><span class="lab">You’re watching</span><p class="small">You can see everything, chat, and send questions to the debates. Pick who to follow.</p></div>${mpFollowBar()}</section>`;
+function mpStatList(f){const kv=(l,v,cls='')=>`<div class="kv"><span>${l}</span><b class="${cls}">${v}</b></div>`;
+ return kv('Cash',money(f.funds??0))+kv('Energy',Math.round(f.energy??0))+kv('Name ID',Math.round(f.recog)+'%')+kv('Momentum',sgn(f.mom),f.mom>=3?'up':f.mom<=-3?'down':'')+kv('Scandal',Math.round(f.scandal||0))+(f.inPrimary&&M.track==='primary'?kv('Delegates',f.dels):'')+(f.vpName?kv('Running mate',esc(f.vpName)):'');}
+function vMPWatch(){
+ const f=viewCand();const chat=`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
+ if(!f)return `${mpRaceBar()}<section class="card"><p class="small">Nobody left to follow.</p></section>${chat}`;
+ const theirs=(M.lastWeek?.lines||[]).filter(l=>l.id===f.id);
+ return `${mpRaceBar()}${mpFollowStrip()}
+ <div class="main2"><div class="side"><section class="card"><div class="card-h"><h2>${esc(f.name)}</h2><span class="lab">${esc(ownerOf(f))} · ${PARTIES[f.party].noun}</span></div><div class="mapwrap">${usMap(mpFill(),{})}</div><div class="legend"><span>Hover a state for the full breakdown</span></div></section>${mpStandCard()}</div>
+ <aside class="side"><section class="card"><div class="card-h"><h2>Their campaign</h2><span class="lab">${esc(M.week.date)}</span></div>${mpStatList(f)}
+  <p class="lab" style="margin:12px 0 4px">Last week</p>${theirs.length?`<ul class="notes">${theirs.map(l=>`<li class="small">${esc(l.txt)}${/[.”…]$/.test(l.txt)?'':'.'}</li>`).join('')}</ul>`:'<p class="small muted">Nothing yet.</p>'}</section>
+ ${mpAskBox()}${vLastWeek()}${chat}</aside></div>`;
+}
+function vMPPlatView(){
+ const f=viewCand();if(!f)return vMPWatch();const prim=M.track==='primary'&&f.inPrimary;
+ let body;
+ if(f.human&&f.planks){const P=platC(f);const ps=AREAS.map(a=>f.planks[a.id]).filter(Boolean);
+  body=`<div class="card-h"><h2>${esc(f.name)}’s platform</h2><span class="lab">${P.n} of 10 issues · primary voters ${Math.round(P.pri)} · November ${Math.round(P.gen)}</span></div>
+  <ul class="plist spec-plist">${ps.map(pl=>`<li><div><small>${esc(AREA[pl.area].short)}</small><b>${esc(pl.title)}</b>${pl.text?`<span class="small muted">${esc(pl.text)}</span>`:''}</div><span class="num" title="Primary voters">${Math.round(pl.pri)}</span><span class="num" title="November voters">${Math.round(pl.gen)}</span></li>`).join('')}</ul>
+  <p class="small muted" style="margin-top:8px">Left number: primary voters. Right number: November voters.</p>`;}
+ else body=`<div class="card-h"><h2>${esc(f.name)}</h2><span class="lab">Computer candidate</span></div><p>${esc(f.tag||PARTIES[f.party].noun)}. Computer candidates don’t publish a full platform.</p>`;
+ return `${mpRaceBar()}${mpFollowStrip()}<section class="card">${body}</section>`;
+}
+function mpAskBox(){
+ const nextDeb=M.steps.slice(M.step+1).find(s=>s.t==='debate');const live=M.phase==='debate';if(!live&&!nextDeb)return '';
+ const mine=(M.audQ||[]).filter(q=>q.pid===MP.myPid).length;
+ return `<section class="card"><div class="card-h"><h2>Ask the candidates</h2><span class="lab">${live?'Debate on now':esc(nextDeb.name)}</span></div>
+  <p class="small muted">${live?'Your question gets added to the debate that’s on now.':'The moderator uses questions from people watching at the next debate.'}</p>
+  <textarea id="mp-audq" rows="2" maxlength="240" placeholder="What do you want to ask them?" style="margin-top:8px">${esc(MP.form['mp-audq']||'')}</textarea>
+  <div class="btns" style="margin-top:6px"><button class="btn go" data-act="mpAskQ">Send question</button>${mine?`<span class="small muted">${mine} of yours waiting</span>`:''}</div></section>`;}
+function mpPods(g){return `<div class="stage">${g.parts.map(id=>{const x=M.cands[id];const a=g.scores[id];const v=a.length?Math.round(a.reduce((p,q)=>p+q,0)/a.length):null;return `<div class="pod" style="--pc:${g.key==='G'?genColor(id):x.color}"><b>${esc(cName(id,false))}</b><span>${esc(ownerOf(x))}</span><span class="num">${v==null?'—':v}</span></div>`;}).join('')}</div>`;}
+function vMPDebateWatch(c,chat){
+ const acked=M.acks[MP.myPid];const why=c&&!c.spec&&!c.inPrimary&&M.track==='primary'?'You’re not in a primary, so you’re not on stage.':c&&!c.spec?'You’re not on this stage.':'You’re watching.';
+ const groups=M.dgroups.map(g=>{const title=g.key==='G'?stepNow().name:PARTIES[g.key].name+' Primary Debate';let inner;
+  if(g.done){const r=g.done;const so=[...g.parts].sort((a,b)=>r.snap[b]-r.snap[a]);inner=`<p class="lab" style="margin-bottom:6px">Who won</p><div style="display:flex;flex-direction:column;gap:7px">${so.map(k=>`<div class="meter"><span>${esc(cName(k,true))}</span><div class="bar"><i style="width:${r.snap[k]}%;--c:${g.key==='G'?genColor(k):M.cands[k].color}"></i></div><b>${Math.round(r.snap[k])}%</b></div>`).join('')}</div>`;}
+  else{const q=g.qs[Math.min(g.i,g.qs.length-1)];inner=`<span class="lab">Question ${Math.min(g.i+1,g.qs.length)} of ${g.qs.length} · ${AREA[q.area].short}${q.from?' · audience question':''}</span><p class="modq">“${esc(q.q)}”</p>${q.from?`<p class="small muted" style="margin:-6px 0 10px">Sent in by ${esc(q.from)}.</p>`:''}
+   ${g.reveal?`<div class="fb"><span class="lab">How they answered</span><ul class="notes">${g.reveal.res.map(r=>`<li class="mp-close"><span><b style="color:${M.cands[r.id].color}">${esc(cName(r.id,false))}</b> ${esc(r.line)}</span><b class="num">${r.sc}</b></li>`).join('')}</ul>${g.reveal.blunder?`<p class="blunder">${esc(cName(g.reveal.blunder.id,false))} ${esc(g.reveal.blunder.text)}.</p>`:''}</div>`:'<p class="small muted"><span class="spin"></span> Candidates are answering.</p>'}`;}
+  return `<section class="card"><div class="card-h"><div><span class="lab">${esc(stepNow().city||'')}</span><h2>${esc(title)}</h2></div>${g.finished?'<span class="tag">Over</span>':''}</div>${mpPods(g)}${inner}</section>`;}).join('');
+ return `<section class="card mp-strip"><div><h2>${esc(stepNow().name)}</h2><p class="small">${why} You can watch every stage and send in questions.</p></div><div class="btns">${acked?'<span class="small muted">You’re set. The game moves on when the debates end.</span>':'<button class="btn go" data-act="mpAck">I’m done watching</button>'}${isHostMe()?'<button class="link small" data-act="mpForce">Don’t wait</button>':''}</div></section>
+ ${groups}<div class="main2"><div class="side">${chat}</div><aside class="side">${mpAskBox()}</aside></div>`;
+}
+const AREA_WORDS={econ:/tax|price|inflation|job|wage|econom|cost|rent|housing|debt|spend|tariff|grocer|paycheck/i,health:/health|medicare|medicaid|insur|drug price|prescription|hospital|doctor|obamacare|aca\b/i,
+ immig:/immigra|border|migrant|deport|asylum|citizenship|\bwall\b|undocumented/i,abort:/abortion|roe|pro-life|pro-choice|\bivf\b|contracept|reproductive/i,climate:/climate|energy|\boil\b|\bgas\b|solar|wind|emission|drill|electric|fossil|nuclear power/i,
+ guns:/\bguns?\b|firearm|rifle|second amendment|2a\b|shooting/i,crime:/crime|police|policing|prison|jail|fentanyl|cartel|violence/i,edu:/school|teacher|college|student|educat|tuition/i,
+ foreign:/china|russia|ukraine|israel|gaza|nato|\bwar\b|military|foreign|iran|taiwan|troops|ally|allies/i,tech:/\bai\b|artificial|tech|social media|privacy|robot|tiktok|algorithm|chips?\b/i};
+function guessArea(t){let best=null,bs=0;Object.entries(AREA_WORDS).forEach(([a,re])=>{const m=(t.match(new RegExp(re.source,'gi'))||[]).length;if(m>bs){bs=m;best=a;}});return best||Object.keys(M.sal).reduce((a,b)=>M.sal[b]>M.sal[a]?b:a);}
+function mpAudQ(p,pid,txt){
+ const c=p.cid&&M.cands[p.cid];const off=!c||c.spec||(M.phase==='debate'&&!mpGroupOf(c.id));txt=cleanTxt(txt,240);M.audQ=M.audQ||[];
+ if(!off||txt.length<10||M.audQ.filter(q=>q.pid===pid).length>=3)return;const q={pid,n:p.name,q:txt,area:guessArea(txt)};
+ if(M.phase==='debate'){const g=(M.dgroups||[]).filter(g=>!g.finished&&!g.done&&g.qs.length<5).sort((a,b)=>a.qs.length-b.qs.length)[0];
+  if(g){g.qs.push({area:q.area,q:q.q,from:q.n});M.chat.push({n:'',txt:`${p.name} sent a question to the ${g.key==='G'?'debate':PARTIES[g.key].name+' debate'}.`});mpBroadcast();return;}}
+ M.audQ.push(q);M.chat.push({n:'',txt:`${p.name} sent a question for the next debate.`});mpBroadcast();}
+function mpUseAudQ(){(M.dgroups||[]).forEach(g=>{const a=(M.audQ||[]).shift();if(a)g.qs[g.qs.length-1]={area:a.area,q:a.q,from:a.n};const b=(M.audQ||[]).shift();if(b)g.qs.push({area:b.area,q:b.q,from:b.n});});}
 /* ========== saved candidates & policy library ========== */
 function getLib(){try{const l=JSON.parse(localStorage.getItem('wibi-lib'));if(l&&Array.isArray(l.cands))return{cands:l.cands,policies:l.policies||{}};}catch(e){}return{cands:[],policies:{}};}
 function setLib(l){try{localStorage.setItem('wibi-lib',JSON.stringify(l));}catch(e){}}
@@ -3083,6 +3151,8 @@ const H={
  mpRemove(d){MP.draft.moves.splice(+d.i,1);render();},
  mpEv(d){MP.draft.ev=+d.i;MP.draft.evText='';render();},
  mpSubmit(){MP.sent=true;const txt=cleanTxt(MP.draft.evText,400);if(MP.draft.ev==null&&txt.length<8)toast('You skipped the news story. That costs a little momentum.');mpSend({t:'plan',plan:{moves:MP.draft.moves,ev:MP.draft.ev,evText:txt,vp:MP.vpPlan||null}});},
+ mpFollow(d){MP.follow=d.id;MP.selSt=null;render();},
+ mpAskQ(){const t=cleanTxt(MP.form['mp-audq'],240);if(t.length<10)return toast('Write a full question first.');mpSend({t:'audq',txt:t});MP.form['mp-audq']='';toast('Question sent.');render();},
  mpVpK(d){if(!MP.vpPlan)MP.vpPlan={k:'rally',sts:[]};MP.vpPlan.k=d.k;render();},
  mpVpSt(d){if(!MP.vpPlan)MP.vpPlan={k:'rally',sts:[]};const P=MP.vpPlan;if(P.sts.includes(d.st))P.sts=P.sts.filter(x=>x!==d.st);else{if(P.sts.length>=2)P.sts.shift();P.sts.push(d.st);}render();},
  mpUnready(){MP.sent=false;mpSend({t:'unplan'});},
