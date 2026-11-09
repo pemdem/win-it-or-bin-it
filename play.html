@@ -20,7 +20,52 @@
   --c1:#0E8A9A; --c2:#9B3C93; --c3:#56657F; --c4:#D9661A;
   --display:'Barlow Condensed','Arial Narrow','Roboto Condensed',sans-serif;
   --body:'Barlow','Segoe UI',system-ui,-apple-system,sans-serif;
+  --sel:#1C2740; --sel2:#253252; --mapline:#FFFFFF; --mixbase:#FFFFFF;
+  --warnbg:#FFF8E6; --badbg:#FDF0EA; --goodbg:#EAF6EF; --infobg:#EEF3FC; --mebg:#E3ECFB;
+  --cqa:#EFE9F7; --cqb:#FBE9EA; --cqc:#E7EEFB; --cqd:#FBF3DE;
   color-scheme:light;
+}
+:root[data-theme="paper"]{
+  --bg:#EDE8DE; --panel:#FBF8F2; --ink:#2A251D; --muted:#6E6658; --line:#DAD2C3; --soft:#F3EEE4; --hover:#E8E1D4;
+  --nav:#2E3A4E; --nav2:#3A4860; --sel:#2E3A4E; --sel2:#3A4860; --mapline:#FBF8F2; --mixbase:#FBF8F2;
+  --warnbg:#FBF0D6; --badbg:#F8E6DC; --goodbg:#E5F0E2; --infobg:#E8ECF2; --mebg:#E0E6F0;
+  --cqa:#ECE4F0; --cqb:#F5E3E0; --cqc:#E3E9F2; --cqd:#F5ECD6; --none:#CFC8BA; --toss:#C2B48A;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){
+  --bg:#14171D; --panel:#1D2129; --ink:#E7EAF0; --muted:#9BA4B4; --line:#323946; --soft:#252A33; --hover:#2D333E;
+  --nav:#0E1117; --nav2:#262D3A; --nav-muted:#9AA4B8; --sel:#3B4A6B; --sel2:#465780; --mapline:#1D2129; --mixbase:#1D2129;
+  --d:#4C8DF6; --r:#EF4E5B; --l:#E0AE2A; --g:#4CB373; --i:#9D7FE3; --toss:#8C8260; --none:#3A414D;
+  --good:#4CC27F; --bad:#F07C4C; --c1:#2BB3C4; --c2:#C25DB9; --c3:#8090AB; --c4:#F08A3E;
+  --warnbg:#372D14; --badbg:#3A221A; --goodbg:#183222; --infobg:#1C2A42; --mebg:#22355A;
+  --cqa:#2A2440; --cqb:#3A2329; --cqc:#1F2B45; --cqd:#383120;
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#14171D; --panel:#1D2129; --ink:#E7EAF0; --muted:#9BA4B4; --line:#323946; --soft:#252A33; --hover:#2D333E;
+  --nav:#0E1117; --nav2:#262D3A; --nav-muted:#9AA4B8; --sel:#3B4A6B; --sel2:#465780; --mapline:#1D2129; --mixbase:#1D2129;
+  --d:#4C8DF6; --r:#EF4E5B; --l:#E0AE2A; --g:#4CB373; --i:#9D7FE3; --toss:#8C8260; --none:#3A414D;
+  --good:#4CC27F; --bad:#F07C4C; --c1:#2BB3C4; --c2:#C25DB9; --c3:#8090AB; --c4:#F08A3E;
+  --warnbg:#372D14; --badbg:#3A221A; --goodbg:#183222; --infobg:#1C2A42; --mebg:#22355A;
+  --cqa:#2A2440; --cqb:#3A2329; --cqc:#1F2B45; --cqd:#383120;
+  color-scheme:dark;
+}
+:root[data-theme="midnight"]{
+  --bg:#0C1324; --panel:#141D35; --ink:#E4E9F5; --muted:#94A1BE; --line:#283458; --soft:#1A2543; --hover:#212D50;
+  --nav:#070C19; --nav2:#1A2543; --nav-muted:#93A0BD; --sel:#2F4A86; --sel2:#3A5799; --mapline:#141D35; --mixbase:#141D35;
+  --d:#5094FA; --r:#F0525F; --l:#E0AE2A; --g:#4CB373; --i:#A084E8; --toss:#857C5E; --none:#2F3A58;
+  --good:#4CC27F; --bad:#F07C4C; --c1:#2BB3C4; --c2:#C25DB9; --c3:#8394B3; --c4:#F08A3E;
+  --warnbg:#33290F; --badbg:#36201C; --goodbg:#142E25; --infobg:#18284A; --mebg:#22386A;
+  --cqa:#272246; --cqb:#36223A; --cqc:#1A2A50; --cqd:#332E26;
+  color-scheme:dark;
+}
+:root[data-theme="black"]{
+  --bg:#000000; --panel:#0E0E10; --ink:#EDEDED; --muted:#9C9CA3; --line:#2A2A2F; --soft:#17171A; --hover:#1F1F23;
+  --nav:#000000; --nav2:#1C1C20; --nav-muted:#9C9CA3; --sel:#33415E; --sel2:#3E4E70; --mapline:#000000; --mixbase:#0E0E10;
+  --d:#4C8DF6; --r:#EF4E5B; --l:#E0AE2A; --g:#4CB373; --i:#9D7FE3; --toss:#857C5E; --none:#2E2E33;
+  --good:#4CC27F; --bad:#F07C4C; --c1:#2BB3C4; --c2:#C25DB9; --c3:#8A8FA0; --c4:#F08A3E;
+  --warnbg:#2E2610; --badbg:#321C16; --goodbg:#12291C; --infobg:#18233A; --mebg:#1E2E4E;
+  --cqa:#221D33; --cqb:#2F1D22; --cqc:#1A2338; --cqd:#2E281A;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.45;-webkit-font-smoothing:antialiased}
@@ -60,8 +105,8 @@ button,input,select,textarea{font:inherit;color:inherit}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border-radius:6px;border:1px solid var(--line);background:var(--panel);padding:8px 14px;font-weight:600;cursor:pointer;text-align:center;line-height:1.2}
 .btn:hover:not(:disabled){background:var(--hover)}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.btn.go{background:var(--nav);border-color:var(--nav);color:#fff}
-.btn.go:hover:not(:disabled){background:var(--nav2)}
+.btn.go{background:var(--sel);border-color:var(--sel);color:#fff}
+.btn.go:hover:not(:disabled){background:var(--sel2)}
 .btn.gold{background:var(--gold);border-color:var(--gold);color:#241A02}
 .btn.gold:hover:not(:disabled){background:#CF9312}
 .btn.big{padding:12px 20px;font-size:1.05rem}
@@ -78,16 +123,16 @@ button,input,select,textarea{font:inherit;color:inherit}
 .fld>span{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 select,input[type=text],textarea{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
 textarea{resize:vertical}
-select:focus,input:focus,textarea:focus{border-color:var(--nav);outline:none;box-shadow:0 0 0 2px rgba(227,164,28,.35)}
+select:focus,input:focus,textarea:focus{border-color:var(--sel);outline:none;box-shadow:0 0 0 2px rgba(227,164,28,.35)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
 .tag{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--soft);border:1px solid var(--line)}
 .seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:6px;overflow:hidden}
 .seg button{background:var(--panel);border:0;border-right:1px solid var(--line);padding:6px 11px;font-weight:600;font-size:.86rem;cursor:pointer}
 .seg button:last-child{border-right:0}
-.seg button.on{background:var(--nav);color:#fff}
+.seg button.on{background:var(--sel);color:#fff}
 .av{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;color:#fff;font-family:var(--display);font-weight:700;font-size:.9rem;flex:none}
 .bar{height:8px;background:var(--soft);border-radius:4px;overflow:hidden}
-.bar i{display:block;height:100%;background:var(--c,var(--nav))}
+.bar i{display:block;height:100%;background:var(--c,var(--sel))}
 .meter{display:grid;grid-template-columns:110px minmax(0,1fr) 38px;align-items:center;gap:8px;font-size:.88rem}
 .meter b{font-family:var(--display);font-size:1.05rem;text-align:right}
 
@@ -116,7 +161,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--nav);outline:none;box
 @media(max-width:560px){.race-c .big{font-size:1.8rem}.race-c .av{display:none}}
 
 .usmap{width:100%;height:auto;display:block}
-.usmap path.st{stroke:#fff;stroke-width:1.3;cursor:pointer;transition:fill .25s}
+.usmap path.st{stroke:var(--mapline);stroke-width:1.3;cursor:pointer;transition:fill .25s}
 .usmap path.st:hover{filter:brightness(.88)}
 .usmap .ol{fill:none;pointer-events:none;stroke-linejoin:round}
 .usmap .ol.sel{stroke:var(--ink);stroke-width:3.2}
@@ -126,7 +171,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--nav);outline:none;box
 .usmap .lbl .ev{font-size:11.5px;font-weight:600}
 .usmap .lead{stroke:#9AA2B1;stroke-width:1}
 .usmap .cbox{cursor:pointer}
-.usmap .cbox rect{stroke:#fff;stroke-width:1}
+.usmap .cbox rect{stroke:var(--mapline);stroke-width:1}
 .usmap .cbox.tgt rect{stroke:var(--gold);stroke-width:3.5} .usmap .cbox.sel rect{stroke:var(--ink);stroke-width:2.5} .usmap .cbox.up rect{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
 .usmap .cbox text{font-family:var(--display);font-weight:700;font-size:14px;text-anchor:middle;pointer-events:none}
 .tiles{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:3px}
@@ -140,20 +185,20 @@ select:focus,input:focus,textarea:focus{border-color:var(--nav);outline:none;box
 .toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .mv{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:7px 11px;cursor:pointer;font-weight:600;font-size:.9rem;display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
 .mv small{font-weight:500;color:var(--muted);font-size:.74rem}
-.mv:hover:not(:disabled){border-color:var(--nav)}
-.mv.on{background:var(--nav);border-color:var(--nav);color:#fff}.mv.on small{color:var(--nav-muted)}
+.mv:hover:not(:disabled){border-color:var(--sel)}
+.mv.on{background:var(--sel);border-color:var(--sel);color:#fff}.mv.on small{color:var(--nav-muted)}
 .mv:disabled{opacity:.4;cursor:not-allowed}
-.setup{border:1px solid var(--gold);background:#FFF8E6;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.setup{border:1px solid var(--gold);background:var(--warnbg);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .tchips{display:flex;flex-wrap:wrap;gap:6px}
 .tchip{display:inline-flex;align-items:center;gap:6px;background:var(--panel);border:1px solid var(--gold);border-radius:20px;padding:3px 4px 3px 10px;font-weight:600;font-size:.85rem}
 .tchip button{border:0;background:var(--soft);border-radius:50%;width:20px;height:20px;cursor:pointer;line-height:1;font-size:.8rem}
 .quick{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px solid var(--line);font-size:.92rem}
 
 .week .pips{display:flex;gap:6px}
-.week .pips i{width:14px;height:14px;border-radius:50%;border:2px solid var(--nav)}
+.week .pips i{width:14px;height:14px;border-radius:50%;border:2px solid var(--sel)}
 .week .pips i.on{background:var(--gold);border-color:var(--gold)}
 .week-next{font-size:.92rem;margin:6px 0 12px}
-.wire{border-left:4px solid var(--nav)}
+.wire{border-left:4px solid var(--sel)}
 .wire.attack{border-left-color:var(--bad)} .wire.blunder{border-left-color:var(--good)}
 .wire h3{font-size:1.08rem;line-height:1.25;margin:4px 0}
 .wire-ch{display:flex;flex-direction:column;gap:6px;margin-top:10px}
@@ -163,7 +208,7 @@ select:focus,input:focus,textarea:focus{border-color:var(--nav);outline:none;box
 .adv-h b{display:block;line-height:1.1}
 .adv-msgs{display:flex;flex-direction:column;gap:8px;max-height:320px;overflow-y:auto;padding-right:2px}
 .msg{background:var(--soft);border-radius:10px 10px 10px 3px;padding:8px 11px;font-size:.92rem;white-space:pre-wrap}
-.msg.me{background:#E3ECFB;border-radius:10px 10px 3px 10px;align-self:flex-end;max-width:85%}
+.msg.me{background:var(--mebg);border-radius:10px 10px 3px 10px;align-self:flex-end;max-width:85%}
 .msg time{display:block;font-size:.7rem;color:var(--muted);font-weight:600}
 .adv-ask{display:flex;gap:6px;margin-top:10px}
 .adv-ask input{flex:1}
@@ -200,7 +245,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .hero .usmap path.st{stroke:var(--nav);cursor:default}
 .hero .usmap path.st:hover{filter:none}
 .feat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-block:24px}
-.feat div{border-top:3px solid var(--nav);padding-top:8px}
+.feat div{border-top:3px solid var(--sel);padding-top:8px}
 .feat b{font-family:var(--display);font-size:1.25rem;display:block}
 .feat p{color:var(--muted);font-size:.95rem}
 @media(max-width:720px){.feat{grid-template-columns:minmax(0,1fr)}}
@@ -211,40 +256,40 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .quiz-q{font-size:clamp(1.3rem,3vw,1.75rem);font-weight:700;line-height:1.28;margin:22px 0 20px;min-height:3.9em;text-wrap:balance}
 .likert{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
 .lk{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:12px 6px;cursor:pointer;font-weight:600;font-size:.88rem}
-.lk:hover{border-color:var(--nav)} .lk.on{background:var(--nav);color:#fff;border-color:var(--nav)}
+.lk:hover{border-color:var(--sel)} .lk.on{background:var(--sel);color:#fff;border-color:var(--sel)}
 @media(max-width:560px){.likert{grid-template-columns:minmax(0,1fr)}.lk{text-align:left;padding:11px 14px}}
 .own{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:8px}
-.readas{font-size:.9rem;background:#EAF5EE;border-radius:6px;padding:6px 10px}
+.readas{font-size:.9rem;background:var(--goodbg);border-radius:6px;padding:6px 10px}
 .compass{width:100%;max-width:360px;height:auto;display:block}
-.cq-a{fill:#EFE9F7} .cq-b{fill:#FBE9EA} .cq-c{fill:#E7EEFB} .cq-d{fill:#FBF3DE}
-.cgrid{stroke:#DDE1E8;stroke-width:1} .caxis{stroke:#8C94A3;stroke-width:1.2}
+.cq-a{fill:var(--cqa)} .cq-b{fill:var(--cqb)} .cq-c{fill:var(--cqc)} .cq-d{fill:var(--cqd)}
+.cgrid{stroke:var(--line);stroke-width:1} .caxis{stroke:#8C94A3;stroke-width:1.2}
 .clab{fill:var(--muted);font-family:var(--body);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .cideo{fill:#8C94A3} .cideo-t{fill:var(--ink);font-family:var(--body);font-size:10px;font-weight:600}
 .cparty{font-family:var(--display);font-size:10px;font-weight:700;fill:#fff}
-.cyou{fill:var(--gold);stroke:#fff;stroke-width:2.5} .cyou-t{fill:var(--ink);font-family:var(--display);font-weight:700;font-size:13px}
+.cyou{fill:var(--gold);stroke:var(--panel);stroke-width:2.5} .cyou-t{fill:var(--ink);font-family:var(--display);font-weight:700;font-size:13px}
 .res-grid{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:28px;align-items:start}
 @media(max-width:780px){.res-grid{grid-template-columns:minmax(0,1fr)}}
 .axes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:12px 0 4px}
-.axes div{border-top:3px solid var(--nav);padding-top:6px}
+.axes div{border-top:3px solid var(--sel);padding-top:6px}
 .axes b{display:block;font-family:var(--display);font-size:1.5rem}
 .axes span{font-size:.8rem;color:var(--muted)}
 .matches li{padding:9px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px}
 .matches p{grid-column:1/-1;color:var(--muted);font-size:.9rem}
 .matches .num{font-size:1.2rem}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
-.pcard{text-align:left;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--pc,var(--nav));border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:5px}
+.pcard{text-align:left;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-top:5px solid var(--pc,var(--sel));border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:5px}
 .pcard:hover{box-shadow:0 2px 10px rgba(20,30,50,.12)}
-.pcard.on{outline:2px solid var(--nav)}
+.pcard.on{outline:2px solid var(--sel)}
 .pcard .ph{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .pcard .num{font-size:1.5rem}
 .badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:3px;align-self:flex-start}
-.badge.rec{background:#DDF2E5;color:var(--good)} .badge.hard{background:#FBE4D9;color:var(--bad)}
+.badge.rec{background:var(--goodbg);color:var(--good)} .badge.hard{background:var(--badbg);color:var(--bad)}
 
 .form2{max-width:780px;margin:0 auto;width:100%}
 .bgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:6px}
 .bgopt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer;font-size:.88rem;color:var(--muted)}
-.bgopt:has(input:checked){border-color:var(--nav);background:var(--soft)}
-.bgopt input{margin-top:3px;accent-color:var(--nav)}
+.bgopt:has(input:checked){border-color:var(--sel);background:var(--soft)}
+.bgopt input{margin-top:3px;accent-color:var(--sel)}
 .bgopt b{color:var(--ink);display:block;font-size:.98rem}
 
 .plat{display:grid;grid-template-columns:230px minmax(0,1fr) 290px;gap:16px;align-items:start}
@@ -253,13 +298,13 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .issues{display:flex;flex-direction:column;gap:5px}
 @media(max-width:1100px){.issues{flex-direction:row;flex-wrap:wrap}}
 .ibtn{display:flex;justify-content:space-between;align-items:center;gap:8px;text-align:left;cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:8px 10px;font-weight:600;font-size:.9rem}
-.ibtn.on{background:var(--nav);color:#fff;border-color:var(--nav)}
+.ibtn.on{background:var(--sel);color:#fff;border-color:var(--sel)}
 .ibtn .empty{font-size:.74rem;opacity:.7;font-weight:500}
 .ibtn.on .stamp.win{color:#7FE0A7} .ibtn.on .stamp.bin{color:#FFAC85}
 .opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;margin-top:8px}
 .opt{text-align:left;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
-.opt:hover{border-color:var(--nav)}
-.opt.on{border-color:var(--nav);box-shadow:inset 0 0 0 1.5px var(--nav);background:var(--soft)}
+.opt:hover{border-color:var(--sel)}
+.opt.on{border-color:var(--sel);box-shadow:inset 0 0 0 1.5px var(--sel);background:var(--soft)}
 .opt .tg{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .opt b{line-height:1.25}
 .opt .d{font-size:.86rem;color:var(--muted)}
@@ -270,12 +315,12 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .apa dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:3px 10px;margin:4px 0 0;font-size:.9rem}
 .apa dt{font-weight:700;color:var(--muted)} .apa dd{margin:0}
 .write{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
-.primer{background:#EEF3FC;border-radius:6px;padding:9px 12px;font-size:.92rem}
+.primer{background:var(--infobg);border-radius:6px;padding:9px 12px;font-size:.92rem}
 .drafts{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.draft{border:1px dashed var(--nav);border-radius:6px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;font-size:.9rem}
+.draft{border:1px dashed var(--sel);border-radius:6px;padding:9px 11px;display:flex;flex-direction:column;gap:6px;font-size:.9rem}
 .draft .tg{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .draft .btn{align-self:flex-start}
-.confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#FFF8E6;border:1px solid var(--gold);border-radius:6px;padding:9px 12px;margin-bottom:10px;font-size:.92rem}
+.confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--warnbg);border:1px solid var(--gold);border-radius:6px;padding:9px 12px;margin-bottom:10px;font-size:.92rem}
 .plist li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:.92rem}
 .plist li:first-child{border-top:0}
 .plist small{display:block;color:var(--muted);font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
@@ -287,13 +332,13 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .pod span{font-size:.78rem;color:var(--muted)}
 .pod .num{display:block;font-size:1.5rem;margin-top:2px;color:var(--ink)}
 .modq{font-size:clamp(1.15rem,2.6vw,1.45rem);font-weight:700;line-height:1.3;margin:6px 0 12px;text-wrap:balance}
-.hang{border-left:4px solid var(--bad);background:#FDF0EA;border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:10px;font-size:.94rem}
-.hang.good{border-left-color:var(--good);background:#EAF6EF}
+.hang{border-left:4px solid var(--bad);background:var(--badbg);border-radius:0 6px 6px 0;padding:9px 12px;margin-bottom:10px;font-size:.94rem}
+.hang.good{border-left-color:var(--good);background:var(--goodbg)}
 .dopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}
 .dopt{text-align:left;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:3px}
 div.dopt{cursor:default}
-.dopt:hover:not(:disabled){border-color:var(--nav)} .dopt span{font-size:.84rem;color:var(--muted)}
-.dopt.hot{border-color:var(--good);background:#F2FAF5}
+.dopt:hover:not(:disabled){border-color:var(--sel)} .dopt span{font-size:.84rem;color:var(--muted)}
+.dopt.hot{border-color:var(--good);background:var(--goodbg)}
 .fb{border-radius:8px;background:var(--soft);padding:14px;display:flex;flex-direction:column;gap:8px}
 .fb .num{font-size:2.6rem;line-height:1}
 .quote{border-left:3px solid var(--line);padding-left:10px}
@@ -310,7 +355,7 @@ div.dopt{cursor:default}
 .end{text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
 .end h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);text-transform:uppercase}
 .end .stats4{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;width:100%}
-.end .stats4 div{border-top:3px solid var(--nav);padding-top:6px;text-align:left}
+.end .stats4 div{border-top:3px solid var(--sel);padding-top:6px;text-align:left}
 .end .stats4 b{display:block;font-family:var(--display);font-size:1.7rem}
 .callbanner{padding:12px 16px;border-radius:6px;background:var(--nav);color:#fff;font-weight:700;font-size:1.05rem}
 #toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--nav);color:#fff;padding:11px 16px;border-radius:8px;max-width:min(560px,calc(100vw - 32px));font-size:.94rem;font-weight:500;z-index:20;box-shadow:0 10px 30px -8px rgba(0,0,0,.4)}
@@ -335,7 +380,7 @@ div.dopt{cursor:default}
 .mp-game:first-child{border-top:0}
 .mp-game span.small{display:block}
 .mp-check{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:.92rem}
-.mp-check input{accent-color:var(--nav)}
+.mp-check input{accent-color:var(--sel)}
 .mp-code{display:flex;gap:16px 24px;align-items:center;flex-wrap:wrap}
 .mp-code b{display:block;font-family:var(--display);font-size:2.6rem;letter-spacing:.12em;line-height:1}
 .mp-code p{flex:1 1 280px;color:var(--muted)}
@@ -361,7 +406,7 @@ div.dopt{cursor:default}
 .mp-hit{color:var(--bad);font-weight:600}
 .mp-close{display:flex;justify-content:space-between;gap:10px}
 @media(max-width:560px){.mp-readybox{align-items:stretch;width:100%}}
-.joinerr{border:1px solid var(--bad);border-left-width:5px;background:#FDF0EA;border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.joinerr{border:1px solid var(--bad);border-left-width:5px;background:var(--badbg);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
 .joinerr b{color:var(--bad);font-size:1.05rem}
 .joinerr .link{align-self:flex-start}
 .mp-strip{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -374,12 +419,37 @@ div.dopt{cursor:default}
 @media(max-width:560px){.explain-card dl{grid-template-columns:minmax(0,1fr)}.explain-card dd{margin-bottom:6px}}
 .mp-diag summary{cursor:pointer}
 .mp-diag .notes{margin:8px 0}
+.hero{position:relative}
+.hero-set{position:absolute;top:12px;right:max(16px,env(safe-area-inset-right,0px));z-index:2}
+#prefs{position:fixed;inset:0;z-index:40;background:rgba(6,10,20,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(40px,6vh) 16px 16px;overflow-y:auto}
+#prefs[hidden]{display:none}
+.prefs-box{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.prefs-box h2{font-size:1.7rem}
+.themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.theme{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 6px 8px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.9rem}
+.theme.on{outline:2px solid var(--gold);outline-offset:1px}
+.theme .sw{display:block;height:46px;border-radius:5px;border:1px solid rgba(128,128,128,.35);position:relative;overflow:hidden}
+.theme .sw i{position:absolute;display:block}
+.theme small{font-weight:500;color:var(--muted);font-size:.76rem;line-height:1.2}
+.looks{display:flex;flex-direction:column;gap:8px}
+.look{display:grid;grid-template-columns:88px minmax(0,1fr);gap:12px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 10px;cursor:pointer;text-align:left}
+.look.on{outline:2px solid var(--gold);outline-offset:1px}
+.look b{display:block}
+.look span.small{color:var(--muted)}
+.look .pv{display:grid;gap:3px;height:54px;padding:4px;border-radius:5px;background:var(--bg);border:1px solid var(--line)}
+.look .pv i{display:block;background:var(--panel);border:1px solid var(--line);border-radius:2px}
+.look .pv i.y{background:var(--gold);border-color:var(--gold)}
+.mp-sidel .plat{grid-template-columns:minmax(0,1fr) 260px}
+.mp-sidel .issues{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}
+@media(max-width:760px){.mp-sidel .plat{grid-template-columns:minmax(0,1fr)}}
+.qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 </style></head>
 <body>
 
 
 <div id="app"></div>
 <div id="toast" role="status" aria-live="polite" hidden></div>
+<div id="prefs" hidden></div>
 <div id="tut" hidden><div id="tut-hl"></div><div id="tut-card" class="card" role="dialog" aria-label="Tutorial"></div></div>
 
 <script>
@@ -687,7 +757,7 @@ function tileMap(fill,{sel,targets=[],up=[]}){
  return `<div class="tiles">${ST_KEYS.map(st=>{const s=STATES[st],f=fill(st);const k=targets.includes(st)?'tgt':st===sel?'sel':up.includes(st)?'up':'';
   return `<button class="tile ${k}" style="grid-row:${s.row+1};grid-column:${s.col+1};background:${f.fill};color:${f.ink}" data-act="mapClick" data-st="${st}" title="${esc(s.n)}${f.tip?' · '+esc(f.tip):''}">${st}<small>${f.sub??s.ev}</small></button>`;}).join('')}</div>`;
 }
-const mix=(c,p)=>p>=100?c:`color-mix(in srgb, ${c} ${p}%, #fff)`;
+const mix=(c,p)=>p>=100?c:`color-mix(in srgb, ${c} ${p}%, var(--mixbase))`;
 const cat=m=>{const a=Math.abs(m);return a<3?'toss':a<8?'lean':a<15?'likely':'safe';};
 const CATMIX={lean:40,likely:68,safe:100};
 function partyFill(color,m){const c=cat(m);if(c==='toss')return{fill:'var(--toss)',ink:'var(--ink)'};return{fill:mix(color,CATMIX[c]),ink:c==='lean'?'var(--ink)':'#fff'};}
@@ -1315,7 +1385,7 @@ function vNav(){
   stats=s('Cash',money(me.funds),me.funds<2?'warn':'')+s('Energy',Math.round(me.energy),me.energy<30?'warn':'')+s('Name ID',Math.round(me.recog)+'%')+s('Momentum',sgn(me.mom),me.mom>=3?'good':me.mom<=-3?'warn':'')+s('Scandal',Math.round(me.scandal),me.scandal>30?'warn':'');
  }
  const tabs=S.phase==='hq'?`<div class="tabs" role="tablist">${[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']].map(([k,l])=>`<button class="tab ${S.tab===k?'on':''}" role="tab" aria-selected="${S.tab===k}" data-act="tab" data-k="${k}">${l}</button>`).join('')}</div>`:'';
- return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="home" title="Title screen (your game is saved)">Win It <span>or</span> Bin It</button>${tabs}<div class="stats">${stats}</div>${tutKey()?'<button class="navbtn" data-act="tutorial">Tutorial</button>':''}</div></header><div class="subbar"><div class="wrap"><b>${esc(subLabel())}</b>${S.phase==='hq'&&me?`<span class="muted">${esc(dispName(me))} · ${PARTIES[S.party].name}</span>`:''}</div></div>`;
+ return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="home" title="Title screen (your game is saved)">Win It <span>or</span> Bin It</button>${tabs}<div class="stats">${stats}</div>${tutKey()?'<button class="navbtn" data-act="tutorial">Tutorial</button>':''}<button class="navbtn" data-act="prefs">Settings</button></div></header><div class="subbar"><div class="wrap"><b>${esc(subLabel())}</b>${S.phase==='hq'&&me?`<span class="muted">${esc(dispName(me))} · ${PARTIES[S.party].name}</span>`:''}</div></div>`;
 }
 function vRace(){
  if(S.track==='primary'){
@@ -1345,7 +1415,7 @@ function lineChart(hist,series){
  return g+'</svg>';
 }
 function spark(vals,w=160,h=36){if(vals.length<2)return '<span class="small muted">Shows up after a week of campaigning.</span>';const mn=Math.min(...vals,-1),mx=Math.max(...vals,1);const x=i=>i*(w-6)/(vals.length-1)+3,y=v=>h-3-(v-mn)/(mx-mn)*(h-6);
- return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Your margin by week"><line x1="0" x2="${w}" y1="${y(0)}" y2="${y(0)}" stroke="#C9CED6" stroke-dasharray="3 3"/><polyline points="${vals.map((v,i)=>x(i)+','+y(v)).join(' ')}" fill="none" stroke="#1C2740" stroke-width="2"/><circle cx="${x(vals.length-1)}" cy="${y(vals[vals.length-1])}" r="3.5" fill="#E3A41C"/></svg>`;}
+ return `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="Your margin by week"><line x1="0" x2="${w}" y1="${y(0)}" y2="${y(0)}" style="stroke:var(--line)" stroke-dasharray="3 3"/><polyline points="${vals.map((v,i)=>x(i)+','+y(v)).join(' ')}" fill="none" style="stroke:var(--ink)" stroke-width="2"/><circle cx="${x(vals.length-1)}" cy="${y(vals[vals.length-1])}" r="3.5" fill="#E3A41C"/></svg>`;}
 
 /* ---- map fills ---- */
 function groundFill(st){const me=you();const p=me.presence[st]||0;return{fill:p?mix('var(--gold)',clamp(Math.round(Math.sqrt(p)*40),15,100)):'var(--none)',ink:'var(--ink)',tip:`You: ${me.visits[st]||0} visits, ${money(me.ads[st]||0)} in ads`};}
@@ -1482,7 +1552,7 @@ function vStateDetail(st){
 function apaCard(pl,slam){
  return `<div class="apa"><div class="body"><span class="lab">American Public Appeal${pl.custom?' · your words':''}</span><b>${esc(pl.title)}</b><span class="small muted">${pl.custom?'“'+esc(pl.text)+'”':esc(pl.text)}</span>
   <div class="meter"><span>${isMajor(S.party)?'Primary voters':'Your base'}</span><div class="bar"><i style="width:${pl.pri}%;--c:var(--gold)"></i></div><b>${Math.round(pl.pri)}</b></div>
-  <div class="meter"><span>November voters</span><div class="bar"><i style="width:${pl.gen}%;--c:var(--nav)"></i></div><b>${Math.round(pl.gen)}</b></div>
+  <div class="meter"><span>November voters</span><div class="bar"><i style="width:${pl.gen}%;--c:var(--sel)"></i></div><b>${Math.round(pl.gen)}</b></div>
   <dl>${pl.critique?`<dt>Read</dt><dd>${esc(pl.critique)}</dd>`:''}${pl.attack?`<dt>Attack</dt><dd>${esc(pl.attack)}</dd>`:''}${pl.tip?`<dt>Tip</dt><dd>${esc(pl.tip)}</dd>`:''}${pl.feas!=null?`<dt>Chance it passes</dt><dd>${Math.round(pl.feas)}%</dd>`:''}</dl></div><div>${stamp(pl.verdict,slam?'slam':'')}</div></div>`;
 }
 function optCard(area,o,on){const pri=priOf([o[3],o[4],o[5]],o[6]);return `<button class="opt ${on?'on':''}" data-act="pickOpt" data-area="${area}" data-id="${o[0]}" aria-pressed="${on}"><span class="tg">${esc(o[7])}</span><b>${esc(o[1])}</b><span class="d">${esc(o[2])}</span><span class="sc"><span>${isMajor(S.party)?'Primary':'Base'} <b>${pri}</b></span><span>November <b>${o[6]}</b></span></span></button>`;}
@@ -1507,7 +1577,7 @@ function vPlatformBody(){
    </div></section>
   <aside class="card"><span class="lab">Your platform overall</span>${compassSVG(P.v,{parties:true,label:'You'})}
    <div style="display:flex;flex-direction:column;gap:8px;margin:12px 0 14px"><div class="meter"><span>${isMajor(S.party)?'Primary':'Base'}</span><div class="bar"><i style="width:${P.pri}%;--c:var(--gold)"></i></div><b>${Math.round(P.pri)}</b></div>
-   <div class="meter"><span>November</span><div class="bar"><i style="width:${P.gen}%;--c:var(--nav)"></i></div><b>${Math.round(P.gen)}</b></div><div class="meter"><span>Issues covered</span><div class="bar"><i style="width:${P.n*10}%;--c:var(--muted)"></i></div><b>${P.n}/10</b></div></div>
+   <div class="meter"><span>November</span><div class="bar"><i style="width:${P.gen}%;--c:var(--sel)"></i></div><b>${Math.round(P.gen)}</b></div><div class="meter"><span>Issues covered</span><div class="bar"><i style="width:${P.n*10}%;--c:var(--muted)"></i></div><b>${P.n}/10</b></div></div>
    ${inCamp?`<p class="small muted">Changing a position costs a move. Filling an empty issue doesn’t count as a flip-flop.</p>`:`<button class="btn gold big" style="width:100%" data-act="launch" ${P.n<5?'disabled':''}>${P.n<5?`Pick ${5-P.n} more to ${inMP?'finish':'start'}`:inMP?'Done, I’m ready':'Start the campaign'}</button><button class="btn" style="width:100%;margin-top:8px" data-act="saveCand">Save this candidate</button><p class="small muted" style="margin-top:6px">Empty issues make you look vague. Saved candidates show up on the title screen so you can run again without redoing everything.</p>`}
   </aside></div>`;
 }
@@ -1517,7 +1587,7 @@ function vPlatform(){return `<div><h2 style="font-size:2rem">Your platform</h2><
 function vTitle(){
  const sv=loadSave();const canCont=sv&&sv.phase&&sv.phase!=='title'&&sv.v>=2;
  const fill=st=>{const p=STATES[st].pvi;return{fill:Math.abs(p)<3?'#B9AD84':p<0?mix('var(--d)',Math.abs(p)>12?90:60):mix('var(--r)',p>12?90:60),ink:'#fff'};};
- return `<div class="hero"><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
+ return `<div class="hero"><button class="navbtn hero-set" data-act="prefs">Settings</button><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
   <p class="sub">Pick a side, write your own platform, survive the primaries and get to 270.</p>
   <div class="btns"><button class="btn gold big" data-act="newGame">${confirmNew?'Start over? This replaces your save':'New campaign'}</button><button class="btn big" data-act="mpOpen">Multiplayer</button>${canCont?`<button class="btn big" data-act="continue">Continue as ${esc(sv.cand?.name||'your candidate')}</button>`:''}</div></div>
   <div>${usMap(fill,{labels:false})}</div></div></div>
@@ -1794,7 +1864,7 @@ function mpBeginSetup(){const ai=MP.realS?.useAI??true;S=freshState();S.useAI=ai
 function mpSubmitSetup(){
  if(plat().n<5)return toast('Pick at least 5 positions first.');
  const setup={party:S.party,name:S.cand.name,bg:S.cand.bg,home:S.cand.state,compass:S.compass,planks:S.planks};
- saveCandidate();MP.editing=false;mpSend({t:'setup',setup});window.scrollTo(0,0);
+ saveCandidate();MP.editing=false;mpQB().src='custom';mpSend({t:'setup',setup});window.scrollTo(0,0);
 }
 function mpEditSetup(){MP.editing=true;if(!S.party||!Object.keys(S.planks).length){S.phase='mpchoose';}else S.phase='platform';mpSend({t:'ready',v:false});render();}
 function cleanSetup(s,pname){
@@ -2118,7 +2188,7 @@ function mpSub(){if(!M)return 'Multiplayer';if(M.phase==='lobby')return `${M.nam
 function vMPNav(){
  const inRoom=MP.code&&M;
  const c=M&&M.cands&&myCand();const tabs=M&&M.phase==='week'&&c&&!c.spec?[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']].map(([k,l])=>`<button class="tab ${MP.tab===k||(!MP.tab&&k==='campaign')?'on':''}" data-act="mpTab" data-k="${k}">${l}</button>`).join(''):'<span class="tab on">Multiplayer</span>';
- return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="mpExit" title="Leave multiplayer">Win It <span>or</span> Bin It</button><div class="tabs">${tabs}</div><div class="stats">${M&&M.cands?mpStats():''}</div>${inRoom?`<span class="navbtn">Room ${esc(MP.code.toUpperCase())}</span><button class="navbtn" data-act="mpLeave">Leave game</button>`:`<button class="navbtn" data-act="mpExit">Back to title</button>`}</div></header>
+ return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="mpExit" title="Leave multiplayer">Win It <span>or</span> Bin It</button><div class="tabs">${tabs}</div><div class="stats">${M&&M.cands?mpStats():''}</div>${inRoom?`<span class="navbtn">Room ${esc(MP.code.toUpperCase())}</span><button class="navbtn" data-act="mpLeave">Leave game</button>`:`<button class="navbtn" data-act="mpExit">Back to title</button>`}<button class="navbtn" data-act="prefs">Settings</button></div></header>
  <div class="subbar"><div class="wrap"><b>${esc(mpSub())}</b><span class="muted">${MP.status==='online'?'● Online':MP.status==='connecting'?'Connecting…':'Offline'}</span></div></div>`;
 }
 function vErr(){if(!MP.err||!JOIN_ERR[MP.err])return '';const [t,d]=JOIN_ERR[MP.err];return `<section class="joinerr" role="alert"><b>Couldn’t join: ${esc(t)}</b>${d?`<p>${esc(d)}</p>`:''}<button class="link small" data-act="mpDismiss">Dismiss</button></section>`;}
@@ -2143,47 +2213,79 @@ function mpGameRow(g){
  let why='';if(g.ver&&g.ver!==GAME_VER)why='Different version';else if(g.status!=='open')why='Already started';else if(g.n>=g.max)why='Full';
  return `<div class="mp-game"><div><b>${esc(g.name)}</b><span class="small muted">Host: ${esc(g.host)} · ${g.len==='full'?'Full game':'Quick game'} · ${g.timer?`${g.timer}s turns`:'No timer'}</span></div><span class="tag">${g.n}/${g.max}</span>${why?`<span class="small muted">${why}</span>`:`<button class="btn go sm" data-act="mpJoin" data-code="${esc(g.code)}">Join</button>`}</div>`;
 }
-function vMPHome(){
- const f=MP.form;const games=MP.games||[];const lobbyOK=!!(NET&&(NET.registry||NET.lobbyConn));
- return `${vErr()}
- <section class="mp-head"><h1>Multiplayer</h1><p>2 to 4 players. Everyone takes the test, writes a platform, runs in the primaries, and the nominees meet in the general. You can share a party with a friend and fight for the nomination.</p></section>
- <div class="main2"><div class="side">
-  <section class="card"><label class="fld"><span>Your name</span><input type="text" id="mp-name" maxlength="24" value="${esc(f.name||'')}" placeholder="What other players see" autocomplete="off"></label></section>
-  <section class="card"><div class="card-h"><h2>Join with a code</h2></div><div class="row"><label class="fld"><span>Room code</span><input type="text" id="mp-code" maxlength="5" placeholder="K7Q2M" value="${esc(f['mp-code']||'')}" autocomplete="off" style="text-transform:uppercase"></label><button class="btn gold" data-act="mpJoinCode">Join</button></div><p class="small muted" style="margin-top:8px">Or open the invite link your friend sent you.</p></section>
-  <section class="card"><div class="card-h"><h2>Open games</h2><span class="lab">${MP.online?MP.online+' online':''}</span></div>
-   ${games.length?`<div class="mp-games">${games.map(mpGameRow).join('')}</div>`:`<p class="muted small">${lobbyOK?'No open games right now. Host one and send your friends the invite link.':'Loading the game list…'}</p>`}</section>
-  <section class="card"><details class="mp-diag"><summary><b>Can’t find your friend’s game?</b></summary>
-   <ul class="notes"><li class="mp-close"><span>Internet</span><b class="${navigator.onLine?'up':'down'}">${navigator.onLine?'Connected':'Offline'}</b></li><li class="mp-close"><span>Multiplayer server</span><b class="${MP.status==='online'?'up':'down'}">${MP.status==='online'?'Connected':'Not connected'}</b></li><li class="mp-close"><span>Game list</span><b class="${lobbyOK?'up':'down'}">${lobbyOK?'Connected':'Connecting'}</b></li></ul>
-   <p class="small">The surest way in is the invite link or the 5-letter code. Private games never show in the list. If the game shows “Different version”, you and the host need to open the same website link and refresh.</p></details></section>
- </div>
- <aside class="side">
-  <section class="card"><div class="card-h"><h2>Host a game</h2></div>
+/* ---------- lobby: three looks (Settings > Multiplayer lobby) ---------- */
+function mpDiag(){const lobbyOK=!!(NET&&(NET.registry||NET.lobbyConn));
+ return `<ul class="notes"><li class="mp-close"><span>Internet</span><b class="${navigator.onLine?'up':'down'}">${navigator.onLine?'Connected':'Offline'}</b></li><li class="mp-close"><span>Multiplayer server</span><b class="${MP.status==='online'?'up':'down'}">${MP.status==='online'?'Connected':'Not connected'}</b></li><li class="mp-close"><span>Game list</span><b class="${lobbyOK?'up':'down'}">${lobbyOK?'Connected':'Connecting'}</b></li></ul>
+  <p class="small">The surest way in is the invite link or the 5-letter code. Private games never show in the list. If a game says “Different version”, you and the host need to open the same website link and refresh.</p>`;}
+function mpGameList(){const games=MP.games||[];const lobbyOK=!!(NET&&(NET.registry||NET.lobbyConn));
+ return games.length?`<div class="mp-games">${games.map(mpGameRow).join('')}</div>`:`<p class="muted small">${lobbyOK?'No open games right now. Host one and send your friends the invite link.':'Loading the game list…'}</p>`;}
+function mpNameCard(){const f=MP.form;return `<section class="card"><label class="fld"><span>Your name</span><input type="text" id="mp-name" maxlength="24" value="${esc(f.name||'')}" placeholder="What other players see" autocomplete="off"></label></section>`;}
+function mpHostCard(){const f=MP.form;
+ return `<section class="card"><div class="card-h"><h2>Host a game</h2></div>
    <label class="fld"><span>Game name</span><input type="text" id="mp-gname" maxlength="40" placeholder="${esc((f.name||'My')+'’s game')}" value="${esc(f.gname||'')}" autocomplete="off"></label>
    <div class="fld" style="margin-top:10px"><span>Players</span><div class="seg">${['2','3','4'].map(v=>`<button class="${f.players===v?'on':''}" data-act="mpOpt" data-k="players" data-v="${v}">${v}</button>`).join('')}</div></div>
    <div class="fld" style="margin-top:10px"><span>Length</span><div class="seg">${[['quick','Quick'],['full','Full']].map(([v,l])=>`<button class="${f.len===v?'on':''}" data-act="mpOpt" data-k="len" data-v="${v}">${l}</button>`).join('')}</div></div>
    <div class="fld" style="margin-top:10px"><span>Turn timer</span><div class="seg">${[['0','Off'],['90','90 sec'],['180','3 min']].map(([v,l])=>`<button class="${f.timer===v?'on':''}" data-act="mpOpt" data-k="timer" data-v="${v}">${l}</button>`).join('')}</div></div>
-   <label class="mp-check"><input type="checkbox" id="mp-priv" ${f.priv?'checked':''}> Private</label>
+   <label class="mp-check"><input type="checkbox" id="mp-priv" ${f.priv?'checked':''}> Private: only people with the code can join</label>
    <button class="btn gold big" style="width:100%;margin-top:12px" data-act="mpHost">Host game</button>
    <div class="explain"><b>What these mean</b><ul>
     <li><b>Players:</b> ${f.players} spots. Empty Democrat or Republican spots are played by the computer.</li>
     <li><b>Length:</b> ${f.len==='full'?'Full game. 8 primary weeks, 7 voting nights, 6 general weeks, 4 debates. About an hour.':'Quick game. 4 primary weeks, 3 voting nights, 3 general weeks, 2 debates. About 25 minutes.'}</li>
     <li><b>Turn timer:</b> ${f.timer==='0'?'Off. A week ends when everyone hits Ready.':`${f.timer==='90'?'90 seconds':'3 minutes'} per week. When time runs out, whatever you planned goes in.`}</li>
-    <li><b>Private:</b> ${f.priv?'On. The game won’t show in Open games. Friends need the code or invite link.':'Off. Anyone can see it in Open games and join.'}</li></ul></div></section>
-  <section class="card"><div class="card-h"><h2>Lobby chat</h2><span class="lab">Everyone online</span></div>${mpChat(MP.lchat||[],'mp-lchat','mpLChat','Say hi')}</section>
- </aside></div>`;
+    <li><b>Private:</b> ${f.priv?'On. The game won’t show in Open games. Friends need the code or invite link.':'Off. Anyone can see it in Open games and join.'}</li></ul></div></section>`;}
+const mpLobbyChat=()=>`<section class="card"><div class="card-h"><h2>Lobby chat</h2><span class="lab">Everyone online</span></div>${mpChat(MP.lchat||[],'mp-lchat','mpLChat','Say hi')}</section>`;
+const mpHead=()=>`<section class="mp-head"><h1>Multiplayer</h1><p>2 to 4 players. Everyone runs in the primaries, the nominees meet in the general, and whoever gets to 270 wins it. You can share a party with a friend and fight for the nomination.</p></section>`;
+function vMPHome(){
+ const f=MP.form;
+ if(LOOK==='full')return `${vErr()}${mpHead()}
+ <div class="main2"><div class="side">${mpNameCard()}
+  <section class="card"><div class="card-h"><h2>Join with a code</h2></div><div class="row"><label class="fld"><span>Room code</span><input type="text" id="mp-code" maxlength="5" placeholder="K7Q2M" value="${esc(f['mp-code']||'')}" autocomplete="off" style="text-transform:uppercase"></label><button class="btn gold" data-act="mpJoinCode">Join</button></div><p class="small muted" style="margin-top:8px">Or open the invite link your friend sent you.</p></section>
+  <section class="card"><div class="card-h"><h2>Open games</h2><span class="lab">${MP.online?MP.online+' online':''}</span></div>${mpGameList()}</section>
+  <section class="card"><details class="mp-diag"><summary><b>Can’t find your friend’s game?</b></summary>${mpDiag()}</details></section>
+ </div><aside class="side">${mpHostCard()}${mpLobbyChat()}</aside></div>`;
+ const open=(MP.games||[]).filter(g=>g.status==='open'&&g.n<g.max).length;
+ return `${vErr()}${mpHead()}
+ <div class="main2"><div class="side">${mpNameCard()}
+  <section class="card"><div class="card-h"><h2>Open games</h2><span class="lab">${open} waiting for players</span></div>${mpGameList()}
+   <div class="row" style="margin-top:14px"><label class="fld"><span>Have a code?</span><input type="text" id="mp-code" maxlength="5" placeholder="e.g. K7Q2M" value="${esc(f['mp-code']||'')}" autocomplete="off" style="text-transform:uppercase"></label><button class="btn go" data-act="mpJoinCode">Join</button></div>
+   <details class="mp-diag" style="margin-top:12px"><summary class="small muted">Can’t find your friend’s game?</summary>${mpDiag()}</details></section>
+ </div><aside class="side">${mpHostCard()}${mpLobbyChat()}</aside></div>`;
 }
-function vMPSetupFlow(){
- const me=meP();const lib=getLib();
- const strip=`<section class="card mp-strip"><div><span class="lab">Room ${esc(M.code.toUpperCase())} · ${esc(M.name)}</span><p class="small">${M.players.map(p=>`<span class="pchip" style="--pc:${p.color}">${esc(p.name)}${p.pid===MP.myPid?' (you)':''}: ${p.setup&&p.ready?'ready':p.setup?'editing':'setting up'}</span>`).join(' ')}</p></div><button class="btn sm" data-act="mpCopyInvite">Copy invite</button></section>`;
- let body;
- if(S.phase==='mpchoose')body=`<section class="card form2" style="padding:clamp(18px,4vw,30px)"><h2 style="font-size:1.9rem">Set up your candidate</h2><p class="muted" style="margin:4px 0 14px">Same as single-player: take the test, pick a party, write your platform. Or use a candidate you saved.</p>
+
+/* quick build (Classic look) */
+const QB_IDEO={D:'modd',R:'estr',L:'libt',G:'green',I:'center'};
+function mpQB(){if(!MP.qb){const me=M&&meP();const taken=M?M.players.filter(p=>p.pid!==MP.myPid&&p.setup).map(p=>p.setup.party):[];const party=me?.setup?.party||(taken.includes('D')&&!taken.includes('R')?'R':'D');MP.qb={src:S.party&&Object.keys(S.planks||{}).length>=5?'custom':'quick',party,name:'',bg:'gov',home:'OH',ideo:QB_IDEO[party]};}return MP.qb;}
+function qbSetup(){const q=mpQB();const lib=getLib();
+ if(q.src==='custom'&&S.party&&Object.keys(S.planks).length)return{party:S.party,name:S.cand.name||mpName(),bg:S.cand.bg,home:S.cand.state,compass:S.compass||[0,0,0],planks:S.planks,src:'custom'};
+ if(q.src.startsWith('saved:')){const c=lib.cands[+q.src.slice(6)];if(c)return{party:c.party,name:c.name,bg:c.bg,home:c.state,compass:c.compass||[0,0,0],planks:c.planks||{},src:q.src};}
+ const id=IDEOS.find(i=>i.id===q.ideo)||IDEOS.find(i=>i.id===QB_IDEO[q.party]);const keep=S.party;S.party=q.party;const planks={};
+ AREAS.forEach(a=>{const o=a.opts.slice().sort((x,y)=>dist([x[3],x[4],x[5]],id.v)-dist([y[3],y[4],y[5]],id.v))[0];if(o)planks[a.id]=plankFromOpt(a.id,o);});
+ S.party=keep;
+ return{party:q.party,name:cleanTxt(q.name,32)||`${mpName()||'Player'}`,bg:q.bg,home:q.home,compass:[...id.v],planks,src:'quick'};}
+function qbChanged(){const me=meP();if(me&&me.ready)mpSend({t:'ready',v:false});render();}
+function mpQbReady(){const me=meP();if(!me)return;if(me.ready){mpSend({t:'ready',v:false});return;}
+ const s=qbSetup();if(Object.keys(s.planks).length<5)return toast('Pick at least 5 positions first.');
+ const {src,...setup}=s;mpSend({t:'setup',setup});}
+function mpFullTest(){if(meP()?.ready)mpSend({t:'ready',v:false});MP.editing=true;const q=mpQB();
+ if(q.src.startsWith('saved:')&&getLib().cands[+q.src.slice(6)]){const i=+q.src.slice(6);q.src='custom';quickStart(i);return;}
+ S.phase=S.party&&Object.keys(S.planks).length?'platform':'quiz';mpQB().src='custom';render();window.scrollTo(0,0);}
+function mpBackToRoom(){MP.editing=false;if(!(S.party&&Object.keys(S.planks).length>=5)&&mpQB().src==='custom')mpQB().src='quick';render();window.scrollTo(0,0);}
+
+function mpSetupBody(){
+ const lib=getLib();
+ if(S.phase==='mpchoose')return `<section class="card form2" style="padding:clamp(18px,4vw,30px)"><h2 style="font-size:1.9rem">Set up your candidate</h2><p class="muted" style="margin:4px 0 14px">Same as single-player: take the test, pick a party, write your platform. Or use a candidate you saved.</p>
   <div class="btns"><button class="btn gold big" data-act="mpTest">Take the test</button></div>
   ${lib.cands.length?`<p class="lab" style="margin-top:18px">Your saved candidates</p><div class="pgrid">${lib.cands.map((c,i)=>`<div class="pcard saved" style="--pc:${PARTIES[c.party]?.color}"><span class="ph"><b>${esc(c.name)}</b><span class="small muted">${esc(PARTIES[c.party]?.noun||'')}</span></span><span class="small muted">${esc(BGS[c.bg]?.name||'')} · ${Object.keys(c.planks||{}).length} positions</span><div class="btns"><button class="btn go sm" data-act="mpUseSaved" data-i="${i}">Use</button></div></div>`).join('')}</div>`:''}</section>`;
- else body=({quiz:vQuiz,compass:vCompass,candidate:vCandidate,platform:vPlatform}[S.phase]||(()=>''))();
- return `${strip}${body}<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
+ return ({quiz:vQuiz,compass:vCompass,candidate:vCandidate,platform:vPlatform}[S.phase]||(()=>''))();
 }
-function vMPExplain(){
- const me=meP();const s=me?.setup;const items=[];
+const mpStatus=p=>p.setup&&p.ready?'ready':p.setup?'editing':'setting up';
+function vMPSetupFlow(){
+ const back=LOOK==='classic'?'<button class="btn sm" data-act="mpBackRoom">Back to the room</button>':'';
+ const strip=`<section class="card mp-strip"><div><span class="lab">Room ${esc(M.code.toUpperCase())} · ${esc(M.name)}</span><p class="small">${M.players.map(p=>`<span class="pchip" style="--pc:${p.color}">${esc(p.name)}${p.pid===MP.myPid?' (you)':''}: ${mpStatus(p)}</span>`).join(' ')}</p></div><div class="btns">${back}<button class="btn sm" data-act="mpCopyInvite">Copy invite</button></div></section>`;
+ return `${strip}${mpSetupBody()}<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
+}
+function vMPExplain(sv){
+ const me=meP();const s=sv||me?.setup;const items=[];
  if(s){
   const same=M.players.filter(p=>p!==me&&p.setup&&p.setup.party===s.party).map(p=>p.name);
   if(s.party==='D'||s.party==='R'){const ai=Math.max(2,5-(same.length+1));items.push(['Party',`${PARTIES[s.party].name}. ${same.length?`You share the primary with ${listJoin(same)} and ${ai} computer rivals. Only one of you gets the nomination; the rest can run as independents or watch.`:`You face ${ai} computer rivals in the primary. Win a majority of delegates to get the nomination.`}`]);}
@@ -2191,7 +2293,8 @@ function vMPExplain(){
   else items.push(['Party',`${PARTIES[s.party].name}. No primary. ${same.length?`${listJoin(same)} ${same.length>1?'are':'is'} also ${PARTIES[s.party].noun}. Whoever is stronger at the convention gets the nomination.`:'You go straight to November against both major parties.'}`]);
   items.push(['Background',`${BGS[s.bg].name}. ${BGS[s.bg].note}`]);
   items.push(['Home state',`${STATES[s.home].n}. You get a boost there in the primary and the general.`]);
-  const P=platC({planks:s.planks,compass:s.compass});items.push(['Platform',`${P.n} of 10 issues. Primary voters rate it ${Math.round(P.pri)}, November voters ${Math.round(P.gen)}. Empty issues make you look vague.`]);
+  if(s.src==='quick'){const id=IDEOS.find(i=>i.id===mpQB().ideo);if(id)items.push(['Platform style',`${id.name}. ${id.b} It fills in all 10 issues with the closest stock positions.`]);}
+  const P=platC({planks:s.planks,compass:s.compass});items.push(['Platform',`${P.n} of 10 issues. Primary voters rate it ${Math.round(P.pri)}, November voters ${Math.round(P.gen)}.${P.n<10?' Empty issues make you look vague.':''}`]);
  }else items.push(['Your candidate','Not done yet. Finish the test and your platform to get ready.']);
  const humansD=M.players.filter(p=>p.setup?.party==='D').length,humansR=M.players.filter(p=>p.setup?.party==='R').length;
  items.push(['Computer players',`${humansD?'':'The computer runs the Democrat. '}${humansR?'':'The computer runs the Republican. '}Primaries with humans get computer rivals too.`]);
@@ -2200,21 +2303,58 @@ function vMPExplain(){
  items.push(['Room',`${M.players.length} of ${M.max} spots filled. ${M.priv?'Private: only the code or invite link gets people in.':'Listed in Open games.'}`]);
  return `<section class="card explain-card"><h2>What you picked</h2><dl>${items.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join('')}</dl></section>`;
 }
-function vMPRoom(){
- const me=meP();if(me&&(!me.setup||MP.editing))return vMPSetupFlow();
- const host=isHostMe();const canStart=M.players.length>=2&&M.players.every(p=>p.ready&&p.setup);const inv=inviteURL(M.code);
- return `<section class="card mp-code"><div><span class="lab">Room code</span><b>${esc(M.code.toUpperCase())}</b></div><p>${inv?'Send friends the invite link. It opens the game and joins this room.':'Send friends the code. They open Multiplayer and type it in.'}${M.priv?' This game is private, so it won’t show in Open games.':''}</p><div class="btns">${inv?'<button class="btn gold" data-act="mpCopyInvite">Copy invite link</button>':''}<button class="btn" data-act="mpCopy">Copy code</button></div></section>
- <div class="main2"><div class="side">
-  <section class="card"><div class="card-h"><h2>Players</h2><span class="lab">${M.players.length} of ${M.max}</span></div>
-   <ul class="mp-players">${M.players.map((p,i)=>`<li><span class="av" style="background:${p.color}">${esc(initials({name:p.setup?.name||p.name}))}</span><div><b>${esc(p.name)}${p.pid===MP.myPid?' (you)':''}${i===0?' · host':''}</b><span class="small muted">${p.setup?`${esc(p.setup.name)} · ${PARTIES[p.setup.party].noun} · ${BGS[p.setup.bg].name}`:'Setting up'}</span></div>${p.ready?'<span class="badge rec">Ready</span>':'<span class="badge">Not ready</span>'}</li>`).join('')}</ul></section>
-  <section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>
- </div>
+function mpCodeCard(){const inv=inviteURL(M.code);
+ return `<section class="card mp-code"><div><span class="lab">Room code</span><b>${esc(M.code.toUpperCase())}</b></div><p>${inv?'Send friends the invite link. It opens the game and joins this room.':'Send friends the code. They open Multiplayer and type it in.'}${M.priv?' This game is private, so it won’t show in Open games.':` They can also find “${esc(M.name)}” in Open games.`}</p><div class="btns">${inv?'<button class="btn gold" data-act="mpCopyInvite">Copy invite link</button>':''}<button class="btn" data-act="mpCopy">Copy code</button></div></section>`;}
+function mpPlayersCard(note){
+ return `<section class="card"><div class="card-h"><h2>Players</h2><span class="lab">${M.players.length} of ${M.max}</span></div>
+   <ul class="mp-players">${M.players.map((p,i)=>`<li><span class="av" style="background:${p.setup?PARTIES[p.setup.party].color:p.color}">${esc(initials({name:p.setup?.name||p.name}))}</span><div><b>${esc(p.name)}${p.pid===MP.myPid?' (you)':''}${i===0?' · host':''}</b><span class="small muted">${p.setup?`${esc(p.setup.name)} · ${PARTIES[p.setup.party].noun} · ${BGS[p.setup.bg].name}`:'Picking a candidate'}</span></div>${p.ready?'<span class="badge rec">Ready</span>':'<span class="badge">Setting up</span>'}</li>`).join('')}</ul>
+   ${note?'<p class="small muted" style="margin-top:8px">No Democrat or Republican? The computer runs that side.</p>':''}</section>`;}
+const mpRoomChat=ph=>`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat',ph||'Say something')}</section>`;
+function mpStartBlock(){const host=isHostMe();const canStart=M.players.length>=2&&M.players.every(p=>p.ready&&p.setup);
+ return host?`<button class="btn go big" style="width:100%;margin-top:8px" data-act="mpStart" ${canStart?'':'disabled'}>Start the game</button><p class="small muted" style="margin-top:6px">${canStart?'Everyone’s ready.':M.players.length<2?'Waiting for at least one more player.':'Waiting for everyone to hit ready.'} ${M.len==='full'?'Full game':'Quick game'} · ${M.timer?M.timer+'s turns':'no turn timer'}.</p>`:'<p class="small muted" style="margin-top:8px">The host starts the game once everyone is ready.</p>';}
+
+function vMPRoomClassic(){
+ const me=meP();const lib=getLib();const q=mpQB();const s=qbSetup();const P=platC({planks:s.planks,compass:s.compass});
+ const hasCustom=S.party&&Object.keys(S.planks).length>=5;
+ const srcOpts=`<option value="quick" ${q.src==='quick'?'selected':''}>Quick build</option>${hasCustom?`<option value="custom" ${q.src==='custom'?'selected':''}>${esc(S.cand.name||'Your candidate')} (your test and platform)</option>`:''}${lib.cands.map((c,i)=>`<option value="saved:${i}" ${q.src==='saved:'+i?'selected':''}>${esc(c.name)} (saved ${esc(PARTIES[c.party]?.noun||'')})</option>`).join('')}`;
+ return `${mpCodeCard()}
+ <div class="main2"><div class="side">${mpPlayersCard(true)}${mpRoomChat('Talk some trash')}</div>
+ <aside class="side"><section class="card"><div class="card-h"><h2>Your candidate</h2></div>
+  <div class="fld"><span>Party</span><div class="seg">${['D','R','L','G','I'].map(pt=>`<button class="${s.party===pt?'on':''}" data-act="mpQbParty" data-v="${pt}">${PARTIES[pt].noun}</button>`).join('')}</div></div>
+  <label class="fld" style="margin-top:10px"><span>Candidate</span><select id="mp-src">${srcOpts}</select></label>
+  ${q.src==='quick'?`<div class="row" style="margin-top:10px"><label class="fld"><span>Candidate name</span><input type="text" id="mp-cname" maxlength="32" value="${esc(q.name)}" placeholder="${esc(mpName()||'Your name')}" autocomplete="off"></label></div>
+   <div class="row" style="margin-top:8px"><label class="fld"><span>Background</span><select id="mp-bg">${Object.entries(BGS).map(([k,b])=>`<option value="${k}" ${q.bg===k?'selected':''}>${b.name}</option>`).join('')}</select></label><label class="fld"><span>Home state</span><select id="mp-home">${ST_KEYS.filter(x=>x!=='DC').map(x=>`<option value="${x}" ${q.home===x?'selected':''}>${STATES[x].n}</option>`).join('')}</select></label></div>
+   <label class="fld" style="margin-top:8px"><span>Platform style</span><select id="mp-ideo">${IDEOS.map(i=>`<option value="${i.id}" ${q.ideo===i.id?'selected':''}>${i.name}</option>`).join('')}</select></label>`
+  :`<p class="small" style="margin-top:8px"><b>${esc(s.name)}</b> · ${esc(BGS[s.bg]?.name||'')} · ${esc(STATES[s.home]?.n||'')}</p>`}
+  <div style="display:flex;flex-direction:column;gap:6px;margin-top:12px"><div class="meter"><span>Primary appeal</span><div class="bar"><i style="width:${P.pri}%;--c:var(--sel)"></i></div><b>${Math.round(P.pri)}</b></div><div class="meter"><span>November appeal</span><div class="bar"><i style="width:${P.gen}%;--c:var(--sel)"></i></div><b>${Math.round(P.gen)}</b></div>
+   <details class="mp-plat"><summary class="small">See all ${P.n} positions</summary><ul>${Object.values(s.planks).map(p=>`<li><small>${AREA[p.area].short}</small> ${esc(p.title)}</li>`).join('')}</ul></details></div>
+  <button class="btn ${me?.ready?'':'gold'} big" style="width:100%;margin-top:14px" data-act="mpQbReady">${me?.ready?'Not ready':'I’m ready'}</button>
+  ${mpStartBlock()}
+  <div class="qb-src"><span class="small muted">${q.src==='quick'?'Want your own platform instead of a quick build?':'Want to change this platform?'}</span><button class="btn sm" style="align-self:flex-start" data-act="mpFullTest">${q.src==='quick'?'Take the test and write it':'Edit the platform'}</button></div>
+ </section></aside></div>
+ ${vMPExplain(s)}`;
+}
+function vMPRoomReady(){
+ const me=meP();
+ return `${mpCodeCard()}
+ <div class="main2"><div class="side">${mpPlayersCard(false)}${mpRoomChat()}</div>
  <aside class="side"><section class="card"><div class="card-h"><h2>Your candidate</h2></div>
   <p><b>${esc(me.setup.name)}</b> · ${PARTIES[me.setup.party].noun}</p>
   <div class="btns" style="margin-top:12px"><button class="btn ${me.ready?'':'gold'}" data-act="mpReady">${me.ready?'Not ready':'Ready'}</button><button class="btn" data-act="mpEditSetup">Change candidate</button></div>
-  ${host?`<button class="btn go big" style="width:100%;margin-top:12px" data-act="mpStart" ${canStart?'':'disabled'}>Start the game</button><p class="small muted" style="margin-top:6px">${canStart?'Everyone’s ready.':M.players.length<2?'You need at least one more player.':'Waiting for everyone to be ready.'}</p>`:'<p class="small muted" style="margin-top:10px">The host starts the game once everyone is ready.</p>'}
+  ${mpStartBlock()}
  </section></aside></div>
  ${vMPExplain()}`;
+}
+function vMPRoomSide(){
+ return `<div class="main2"><div class="side mp-sidel">${mpSetupBody()}</div>
+ <aside class="side">${mpCodeCard()}${mpPlayersCard(false)}${mpRoomChat()}</aside></div>
+ ${vMPExplain()}`;
+}
+function vMPRoom(){
+ const me=meP();if(!me)return '';
+ if(LOOK==='classic')return MP.editing?vMPSetupFlow():vMPRoomClassic();
+ if(!me.setup||MP.editing)return LOOK==='side'?vMPRoomSide():vMPSetupFlow();
+ return vMPRoomReady();
 }
 function mpPlanLeft(){const c=myCand();let e=c.energy,f=c.funds;MP.draft.moves.forEach(mv=>{const k=mpCost(mv);e-=k.e;f-=k.f;if(mv.id==='rest')e+=40;if(mv.id==='fund')f+=fundAmt(c,mv.opt,M.track);});return{e,f};}
 const moveLabel=mv=>{if(mv.id==='revise')return `Change position · ${AREA[mv.area]?.short||''}: “${mv.newPlank?.title||''}”`;if(mv.id==='press')return `Interview · ${AREA[mv.area]?.short||''}${mv.kind==='typed'?' · your answer':mv.kind==='firm'?' · stand firm':mv.kind==='soft'?' · soften it':' · dodge'}`;const n=MP_MOVES.find(x=>x.id===mv.id)?.name||mv.id;const t=mv.targets&&mv.targets.length?' · '+mv.targets.join(', '):'';const extra=mv.id==='ad'?(mv.opt==='nat'?' · national TV':` · ${mv.tone==='con'?'contrast':mv.tone==='atk'?'attack on '+cName(mv.target,true):'positive'}`):mv.id==='oppo'?' on '+cName(mv.target,true):mv.id==='media'?` · ${MEDIA.find(m=>m.id===mv.opt)?.name||''}`:mv.id==='fund'?(mv.opt==='big'?' · donor dinner':' · small donors'):'';return n+extra+t;};
@@ -2571,6 +2711,45 @@ let tutRaf=0;const tutRepos=()=>{if(!tut)return;cancelAnimationFrame(tutRaf);tut
 window.addEventListener('scroll',tutRepos,{passive:true});window.addEventListener('resize',tutRepos);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&tut)endTut();});
 
+/* ========== settings: theme and lobby look ========== */
+const THEMES=[
+ ['auto','Auto','Matches your device',['#ECEEF2','#FFFFFF','#14171D','#1D2129']],
+ ['light','Light','Gray and white',['#ECEEF2','#FFFFFF','#1C2740']],
+ ['paper','Paper','Warm and soft',['#EDE8DE','#FBF8F2','#2E3A4E']],
+ ['dark','Dark','Charcoal gray',['#14171D','#1D2129','#3B4A6B']],
+ ['midnight','Midnight','Deep navy',['#0C1324','#141D35','#2F4A86']],
+ ['black','Black','Pure black. Good on phones',['#000000','#0E0E10','#33415E']],
+];
+const LOOKS=[
+ ['classic','Classic','The original lobby. Pick your party, background and platform style right in the room, or take the full test if you want.'],
+ ['full','Full page','Setup fills the page, same as single-player. The room shows up once you’re done.'],
+ ['side','Side by side','Setup on the left. Players, chat and the room code stay on the right.'],
+];
+const prefGet=(k,d)=>{try{return localStorage.getItem(k)||d;}catch(e){return d;}};
+const prefSet=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+let THEME=prefGet('wibi-theme','auto'),LOOK=prefGet('wibi-lobby','classic');
+if(!THEMES.some(t=>t[0]===THEME))THEME='auto';if(!LOOKS.some(t=>t[0]===LOOK))LOOK='classic';
+function applyTheme(){const r=document.documentElement;if(THEME==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',THEME);}
+applyTheme();
+function swatch(t){const c=t[3];
+ if(t[0]==='auto')return `<span class="sw" style="background:linear-gradient(90deg,${c[0]} 50%,${c[2]} 50%)"><i style="left:8%;top:12px;width:32%;height:24px;background:${c[1]};border-radius:3px"></i><i style="right:8%;top:12px;width:32%;height:24px;background:${c[3]};border-radius:3px"></i></span>`;
+ return `<span class="sw" style="background:${c[0]}"><i style="left:0;right:0;top:0;height:9px;background:${c[2]}"></i><i style="left:8px;top:15px;width:55%;height:24px;background:${c[1]};border-radius:3px"></i><i style="right:8px;top:15px;width:18%;height:10px;background:#E3A41C;border-radius:2px"></i></span>`;}
+function lookPv(k){
+ if(k==='classic')return '<span class="pv" style="grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr"><i></i><i style="grid-row:1/3;grid-column:2"></i><i></i></span>';
+ if(k==='full')return '<span class="pv" style="grid-template-rows:9px 1fr"><i class="y"></i><i></i></span>';
+ return '<span class="pv" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr"><i style="grid-row:1/3"></i><i></i><i></i></span>';}
+function vPrefs(){return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Settings"><div class="card-h"><h2>Settings</h2><button class="btn sm" data-pact="close">Close</button></div>
+ <div><p class="lab" style="margin-bottom:8px">Theme</p><div class="themes">${THEMES.map(t=>`<button class="theme ${THEME===t[0]?'on':''}" data-pact="theme" data-v="${t[0]}" aria-pressed="${THEME===t[0]}">${swatch(t)}<span>${t[1]}<br><small>${t[2]}</small></span></button>`).join('')}</div></div>
+ <div><p class="lab" style="margin-bottom:8px">Multiplayer lobby</p><div class="looks">${LOOKS.map(l=>`<button class="look ${LOOK===l[0]?'on':''}" data-pact="look" data-v="${l[0]}" aria-pressed="${LOOK===l[0]}">${lookPv(l[0])}<span><b>${l[1]}</b><span class="small">${l[2]}</span></span></button>`).join('')}</div></div>
+ <p class="small muted">Saved on this device.</p></section>`;}
+function openPrefs(fk){const el=$('#prefs');el.innerHTML=vPrefs();el.hidden=false;(fk&&el.querySelector(`[data-pact="${fk[0]}"][data-v="${fk[1]}"]`)||el.querySelector('button'))?.focus();}
+function closePrefs(){$('#prefs').hidden=true;}
+$('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]');if(!t){if(e.target.id==='prefs')closePrefs();return;}const a=t.dataset.pact,v=t.dataset.v;
+ if(a==='close')closePrefs();
+ else if(a==='theme'){THEME=v;prefSet('wibi-theme',v);applyTheme();openPrefs([a,v]);}
+ else if(a==='look'){LOOK=v;prefSet('wibi-lobby',v);openPrefs([a,v]);if(typeof inMP!=='undefined'&&inMP)render();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#prefs').hidden)closePrefs();});
+
 /* ========== render ========== */
 const app=$('#app');
 function render(){
@@ -2671,6 +2850,10 @@ const H={
  mpTest(){S.phase='quiz';render();window.scrollTo(0,0);},
  mpUseSaved(d){quickStart(+d.i);},
  mpEditSetup(){mpEditSetup();},
+ mpQbParty(d){const q=mpQB();q.src='quick';q.party=d.v;q.ideo=QB_IDEO[d.v];qbChanged();},
+ mpQbReady(){mpQbReady();},
+ mpFullTest(){mpFullTest();},
+ mpBackRoom(){mpBackToRoom();},
  mpChoice(d){mpSend({t:'choice',v:d.v});},
  mpLChat(){const t=cleanTxt(MP.form['mp-lchat'],200);if(!t)return;if(cleanTxt(MP.form.name,24).length<2)return toast('Type your name first.');lobbySend({t:'lchat',n:cleanTxt(MP.form.name,24),txt:t});MP.form['mp-lchat']='';render();},
  mpChat(){const t=cleanTxt(MP.form['mp-chat'],200);if(!t)return;mpSend({t:'chat',txt:t});MP.form['mp-chat']='';render();},
@@ -2703,6 +2886,7 @@ const H={
  mpAck(){mpSend({t:'ack'});},
  mpRematch(){mpSend({t:'rematch'});},
  mpNightSkip(){MP.nightShown=M.night.order.length;MP.nightDone=true;render();},
+ prefs(){openPrefs();},
  tutorial(){const k=tutKey();if(!k)return;const s=seenTut();delete s.off;delete s[k];setSeen(s);if(tut)endTut();startTut(k);},
  saveCand(){if(!Object.keys(S.planks).length)return toast('Pick at least one position first.');saveCandidate();toast(`${S.cand.name} is saved. Find them on the title screen.`);},
  quickStart(d){quickStart(+d.i);},
@@ -2721,12 +2905,13 @@ function sanitize(){
 }
 app.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||t.disabled)return;const f=H[t.dataset.act];if(f){e.preventDefault();f({...t.dataset},t);}});
 app.addEventListener('input',e=>{const id=e.target.id||'';
- if(id.startsWith('mp-')&&MP){const v=e.target.value;if(id==='mp-evtext'){MP.draft.evText=v;return;}if(id==='mp-name'){MP.form.name=v;setMpName(cleanTxt(v,24));}else if(id==='mp-cname')MP.form.cname=v;else if(id==='mp-gname')MP.form.gname=v;else if(e.target.type!=='checkbox'&&e.target.tagName!=='SELECT')MP.form[id]=v;return;}
+ if(id.startsWith('mp-')&&MP){const v=e.target.value;if(id==='mp-evtext'){MP.draft.evText=v;return;}if(id==='mp-name'){MP.form.name=v;setMpName(cleanTxt(v,24));}else if(id==='mp-cname'){mpQB().name=v;if(meP()?.ready)mpSend({t:'ready',v:false});}else if(id==='mp-gname')MP.form.gname=v;else if(e.target.type!=='checkbox'&&e.target.tagName!=='SELECT')MP.form[id]=v;return;}
  if(id.startsWith('cx-'))S.drafts[id.slice(3)]=e.target.value;else if(id==='press-ans')S.pressDraft=e.target.value;else if(id==='db-ans')S.dbDraft=e.target.value;else if(id==='f-name')S.cand.name=e.target.value;else if(id==='quiz-own')S.quizDraft=e.target.value;else if(id==='adv-q')S.advDraft=e.target.value;});
 app.addEventListener('change',e=>{const el=e.target;
  if(el.id==='imp-file'){importSave(el.files&&el.files[0]);el.value='';return;}
  if(el.id&&el.id.startsWith('mp-')&&MP){const v=el.value;
   if(el.id==='mp-priv'){MP.form.priv=el.checked;return;}
+  if(['mp-src','mp-bg','mp-home','mp-ideo'].includes(el.id)){const q=mpQB();q[el.id.slice(3)]=v;if(el.id==='mp-src'&&v.startsWith('saved:')){const c=getLib().cands[+v.slice(6)];if(c)q.party=c.party;}qbChanged();return;}
   if(el.id==='mp-plank')MP.form.plank=v;else if(el.id==='mp-target')MP.form.target=v;else if(el.id==='mp-dtarget')MP.form.dtarget=v;return;}
  if(el.id==='f-state')S.cand.state=el.value;else if(el.name==='f-bg')S.cand.bg=el.value;
  else if(el.id==='f-plank')S.form.plank=el.value;else if(el.id==='f-target')S.form.target=el.value;else if(el.id==='f-region')S.form.region=el.value;else if(el.id==='f-dbtarget')S.form.dbTarget=el.value;});
