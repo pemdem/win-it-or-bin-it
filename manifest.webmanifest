@@ -1,0 +1,30 @@
+{
+ "name": "Win It or Bin It",
+ "short_name": "Win It or Bin It",
+ "id": "./play.html",
+ "description": "Run for president: primaries, debates and a 50-state general election.",
+ "start_url": "./play.html",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#1C2740",
+ "theme_color": "#1C2740",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

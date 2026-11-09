@@ -5,6 +5,13 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1C2740">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Win It or Bin It">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Win It or Bin It Download</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231C2740'/%3E%3Cpath d='M32 11l6.2 13.6 14.8 1.6-11 10 3.1 14.6L32 43.3 18.9 50.8 22 36.2 11 26.2l14.8-1.6z' fill='%23E3A41C'/%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -156,9 +163,15 @@ footer a{color:#C9D1E3}
   <div class="step"><span class="n">2</span><h3>Double-click it</h3><p>It opens in Chrome, Edge, Safari or Firefox, whichever you normally use.</p></div>
   <div class="step"><span class="n">3</span><h3>Play</h3><p>A short tutorial walks you through the first few screens. Your game saves on its own.</p></div>
  </div>
+ <h3 style="margin-top:26px">On a phone or tablet</h3>
+ <div class="steps">
+  <div class="step"><span class="n">1</span><h3>Open Play now</h3><p>Use Safari on iPhone or iPad, or Chrome on Android.</p></div>
+  <div class="step"><span class="n">2</span><h3>Add it to your home screen</h3><p><b>iPhone:</b> tap Share, then “Add to Home Screen.” <b>Android:</b> tap “Install app” on the title screen, or Install in Chrome’s menu.</p></div>
+  <div class="step"><span class="n">3</span><h3>Tap the icon</h3><p>It opens full screen like any other app, works offline for single-player, and updates itself.</p></div>
+ </div>
  <div class="tips">
   <p class="tip"><b>Tip:</b> drag the file onto your desktop so it’s easy to find next time.</p>
-  <p class="tip"><b>Switching computers?</b> Use “Download backup” on the title screen, then “Load a backup” on the new one.</p>
+  <p class="tip"><b>Playing on more than one device?</b> On the title screen, tap “Send from this device,” then “Get from another device” on the other one and type the code. Your saved candidates and your game come with it.</p>
  </div>
 </div></section>
 
@@ -182,8 +195,9 @@ footer a{color:#C9D1E3}
   <details><summary>How does multiplayer work?</summary><p>Click Multiplayer on the title screen. One person hosts and gets a 5-letter room code; everyone else types the code in or picks the game from the Open games list. Two to four players. Nobody needs an account, just an internet connection.</p></details>
   <details><summary>Do I need the internet to play?</summary><p>Single-player works offline once it’s downloaded. Multiplayer needs a connection.</p></details>
   <details><summary>My computer says the file might be unsafe.</summary><p>Some browsers warn about any downloaded .html file. It’s a web page, the same kind you’re looking at now, and it doesn’t install anything or touch your files.</p></details>
-  <details><summary>Where is my save?</summary><p>In the browser you open the game with, on that computer. If you clear your browser data, the save goes with it, so download a backup from the title screen now and then.</p></details>
-  <details><summary>Can I play on my phone?</summary><p>Yes, with “Play now.” It plays best on a computer, and phones don’t open downloaded files easily, so skip the download there.</p></details>
+  <details><summary>Where is my save?</summary><p>In the browser you open the game with, on that device. If you clear your browser data, the save goes with it, so download a backup from the title screen now and then.</p></details>
+  <details><summary>Can I keep playing on another device?</summary><p>Yes. Open the game on both. On the title screen, tap “Send from this device” on the first one, then “Get from another device” on the second and type the 6-character code. Your saved candidates and your game move over.</p></details>
+  <details><summary>Can I play on my phone?</summary><p>Yes. Open “Play now” and add it to your home screen (steps above). Skip the download on phones, since they don’t open downloaded files easily.</p></details>
   <details><summary>Are the candidates real?</summary><p>No. Every rival and opponent is made up. The states, electoral votes and primary calendar are modeled on the real thing.</p></details>
  </div>
 </div></section>
@@ -247,5 +261,6 @@ async function download(btn){
 buttons.forEach(b=>b.addEventListener('click',()=>download(b)));
 </script>
 
+<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')&&!window.claude)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 </body>
 </html>

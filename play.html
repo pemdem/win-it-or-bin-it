@@ -2,9 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794202166;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794237286;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1C2740">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Win It or Bin It">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Win It or Bin It</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231C2740'/%3E%3Cpath d='M32 11l6.2 13.6 14.8 1.6-11 10 3.1 14.6L32 43.3 18.9 50.8 22 36.2 11 26.2l14.8-1.6z' fill='%23E3A41C'/%3E%3C/svg%3E">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -421,7 +428,7 @@ div.dopt{cursor:default}
 .mp-diag summary{cursor:pointer}
 .mp-diag .notes{margin:8px 0}
 .hero{position:relative}
-.hero-set{position:absolute;top:12px;right:max(16px,env(safe-area-inset-right,0px));z-index:2}
+.hero-set{position:absolute;top:12px;right:max(16px,env(safe-area-inset-right,0px));z-index:2;display:flex;gap:6px}
 #prefs{position:fixed;inset:0;z-index:40;background:rgba(6,10,20,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(40px,6vh) 16px 16px;overflow-y:auto}
 #prefs[hidden]{display:none}
 .prefs-box{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
@@ -488,6 +495,53 @@ div.dopt{cursor:default}
 .follow button i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pc);margin-right:6px}
 .spec-plist li>div{display:flex;flex-direction:column;gap:2px;min-width:0}
 .spec-plist .num{min-width:2.2em;text-align:right}
+/* ---- phones and touch screens ---- */
+.peek{margin-top:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--soft)}
+.peek .tip-b li span{max-width:none}
+.actbar{display:none}
+@media (max-width:1000px){
+ .actbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:15;gap:12px;align-items:center;justify-content:space-between;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 20px rgba(0,0,0,.14)}
+ .actbar>div{display:flex;flex-direction:column;line-height:1.2;min-width:0}
+ .actbar>div b{font-size:.95rem}
+ .actbar>div span{font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .actbar .btn{flex:0 0 auto;min-width:130px;min-height:46px}
+ body.has-actbar main.wrap{padding-bottom:110px}
+ body.has-actbar #toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:760px){
+ .nav-in{gap:6px 10px;padding-block:8px 6px}
+ .logo{font-size:1.2rem}
+ .tabs{order:5;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .tabs::-webkit-scrollbar{display:none}
+ .tab{padding:10px 12px;flex:1 0 auto;text-align:center}
+ .stats{order:6;justify-content:space-between;gap:6px}
+ .stat b{font-size:1rem}
+ .stat small{font-size:.58rem}
+ .nav-in .navbtn{margin-left:auto}
+ .nav-in .navbtn~.navbtn{margin-left:0}
+ .subbar .wrap{font-size:.82rem;min-height:34px}
+ h2{font-size:1.3rem}
+ .card{padding:14px}
+ .race{padding:10px 12px 8px}
+ .race-c .big{font-size:1.7rem}
+ .race-legend{font-size:.74rem}
+ .kpi b{font-size:1.6rem}
+ .quiz-q{min-height:0;margin:16px 0}
+ .stand-cols{gap:4px}
+ .hero-set{top:10px}
+}
+@media (pointer:coarse){
+ .btn,.seg button,.tab,.mv,.lk,.ibtn,.vp-st,.theme,.look,.stand-st{min-height:44px}
+ .navbtn{min-height:38px;padding:6px 12px}
+ .btn.sm{min-height:40px}
+ .tchip button{width:30px;height:30px}
+ .link{padding:6px 0;min-height:32px}
+ input[type=text],select,textarea{font-size:16px}
+ .usmap path.st:hover{filter:none}
+ .usmap .cbox rect{stroke-width:2}
+ .tbl tr.click td{padding-block:11px}
+}
+.sync-code{font-family:var(--display);font-weight:800;font-size:2.6rem;letter-spacing:.14em;margin:6px 0}
 .qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 </style></head>
 <body>
@@ -827,6 +881,7 @@ function raceSummary(){
  if(S.track==='primary')L.push(`Delegates: ${S.cands.filter(c=>c.inPrimary&&c.dels>0).map(c=>`${dispName(c)} ${c.dels}`).join(', ')||'none yet'} (need ${needDels()}). Next: ${nextContestName()}.`);
  if(S.gen&&S.track!=='primary'){const pr=projection();L.push(`Projected electoral votes: ${Object.entries(S.gen.ids).map(([k,id])=>`${dispName(cand(id))} ${pr.ev[k]}`).join(', ')}. Closest states: ${closest(pr,5).map(st=>`${st} ${sgn(myMargin(st,pr.st[st]))}`).join(', ')}.`);}
  L.push(`Stats: ${money(me.funds)} cash, energy ${Math.round(me.energy)}/100, momentum ${sgn(me.mom)}, scandal ${Math.round(me.scandal)}/100, name ID ${Math.round(me.recog)}%.`);
+ try{L.push('Campaign manager’s own read of the numbers: '+advBrief(spCtx()));}catch(e){}
  return L.join('\n');
 }
 const AREA_IDS=AREAS.map(a=>a.id).join(', ');
@@ -1195,40 +1250,103 @@ function localBlunder(){
 function applyFx(fx){const me=you();me.mom=clamp(me.mom+num(fx.momentum,0,-8,8),-20,20);me.funds=Math.max(0,me.funds+num(fx.funds,0,-5,5));me.scandal=clamp(me.scandal+num(fx.scandal,0,-15,15),0,100);me.energy=clamp(me.energy+num(fx.energy,0,-20,15),0,100);changeN++;}
 
 /* ========== advisor ========== */
-function briefText(){
- const me=you();const msgs=[];
- if(S.track==='primary'){
-  const id=upcomingContests(1)[0];
-  if(id){const C=CONTESTS[id];const rows=C.states.map(st=>{const p=statePoll(st);const top=active().filter(c=>!c.isPlayer).sort((a,b)=>p[b.id]-p[a.id])[0];return{st,gap:p.you-(top?p[top.id]:0),top};});
-   const votesNow=steps()[S.step+1]?.t==='contest';
-   if(rows.length<=2){msgs.push(`${votesNow?'Last week before':'Coming up:'} ${C.name}. `+rows.map(r=>`In ${STATES[r.st].n} you’re ${r.gap>=0?'up':'down'} ${f1(Math.abs(r.gap))} on ${lastName(r.top)}`).join('. ')+'.');
-    const wk=rows.filter(r=>r.gap<0&&r.gap>-8);if(wk.length)msgs.push(`A rally${wk.length>1?' tour':''} in ${listJoin(wk.map(r=>STATES[r.st].n))} would close a lot of that.`);}
-   else{const lead=rows.filter(r=>r.gap>0).length;const tgt=rows.filter(r=>r.gap<3&&r.gap>-10).sort((a,b)=>delsOf(b.st)-delsOf(a.st)).slice(0,3);
-    msgs.push(`${C.name}: you lead in ${lead} of ${rows.length} states.${tgt.length?` Close ones with the most delegates: ${listJoin(tgt.map(r=>STATES[r.st].n))}. I’d go there.`:''}`);}
-  }
- }else if(S.gen){
-  const pr=projection();const tp=tippingPoint(pr);const m=myMargin(tp,pr.st[tp]);
-  msgs.push(`${STATES[tp].n} is the tipping-point state and you’re ${m>=0?'up':'down'} ${f1(Math.abs(m))} there.`);
-  const cl=closest(pr,8).filter(st=>STATES[st].ev>=6).slice(0,3);if(cl.length)msgs.push(`Closest big states: ${listJoin(cl.map(st=>`${STATES[st].n} (${sgn(myMargin(st,pr.st[st]))})`))}.`);
-  if(S.track==='third'){const miss=Object.keys(REGIONS).filter(r=>!S.access[r]);if(miss.length)msgs.push(`We’re still off the ballot in the ${listJoin(miss.map(r=>REGIONS[r]))}.`);}
- }
- const last=S.oppWeek.filter(o=>o.sts.length).slice(0,2);if(last.length)msgs.push(last.map(o=>`${lastName(cand(o.id))} spent last week in ${listJoin(o.sts.map(s=>STATES[s].n))}`).join('. ')+'.');
- if(me.energy<35)msgs.push('You look wiped. Rest before you say something dumb on camera.');
- else if(me.funds<2.5)msgs.push('Money’s tight. Fundraise before we buy more ads.');
- if(me.scandal>35)msgs.push('Scandal number is high. Skip podcasts for a bit.');
- if(S.step%4===2&&Object.keys(S.planks).length){const w=Object.values(S.planks).reduce((a,b)=>aud(b)<aud(a)?b:a);if(aud(w)<48)msgs.push(`“${w.title}” is our weakest plank (${Math.round(aud(w))}). Think about changing it on the Platform tab.`);}
- return msgs.join(' ');
-}
+/* ========== campaign manager (Riley): reads the race and gives a concrete plan. Shared by single-player and multiplayer. ========== */
+const ST_BY_NAME=Object.entries(Object.fromEntries(ST_KEYS.map(k=>[STATES[k].n.toLowerCase(),k]))).sort((a,b)=>b[0].length-a[0].length);
+function statesIn(raw){let low=' '+raw.toLowerCase().replace(/[^a-z ]/g,' ')+' ';const out=[];
+ ST_BY_NAME.forEach(([n,k])=>{const pat=' '+n+' ';if(low.includes(pat)){out.push(k);low=low.split(pat).join(' ');}});
+ (raw.match(/\b[A-Z]{2}\b/g)||[]).forEach(a=>{if(STATES[a]&&!['IN','OR','ME','OK','HI','OH'].includes(a)&&!out.includes(a))out.push(a);});return out;}
+const advAud=(ctx,pl)=>pl?(ctx.mode==='pri'?pl.pri:pl.gen):40;
+const advWeak=ctx=>{const ps=ctx.planks?Object.values(ctx.planks):[];return ps.length?ps.reduce((a,b)=>advAud(ctx,b)<advAud(ctx,a)?b:a):null;};
+function advMessage(ctx,sts){if(!ctx.planks)return null;const ps=Object.values(ctx.planks);if(!ps.length)return null;
+ return ps.map(pl=>({pl,s:advAud(ctx,pl)+sts.reduce((a,st)=>{const L=(STATE_ISSUES[st]||[]).find(x=>x[0]===pl.area);if(!L)return a;return a+(issueOne(pl.area,L[1],pl,ctx.v,ctx.mode,true)>=0?6:-4);},0)})).sort((a,b)=>b.s-a.s)[0].pl;}
+function advTargets(ctx,n=3){const pool=ctx.rows.filter(r=>r.soon!==false&&r.m>-9&&r.m<4.5);if(!pool.length)return[];const msg=advMessage(ctx,pool.map(r=>r.st));
+ return pool.map(r=>({...r,score:r.w/(1+Math.abs(r.m-0.5)**1.3)*(msg&&hotIn(r.st,msg.area)?1.25:1)})).sort((a,b)=>b.score-a.score).slice(0,n);}
+function advPlan(ctx){
+ const steps=[];let e=ctx.energy,f=ctx.funds;const T=advTargets(ctx,3);const nm=st=>STATES[st].n;
+ if(e<30){steps.push(`rest first (you’re at ${Math.round(e)} energy)`);e+=40;}
+ if(T.length&&e>=22){const two=T.slice(0,2);const msg=advMessage(ctx,two.map(r=>r.st));const hot=msg?two.filter(r=>hotIn(r.st,msg.area)):[];
+  steps.push(`rally in ${listJoin(two.map(r=>nm(r.st)))}${msg?` on ${AREA[msg.area].short.toLowerCase()}`:''}${hot.length?` (${listJoin(hot.map(r=>nm(r.st)))} ${hot.length>1?'care':'cares'} about it)`:''}`);e-=8+7*two.length;}
+ const adT=T[2]||T[0];let adUsed=null;
+ if(adT&&f>=3.5){steps.push(`${adT.m<-2?'contrast':'positive'} ads in ${nm(adT.st)}`);f-=2;adUsed=adT.st;}
+ else if(f<3)steps.push(ctx.mom>=0?'a small-dollar email push, since momentum is up':'a donor dinner for cash');
+ if(steps.length<3){if(ctx.nextKind==='debate'&&ctx.hasPrep)steps.push('debate prep, since the debate is next');else if(e<45)steps.push('rest');else if(ctx.scandal>35)steps.push('a Sunday show instead of a podcast');else{const th=T.find(r=>r!==T[0]&&r!==T[1]&&r.st!==adUsed);steps.push(th?`town halls in ${nm(th.st)}`:'fundraising');}}
+ return steps.slice(0,3);}
+function advHeadsUp(ctx){const nm=st=>STATES[st].n;
+ if(ctx.scandal>35)return `Your scandal number is ${Math.round(ctx.scandal)}. Stay off podcasts for a while.`;
+ const d=(ctx.drops||[])[0];if(d&&d.d<=-1.5)return `We lost ${f1(-d.d)} in ${nm(d.st)} last week. Keep an eye on it.`;
+ if(ctx.spoil&&ctx.spoil.length){const s=ctx.spoil[0];return `In ${nm(s.st)} the ${s.tag} is pulling ${f1(s.pct)}%, more than the margin. That one could go either way because of them.`;}
+ const o=(ctx.opp||[]).find(x=>x.sts&&x.sts.length);if(o)return `${o.last} spent last week in ${listJoin(o.sts.slice(0,3).map(nm))}.`;
+ const w=advWeak(ctx);if(w&&advAud(ctx,w)<46)return `“${w.title}” is our weakest position (${Math.round(advAud(ctx,w))}). Think about changing it.`;
+ return '';}
+function advBrief(ctx){if(!ctx)return '';const out=[];const nm=st=>STATES[st].n;
+ if(ctx.prim){if(ctx.contest){const rs=ctx.rows.filter(r=>ctx.contest.states.includes(r.st));const lead=rs.filter(r=>r.m>=0).length;
+   out.push(rs.length<=2?`${ctx.contest.name} is next. `+rs.map(r=>`${nm(r.st)}: you’re ${r.m>=0?'up':'down'} ${f1(Math.abs(r.m))}${r.top?` on ${r.top}`:''}`).join('. ')+'.':`${ctx.contest.name}: you lead in ${lead} of ${rs.length} states.`);}
+  if(ctx.proj!=null)out.push(`On pace for about ${ctx.proj.toLocaleString()} delegates. You need ${ctx.need.toLocaleString()}.`);}
+ else if(ctx.tp){const t=ctx.rows.find(r=>r.st===ctx.tp);out.push(`You’re at ${ctx.ev} electoral votes${ctx.win!=null?`, about a ${Math.round(ctx.win)}% chance`:''}. ${nm(ctx.tp)} is the tipping point and you’re ${t.m>=0?'up':'down'} ${f1(Math.abs(t.m))} there.`);}
+ const plan=advPlan(ctx);if(plan.length)out.push(`This week I’d ${listJoin(plan)}.`);
+ const h=advHeadsUp(ctx);if(h)out.push(h);
+ return out.join(' ');}
+function advState(ctx,st){const s=STATES[st];const r=ctx.rows.find(x=>x.st===st);const out=[];
+ if(!r)out.push(ctx.prim?`${s.n} already voted, or it isn’t on your calendar.`:`No numbers on ${s.n} yet.`);
+ else{const rank=[...ctx.rows].sort((a,b)=>Math.abs(a.m)-Math.abs(b.m)).findIndex(x=>x.st===st)+1;
+  out.push(`${s.n}, ${r.w} ${ctx.unit}: you’re ${r.m>=0?'up':'down'} ${f1(Math.abs(r.m))}${ctx.prim&&r.top?` on ${r.top}`:''}.${rank<=8?` It’s one of the closest (#${rank}).`:Math.abs(r.m)>12?' Not really in play.':''}`);}
+ const rows=issueRows(st,ctx.planks,ctx.v,ctx.mode);
+ if(rows.length)out.push(`Voters there care about ${listJoin(rows.map(x=>`${x.lab.toLowerCase()} (${x.fit==='No position'?'you have no position':x.fit==='Fits'?'you fit':x.fit==='Clashes'?'you clash':'mixed'})`))}.`);
+ const o=(ctx.opp||[]).filter(x=>(x.sts||[]).includes(st));if(o.length)out.push(`${listJoin(o.map(x=>x.last))} campaigned there last week.`);
+ if(RCV_STATES[st]&&!ctx.prim)out.push('It uses ranked choice, so second choices count.');
+ if(r){if(r.soon===false)out.push('It doesn’t vote soon. Skip it for now.');else if(Math.abs(r.m)<5){const msg=advMessage(ctx,[st]);out.push(`Worth a rally${msg?` on ${AREA[msg.area].short.toLowerCase()}`:''}.`);}else if(r.m>=5)out.push('You’re safe enough there. Spend somewhere else.');else out.push('Probably out of reach unless something changes.');}
+ return out.join(' ');}
+function advAnswer(ctx,raw){
+ if(!ctx)return 'You’re watching now, so there’s nothing to plan. Ask the candidates something in the debate box instead.';
+ const q=raw.toLowerCase();const nm=st=>STATES[st].n;
+ const sts=statesIn(raw);if(sts.length)return sts.slice(0,2).map(st=>advState(ctx,st)).join(' ');
+ if(/running mate|\bvp\b|vice/.test(q)){if(!ctx.vp)return ctx.prim?'You pick a running mate at the convention. Pick one who helps where you’re weak.':'No running mate yet.';
+  const T=advTargets(ctx,2);const home=ctx.rows.find(r=>r.st===ctx.vpHome);
+  return home&&Math.abs(home.m)<4?`Keep ${ctx.vp} in ${nm(ctx.vpHome)} this week. It’s close and it’s their home state.`:`Send ${ctx.vp} to ${listJoin(T.map(r=>nm(r.st)))||'the close states'}. Go with them to one of those for a joint rally.`;}
+ if(/what should|plan|this week|next move|what now|help me|what do i do|advice/.test(q))return advBrief(ctx);
+ const rv=(ctx.opp||[]).find(o=>o.last&&o.last.length>2&&q.includes(o.last.toLowerCase()));
+ if(rv||/opponent|rival|\bbeat\b|other side|winning the primary|frontrunner|front-runner|who.?s ahead/.test(q)){const o=rv||ctx.opp[0];if(!o)return 'Nobody’s close enough to worry about right now.';
+  const strong=ctx.rows.filter(r=>r.m<0&&r.m>-10&&r.soon!==false).sort((a,b)=>b.w-a.w).slice(0,3);
+  return `${o.name}: momentum ${sgn(o.mom)}.${o.sts&&o.sts.length?` Last week they were in ${listJoin(o.sts.slice(0,3).map(nm))}.`:''}${strong.length?` The places they’re beating you that you can still win: ${listJoin(strong.map(r=>`${nm(r.st)} (${sgn(r.m)})`))}.`:''} ${ctx.prim?'Beat them in the states that vote next, not everywhere.':'Contrast ads where it’s close usually beat straight attacks, unless you’re down 3 or more.'}`;}
+ if(!ctx.prim&&/270|path|math|how (do|can) (i|we) win|electoral/.test(q)){const lead=ctx.rows.filter(r=>r.m>=0);const have=lead.reduce((a,r)=>a+r.w,0);
+  if(have>=270){const thin=lead.filter(r=>r.m<3).sort((a,b)=>a.m-b.m);return `You’re at ${have} if every lead holds.${thin.length?` The thin ones are ${listJoin(thin.slice(0,3).map(r=>`${nm(r.st)} (${sgn(r.m)})`))}. Protect those.`:' Nothing’s close. Don’t get careless.'}`;}
+  const flips=ctx.rows.filter(r=>r.m<0).sort((a,b)=>b.m-a.m);let need=270-have;const pk=[];for(const r of flips){if(need<=0)break;pk.push(r);need-=r.w;}
+  return `You lead in states worth ${have}. You need ${270-have} more. Closest flips: ${listJoin(pk.slice(0,4).map(r=>`${nm(r.st)} (${sgn(r.m)}, ${r.w} EV)`))}.`;}
+ if(ctx.prim&&/delegate|nomination|clinch|how many/.test(q)){const T=advTargets(ctx,3);return `You’re on pace for about ${(ctx.proj||0).toLocaleString()} of the ${ctx.need.toLocaleString()} you need.${ctx.contest?` ${ctx.contest.name} is next.`:''}${T.length?` Best shots: ${listJoin(T.map(r=>`${nm(r.st)} (${sgn(r.m)})`))}.`:''}`;}
+ if(/where|which state|go next|target|travel|campaign in|visit|swing state|battleground/.test(q)){const T=advTargets(ctx,4);
+  if(!T.length)return ctx.prim?'Nothing close in the next contests. Build name ID and money.':'Nothing’s close. Lead with your best issue and buy national TV.';
+  const msg=advMessage(ctx,T.map(r=>r.st));return `${listJoin(T.map(r=>`${nm(r.st)} (${sgn(r.m)}, ${r.w} ${ctx.unit})`))}. Close and worth the most.${msg?` Lead with ${AREA[msg.area].short.toLowerCase()}.`:''}`;}
+ if(/issue|message|talk about|rally on|pitch|what do (people|voters) want|care about/.test(q)){const T=advTargets(ctx,3);const msg=advMessage(ctx,T.map(r=>r.st));
+  if(!msg)return 'Get some positions on the Platform tab first. Voters need something to hear.';const hot=T.filter(r=>hotIn(r.st,msg.area));
+  return `Lead with “${msg.title}” (${Math.round(advAud(ctx,msg))} with this crowd).${hot.length?` ${listJoin(hot.map(r=>nm(r.st)))} ${hot.length>1?'care':'cares'} about it, so rallies there hit harder.`:''}`;}
+ if(/attack|negative|\bads?\b|\btv\b|commercial/.test(q)){const T=advTargets(ctx,3);const behind=T.filter(r=>r.m<-2);
+  return `${behind.length?`You’re behind in ${listJoin(behind.map(r=>nm(r.st)))}, so contrast ads make sense there.`:'You’re close or ahead in the states that matter, so stay positive.'} Straight attack ads backfire about 1 in 5 times.${ctx.funds<3?` You only have ${money(ctx.funds)}, so raise money first.`:''}`;}
+ if(/money|fund|cash|donor|broke|raise/.test(q))return ctx.funds<3?`We have ${money(ctx.funds)}. ${ctx.mom>=0?'Do the small-dollar email push. Momentum is up, so it pays well.':'Do a donor dinner. Momentum is down, so small donors won’t give much.'}`:`We have ${money(ctx.funds)}. That’s about ${Math.floor(ctx.funds/1.5)} state ad buys. Put them where it’s close.`;
+ if(/energy|tired|rest|sleep|exhaust/.test(q))return ctx.energy<40?`You’re at ${Math.round(ctx.energy)}. Rest. Gaffes go way up when you’re tired.`:`You’re at ${Math.round(ctx.energy)} energy. A two-state rally costs about 22.`;
+ if(/scandal|gaffe|dirt|oppo/.test(q))return ctx.scandal>25?`Scandal is at ${Math.round(ctx.scandal)} and it drags your numbers. Stay scripted: Sunday shows and town halls, no podcasts.`:`Scandal is at ${Math.round(ctx.scandal)}. You’re fine. Don’t get sloppy.`;
+ if(/debate/.test(q)){const ps=ctx.planks?Object.values(ctx.planks).sort((a,b)=>advAud(ctx,b)-advAud(ctx,a)):[];return `Defend positions that score well with this crowd${ps[0]?`, like “${ps[0].title}”`:''}. If someone hits you, answer it on the next question. If someone blunders, bring it up.${ctx.hasPrep?' Debate prep adds points to every answer.':''}`;}
+ if(/plank|policy|platform|position|weak|flip/.test(q)){const w=advWeak(ctx);if(!w)return 'You don’t have any positions yet.';return `“${w.title}” is the weakest (${Math.round(advAud(ctx,w))}). Changing it costs a move and some flip-flop heat, but it might be worth it.`;}
+ if(/third|libertarian|green|spoiler/.test(q)){if(!ctx.spoil||!ctx.spoil.length)return 'Third parties aren’t big enough to decide any state right now.';return `Third parties are bigger than the margin in ${listJoin(ctx.spoil.slice(0,4).map(s=>nm(s.st)))}. Those can flip on a small shift.`;}
+ if(/ranked|rcv/.test(q))return 'Maine and Alaska use ranked choice. If nobody gets 50%, last place drops out and those ballots go to each voter’s next pick. Third-party voters there mostly come back to whoever is closest to them.';
+ if(/win|chance|odds|losing|how am i|how are we|doing|poll/.test(q)){if(ctx.prim)return `On pace for about ${(ctx.proj||0).toLocaleString()} delegates. You need ${ctx.need.toLocaleString()}.`;return `About a ${Math.round(ctx.win||0)}% chance. ${ctx.ev} electoral votes if every lead holds.${ctx.tp?` ${nm(ctx.tp)} is the tipping point.`:''}`;}
+ return advBrief(ctx)||'Keep working the close states.';}
+function spCtx(){
+ const me=you();const prim=S.track==='primary';const mode=prim?'pri':'gen';let rows=[],tp=null,win=null,ev=null,proj=null;const spoil=[];
+ if(prim){const voted=new Set(S.contestLog.map(r=>r.st));const soon=new Set(upcomingStates(2));
+  rows=ST_KEYS.filter(st=>!voted.has(st)).map(st=>{const p=statePoll(st);const t=active().filter(c=>!c.isPlayer).sort((a,b)=>p[b.id]-p[a.id])[0];return{st,m:(p.you||0)-(t?p[t.id]:0),w:delsOf(st),top:t?lastName(t):'',soon:soon.has(st)};});proj=projDels().you||0;}
+ else if(S.gen){const pr=projection();rows=ST_KEYS.map(st=>({st,m:myMargin(st,pr.st[st]),w:STATES[st].ev,soon:true}));tp=tippingPoint(pr);win=simulate().win;ev=pr.ev[myKey()];
+  ST_KEYS.forEach(st=>{const f=pr.first?.[st]||pr.st[st];Object.keys(S.gen.minors||{}).forEach(k=>{if((f[k]||0)>0.8&&f[k]>Math.abs(leadM(f)))spoil.push({st,tag:MINOR_DEF[k].tag,pct:f[k]});});});spoil.sort((a,b)=>STATES[b.st].ev-STATES[a.st].ev);}
+ const ns=prim?nationalShares():null;const rv=prim?active().filter(c=>!c.isPlayer):attackers();
+ const opp=rv.map(c=>({id:c.id,name:dispName(c),last:lastName(c),mom:c.mom,sts:(S.oppWeek.find(o=>o.id===c.id)||{}).sts||[],share:ns?ns[c.id]||0:0})).sort((a,b)=>b.share-a.share);
+ const h=S.mh,a=h[h.length-2],b=h[h.length-1];const live=new Set(rows.map(r=>r.st));
+ const drops=a&&b?ST_KEYS.filter(st=>live.has(st)&&a.m[st]!=null&&b.m[st]!=null).map(st=>({st,d:b.m[st]-a.m[st]})).sort((x,y)=>x.d-y.d).slice(0,3):[];
+ const cid=prim?upcomingContests(1)[0]:null;const vp=!prim&&S.vpId?cand(S.vpId):null;
+ return{prim,mode,funds:me.funds,energy:me.energy,scandal:me.scandal,mom:me.mom,planks:S.planks,v:plat().v,rows,unit:prim?'delegates':'EV',tp,win,ev,proj,need:prim?needDels():270,opp,drops,spoil,
+  nextKind:steps()[S.step+1]?.t,contest:cid?{name:CONTESTS[cid].name,states:CONTESTS[cid].states}:null,vp:vp?vp.name:null,vpHome:vp?vp.home:null,hasPrep:false};}
+
+function briefText(){let t=advBrief(spCtx());if(S.track==='third'){const miss=Object.keys(REGIONS).filter(r=>!S.access[r]);if(miss.length)t+=` We’re still off the ballot in the ${listJoin(miss.map(r=>REGIONS[r]))}. Ballot drives come first.`;}return t;}
 function weeklyBrief(){const t=briefText();if(t)pushAdv(t);}
-function localAnswer(q){
- q=q.toLowerCase();const me=you();
- if(/money|fund|cash|donor|broke/.test(q))return me.funds<3?`We have ${money(me.funds)}. Do the small-dollar email push. Cheap, and it doesn’t make you look bought.`:`We have ${money(me.funds)}. That’s a couple of ad buys. Put it where the races are close.`;
- if(/debate/.test(q))return 'Defend planks that score well with the room. If someone takes a shot at you, answer it on the next question. If a rival blunders, jump on it.';
- if(/plank|policy|platform|position/.test(q)){const w=Object.values(S.planks).reduce((a,b)=>aud(b)<aud(a)?b:a);return `“${w.title}” is dragging us down (${Math.round(aud(w))}). You can swap it on the Platform tab. Costs a move and some flip-flop heat.`;}
- if(/energy|tired|rest/.test(q))return me.energy<40?'Rest. Low energy is when gaffes happen.':`You’re at ${Math.round(me.energy)} energy. You can handle another rally tour.`;
- if(/win|chance|odds|winning|losing/.test(q)){if(S.track==='primary'){const pd=projDels();return `If things hold, we finish with about ${pd.you.toLocaleString()} delegates. We need ${needDels().toLocaleString()}.`;}return `Our model gives us about ${Math.round(simulate().win)}% right now.`;}
- return briefText()||'Keep working the close states.';
-}
+function localAnswer(q){return advAnswer(spCtx(),q);}
 async function askAdvisor(){
  const q=(S.advDraft||'').trim();if(!q||S.advBusy)return;S.advDraft='';pushAdv(q,'me');
  if(aiOn()){const m={t:stepDate(),txt:'…',who:'riley'};S.adv.push(m);S.advBusy=true;render();scrollAdv();
@@ -1654,6 +1772,9 @@ function slicesSP(st){
  if(!S.gen)return null;
  if(['night','end'].includes(S.phase)&&S.night){const n=S.night;if(S.phase==='night'&&!n.order.slice(0,n.shown).includes(st))return{label:'Not called yet',rows:[]};return slicesGen(n.first?.[st]||n.final[st],n.final[st],`Result · ${STATES[st].ev} electoral votes`);}
  const pr=projection();return slicesGen(pr.first?.[st]||pr.st[st],pr.st[st],`Forecast · ${STATES[st].ev} electoral votes`);}
+function statePeek(st){if(!st||!STATES[st])return '';let d=null;try{d=inMP?slicesMP(st):slicesSP(st);}catch(e){}return d&&d.rows.length?`<div class="peek">${tipHTML(st,d)}</div>`:'';}
+function vActBar(){const ev=S.event;const blocked=ev&&!ev.done&&!ev.loading;
+ return `<div class="actbar" role="region" aria-label="This week"><div><b>${S.ap} of 3 moves left</b><span>Next: ${esc(nextLabel())}</span></div>${blocked?'<button class="btn gold" data-act="toNews">Answer the news</button>':'<button class="btn go" data-act="endTurn">End week</button>'}</div>`;}
 function tipHTML(st,d){
  const rows=[...d.rows].sort((a,b)=>b.pct-a.pct);let shown=rows.slice(0,5);const rest=rows.slice(5);if(rest.length)shown.push({name:'Others',color:'var(--none)',pct:rest.reduce((s,x)=>s+x.pct,0)});
  return `<div class="tip-h"><b>${esc(STATES[st].n)}</b><span>${esc(d.label)}</span></div>${shown.length?`<div class="tip-b">${pieSVG(shown)}<ul>${shown.map(x=>`<li class="${x.me?'me':''}"><i style="background:${x.color}"></i><span>${esc(x.name)}</span><b>${f1(x.pct)}%</b></li>`).join('')}</ul></div>`:''}${d.note?`<p class="tip-n">${esc(d.note)}</p>`:''}${RCV_STATES[st]&&!d.note&&S.track!=='primary'?'<p class="tip-n">Uses ranked-choice voting.</p>':''}${STATE_ISSUES[st]?`<p class="tip-n">Cares about: ${STATE_ISSUES[st].map(x=>esc(x[2])).join(', ')}</p>`:''}`;}
@@ -1662,7 +1783,8 @@ function showTip(st,x,y){let d=null;try{d=inMP?(typeof slicesMP==='function'?sli
  if(tipSt!==st){tipEl.innerHTML=tipHTML(st,d);tipSt=st;}tipEl.hidden=false;placeTip(x,y);}
 function placeTip(x,y){const w=tipEl.offsetWidth,h=tipEl.offsetHeight;let l=x+18,t=y+14;if(l+w>innerWidth-8)l=x-w-18;if(t+h>innerHeight-8)t=Math.max(8,y-h-14);tipEl.style.left=Math.max(8,l)+'px';tipEl.style.top=t+'px';}
 function hideTip(){tipEl.hidden=true;tipSt=null;}
-$('#app').addEventListener('mouseover',e=>{const t=e.target.closest('.usmap .st,.usmap .cbox,.tile');if(!t||t.closest('.hero')||!t.dataset.st){hideTip();return;}tipSt=null;showTip(t.dataset.st,e.clientX,e.clientY);});
+const noHover=matchMedia('(hover: none)');
+$('#app').addEventListener('mouseover',e=>{if(noHover.matches){hideTip();return;}const t=e.target.closest('.usmap .st,.usmap .cbox,.tile');if(!t||t.closest('.hero')||!t.dataset.st){hideTip();return;}tipSt=null;showTip(t.dataset.st,e.clientX,e.clientY);});
 $('#app').addEventListener('mousemove',e=>{if(!tipEl.hidden)placeTip(e.clientX,e.clientY);});
 $('#app').addEventListener('mouseleave',hideTip);window.addEventListener('scroll',hideTip,{passive:true});
 
@@ -1724,11 +1846,11 @@ function vCampaign(){
  if(sel){if(S.track==='primary'){const p=statePoll(sel);const ids=Object.keys(p).sort((a,b)=>p[b]-p[a]);const done=S.contestLog.find(r=>r.st===sel);
    quick=`<b>${STATES[sel].n}</b><span>${delsOf(sel)} delegates · ${CONTESTS[CONTEST_OF[sel]].date}</span><span>${done?`Won by ${done.w==='you'?'you':lastName(cand(done.w))}`:ids.slice(0,3).map(id=>`${lastName(cand(id))} ${f1(p[id])}%`).join(' · ')}</span>`;}
   else{const sh=projection().st[sel];const m=myMargin(sel,sh);quick=`<b>${STATES[sel].n}</b><span>${STATES[sel].ev} EV · baseline ${leanText(sel)}</span><span class="${m>=0?'up':'down'}">You ${sgn(m)}</span>`;}
-  quick=`<div class="quick">${quick}<button class="link" data-act="openState" data-st="${sel}">Full analytics</button></div>`;}
+  quick=`<div class="quick">${quick}<button class="link" data-act="openState" data-st="${sel}">Full analytics</button></div>${statePeek(sel)}`;}
  const tb=MOVES.filter(m=>!m.third||(S.track==='third'&&Object.values(S.access).some(x=>!x))).map(m=>`<button class="mv ${S.mode===m.id?'on':''}" data-act="mode" data-k="${m.id}" ${!canStart(m.id)&&S.mode!==m.id?'disabled':''}>${m.name}<small>${m.lab}</small></button>`).join('');
  const vpc=vVP();
  return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vSetup()}
-  <div class="mapwrap">${usMap(fillFor(mode),{sel,targets:T,up})}</div><div class="legend">${mapLegend(mode)}<span>Hover a state for the full breakdown</span></div>${MAP?'<p class="credit">Map: svg-maps/usa, CC BY 4.0</p>':''}${quick}</section>
+  <div class="mapwrap">${usMap(fillFor(mode),{sel,targets:T,up})}</div><div class="legend">${mapLegend(mode)}<span>Hover or tap a state for the full breakdown</span></div>${MAP?'<p class="credit">Map: svg-maps/usa, CC BY 4.0</p>':''}${quick}</section>
   ${vStand()}</div>
   <aside class="side">${vWeek()}${vWire()}${vpc}${vAdvisor()}</aside></div>`;
 }
@@ -1817,7 +1939,7 @@ function vPlatform(){return `<div><h2 style="font-size:2rem">Your platform</h2><
 function vTitle(){
  const sv=loadSave();const canCont=sv&&sv.phase&&sv.phase!=='title'&&sv.v>=2;
  const fill=st=>{const p=STATES[st].pvi;return{fill:Math.abs(p)<3?'#B9AD84':p<0?mix('var(--d)',Math.abs(p)>12?90:60):mix('var(--r)',p>12?90:60),ink:'#fff'};};
- return `<div class="hero"><button class="navbtn hero-set" data-act="prefs">Settings</button><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
+ return `<div class="hero"><div class="hero-set">${installBtn()}<button class="navbtn" data-act="prefs">Settings</button></div><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
   <p class="sub">Pick a side, write your own platform, survive the primaries and get to 270.</p>
   <div class="btns"><button class="btn gold big" data-act="newGame">${confirmNew?'Start over? This replaces your save':'New campaign'}</button><button class="btn big" data-act="mpOpen">Multiplayer</button>${canCont?`<button class="btn big" data-act="continue">Continue as ${esc(sv.cand?.name||'your candidate')}</button>`:''}</div></div>
   <div>${usMap(fill,{labels:false})}</div></div></div>
@@ -2658,7 +2780,7 @@ function vMPWeek(){
    <p class="small muted">After this plan: ${Math.round(left.e)} energy, ${money(left.f)}. Empty slots become rest.</p></div>
    <div class="mp-readybox">${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${ready?`<button class="btn big" data-act="mpUnready">Change my plan</button>`:`<button class="btn gold big" data-act="mpSubmit">Ready</button>`}<span class="small muted">${waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'}</span>${isHostMe()&&waiting.length&&ready?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}</div></div>
   ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vMPSetupMove()}`}
-  <div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div><div class="legend"><span>Hover a state for the full breakdown</span></div></section>
+  <div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div>${MP.selSt&&!MP.mode?statePeek(MP.selSt):''}</section>
   ${mpStandCard()}</div>
   <aside class="side">
    <section class="card wire"><span class="lab">News</span><h3>${esc(w.ev.headline)}</h3><p class="small">${esc(w.ev.body)}</p><div class="wire-ch">${w.ev.choices.map((ch,i)=>`<button class="btn ${MP.draft.ev===i&&!(MP.draft.evText||'').trim()?'go':''}" data-act="mpEv" data-i="${i}" ${ready?'disabled':''}>${esc(ch.label)}</button>`).join('')}</div>
@@ -2774,30 +2896,31 @@ function mpQueueRevise(pl){
  if(MP.draft.moves.length>=3)return toast('All 3 moves are used this week. Remove one on the Campaign tab first.');
  MP.draft.moves.push({id:'revise',area:pl.area,newPlank:JSON.parse(JSON.stringify(pl)),targets:[]});S.confirm=null;delete S.preview[pl.area];toast('Added to this week’s plan.');render();
 }
+function mpCtx(){
+ const c=myCand();if(!c||c.spec)return null;const prim=M.track==='primary'&&c.inPrimary&&!M.prim[c.party].nominee;const mode=prim?'pri':'gen';let rows=[],tp=null,win=null,ev=null,proj=null,contest=null;const spoil=[];
+ if(prim){const pt=c.party;const voted=new Set(M.prim[pt].log.map(r=>r.st));const soon=new Set(upStatesMP(2));
+  rows=ST_KEYS.filter(st=>!voted.has(st)).map(st=>{const p=pollP(pt,st);const t=Object.keys(p).filter(k=>k!==c.id).sort((x,y)=>p[y]-p[x])[0];return{st,m:(p[c.id]||0)-(p[t]||0),w:delsP(pt,st),top:t?cName(t,true):'',soon:soon.has(st)};});
+  proj=mpProjDels(pt)[c.id]||0;const id=upcomingMP(1)[0];if(id)contest={name:MPC[id].name,states:MPC[id].states};}
+ else if(M.track==='general'&&M.gen&&genIds().includes(c.id)){const pr=mpProj();rows=ST_KEYS.map(st=>({st,m:marginFor(c.id,pr.st[st]),w:STATES[st].ev,soon:true}));
+  let acc=0;for(const r of [...rows].sort((x,y)=>y.m-x.m)){acc+=r.w;if(acc>=270){tp=r.st;break;}}win=mpSim().win;ev=pr.ev[c.id];
+  ST_KEYS.forEach(st=>{const f=pr.first?.[st]||pr.st[st];Object.keys(M.gen.minors||{}).forEach(k=>{if((f[k]||0)>0.8&&f[k]>Math.abs(leadM(f)))spoil.push({st,tag:M.gen.minors[k].tag,pct:f[k]});});});spoil.sort((x,y)=>STATES[y.st].ev-STATES[x.st].ev);}
+ const nat=prim?pollP(c.party):null;
+ const opp=rivalsOf(c).map(x=>({id:x.id,name:x.name,last:x.name.split(' ').slice(-1)[0],mom:x.mom,sts:mpWentTo(x.id),share:nat?nat[x.id]||0:(x.id===M.gen?.D||x.id===M.gen?.R?50:0)})).sort((x,y)=>y.share-x.share);
+ const h=(M.hist||[]).filter(x=>x.m[c.id]);const a=h[h.length-2],b=h[h.length-1];const live=new Set(rows.map(r=>r.st));
+ const drops=a&&b?ST_KEYS.filter(st=>live.has(st)&&a.m[c.id][st]!=null&&b.m[c.id][st]!=null).map(st=>({st,d:b.m[c.id][st]-a.m[c.id][st]})).sort((x,y)=>x.d-y.d).slice(0,3):[];
+ return{prim,mode,funds:c.funds,energy:c.energy,scandal:c.scandal,mom:c.mom,planks:c.planks,v:candV(c),rows,unit:prim?'delegates':'EV',tp,win,ev,proj,need:prim?needP(c.party):270,opp,drops,spoil,
+  nextKind:M.steps[M.step+1]?.t,contest,vp:c.vpName||null,vpHome:c.vpHome||null,hasPrep:true};}
+/* states a candidate went to last week, read from the week's lines */
+function mpWentTo(id){const out=[];(M.lastWeek?.lines||[]).filter(l=>l.id===id).forEach(l=>{ST_KEYS.forEach(st=>{if(l.txt.includes(STATES[st].n)&&!out.includes(st))out.push(st);});});return out;}
 function mpBrief(){
- const c=myCand();if(!c||c.spec)return '';const msgs=[];
- if(M.track==='primary'&&c.inPrimary&&!M.prim[c.party].nominee){const id=upcomingMP(1)[0];
-  if(id){const C=MPC[id];const rows=C.states.map(st=>{const p=pollP(c.party,st);const top=Object.keys(p).filter(k=>k!==c.id).sort((a,b)=>p[b]-p[a])[0];return{st,gap:(p[c.id]||0)-(p[top]||0),top};});
-   if(rows.length<=2)msgs.push(`${C.name} is next. `+rows.map(r=>`In ${STATES[r.st].n} you’re ${r.gap>=0?'up':'down'} ${f1(Math.abs(r.gap))} on ${cName(r.top,true)}`).join('. ')+'.');
-   else{const lead=rows.filter(r=>r.gap>0).length;const tgt=rows.filter(r=>r.gap<3&&r.gap>-10).sort((a,b)=>delsP(c.party,b.st)-delsP(c.party,a.st)).slice(0,3);msgs.push(`${C.name}: you lead in ${lead} of ${rows.length} states.${tgt.length?` The close ones with the most delegates are ${listJoin(tgt.map(r=>STATES[r.st].n))}.`:''}`);}}
-  const hs=primField(c.party).filter(x=>x.human&&x!==c);if(hs.length)msgs.push(`${listJoin(hs.map(h=>h.name))} ${hs.length>1?'are':'is'} in your primary. Opposition research and attack ads hit them directly.`);}
- else if(M.track==='primary')msgs.push('You’re not in a primary right now. Build name ID and money, and rally in the states you want in November.');
- else if(M.gen&&genIds().includes(c.id)){const pr=mpProj();const order=[...ST_KEYS].sort((a,b)=>marginFor(c.id,pr.st[b])-marginFor(c.id,pr.st[a]));let acc=0,tp=order[0];for(const st of order){acc+=STATES[st].ev;if(acc>=270){tp=st;break;}}
-  const m=marginFor(c.id,pr.st[tp]);msgs.push(`${STATES[tp].n} is your tipping-point state and you’re ${m>=0?'up':'down'} ${f1(Math.abs(m))} there.`);
-  const cl=[...ST_KEYS].sort((a,b)=>Math.abs(marginFor(c.id,pr.st[a]))-Math.abs(marginFor(c.id,pr.st[b]))).filter(st=>STATES[st].ev>=6).slice(0,3);msgs.push(`Closest big states: ${listJoin(cl.map(st=>`${STATES[st].n} (${sgn(marginFor(c.id,pr.st[st]))})`))}.`);}
- if(c.energy<35)msgs.push('You’re low on energy. Rest before a gaffe happens.');else if(c.funds<2.5)msgs.push('Money’s tight. Fundraise before you buy ads.');
- if(c.scandal>35)msgs.push('Your scandal number is high. Skip podcasts for a bit.');
- const prim=M.track==='primary'&&c.inPrimary;const ps=Object.values(c.planks);if(ps.length){const w=ps.reduce((a,b)=>(prim?b.pri<a.pri:b.gen<a.gen)?b:a);if((prim?w.pri:w.gen)<45)msgs.push(`“${w.title}” is your weakest position. You can change it on the Platform tab.`);}
- return msgs.join(' ');
-}
-function mpAnswer(q){q=q.toLowerCase();const c=myCand();const prim=M.track==='primary'&&c.inPrimary;
- if(/money|fund|cash|donor|broke/.test(q))return c.funds<3?`You have ${money(c.funds)}. Do the small-dollar email push.`:`You have ${money(c.funds)}. That’s a couple of ad buys. Spend it where it’s close.`;
- if(/debate/.test(q))return 'Defend positions that score well with the crowd. If someone hits you, answer them on the next question. If someone blunders, bring it up. Debate prep adds points to every answer.';
- if(/plank|policy|platform|position/.test(q)){const ps=Object.values(c.planks);const w=ps.reduce((a,b)=>(prim?b.pri<a.pri:b.gen<a.gen)?b:a);return `“${w.title}” is your weakest (${Math.round(prim?w.pri:w.gen)}). Change it on the Platform tab. It uses a move.`;}
- if(/energy|tired|rest/.test(q))return c.energy<40?'Rest. Low energy is when gaffes happen.':`You’re at ${Math.round(c.energy)} energy. You can do a rally tour.`;
- if(/oppo|dirt|attack|friend|rival/.test(q)){const r=rivalsOf(c).filter(x=>x.human);return r.length?`Opposition research on ${r[0].name} works just over half the time. Attack ads cut their presence in the states you pick. Both can backfire.`:'Attack ads and opposition research hurt whoever you aim them at. Both can backfire.';}
- if(/win|chance|odds/.test(q)&&M.gen&&genIds().includes(c.id))return `Our model gives you about ${Math.round(mpSim().win)}% right now.`;
- return mpBrief()||'Keep working the close states.';}
+ const ctx=mpCtx();if(!ctx)return '';const c=myCand();
+ if(M.track==='primary'&&!ctx.prim)return 'You’re not in a primary right now. Build name ID and money, and rally in the states you want in November.';
+ let t=advBrief(ctx);
+ if(ctx.prim){const hs=primField(c.party).filter(x=>x.human&&x!==c);if(hs.length)t+=` ${listJoin(hs.map(h=>h.name))} ${hs.length>1?'are':'is'} in your primary. Opposition research and attack ads hit them directly.`;}
+ return t;}
+function mpAnswer(q){const ctx=mpCtx();
+ if(ctx&&/oppo|dirt|friend/.test(q.toLowerCase())){const r=rivalsOf(myCand()).filter(x=>x.human);return r.length?`Opposition research on ${r[0].name} works a little over half the time. Attack ads cut their numbers in the states you pick. Both can backfire.`:'Opposition research and attack ads hurt whoever you aim them at. Both can backfire.';}
+ return advAnswer(ctx,q);}
 function vMPAdv(){const msgs=(MP.adv||[]).slice(-6);
  return `<section class="card advisor"><div class="adv-h"><span class="av" style="background:#3A4A6B">${ADV.ini}</span><div><b>${ADV.name}</b><span class="small muted">${ADV.role}</span></div></div>
  <div class="adv-msgs">${msgs.length?msgs.map(m=>`<div class="msg ${m.who==='me'?'me':''}">${m.who!=='me'&&m.t?`<time>${esc(m.t)}</time>`:''}${esc(m.txt)}</div>`).join(''):'<div class="msg">I’ll send you a briefing every week.</div>'}</div>
@@ -2946,7 +3069,7 @@ function vMPWatch(){
  if(!f)return `${mpRaceBar()}<section class="card"><p class="small">Nobody left to follow.</p></section>${chat}`;
  const theirs=(M.lastWeek?.lines||[]).filter(l=>l.id===f.id);
  return `${mpRaceBar()}${mpFollowStrip()}
- <div class="main2"><div class="side"><section class="card"><div class="card-h"><h2>${esc(f.name)}</h2><span class="lab">${esc(ownerOf(f))} · ${PARTIES[f.party].noun}</span></div><div class="mapwrap">${usMap(mpFill(),{})}</div><div class="legend"><span>Hover a state for the full breakdown</span></div></section>${mpStandCard()}</div>
+ <div class="main2"><div class="side"><section class="card"><div class="card-h"><h2>${esc(f.name)}</h2><span class="lab">${esc(ownerOf(f))} · ${PARTIES[f.party].noun}</span></div><div class="mapwrap">${usMap(mpFill(),{})}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>${mpStandCard()}</div>
  <aside class="side"><section class="card"><div class="card-h"><h2>Their campaign</h2><span class="lab">${esc(M.week.date)}</span></div>${mpStatList(f)}
   <p class="lab" style="margin:12px 0 4px">Last week</p>${theirs.length?`<ul class="notes">${theirs.map(l=>`<li class="small">${esc(l.txt)}${/[.”…]$/.test(l.txt)?'':'.'}</li>`).join('')}</ul>`:'<p class="small muted">Nothing yet.</p>'}</section>
  ${mpAskBox()}${vLastWeek()}${chat}</aside></div>`;
@@ -2993,6 +3116,12 @@ function mpAudQ(p,pid,txt){
 function mpUseAudQ(){(M.dgroups||[]).forEach(g=>{const a=(M.audQ||[]).shift();if(a)g.qs[g.qs.length-1]={area:a.area,q:a.q,from:a.n};const b=(M.audQ||[]).shift();if(b)g.qs.push({area:b.area,q:b.q,from:b.n});});}
 
 const issAdjC=(c,st,mode)=>c?2.5*(issueFit(c.human?c.planks:null,candV(c),st,mode)-fitBase(c.party,st,mode)):0;
+
+/* bottom bar on phones: what's left this week, and the button that ends it */
+function mpActBar(){
+ if(!M||M.phase!=='week'||!M.week)return '';const c=myCand();if(!c||c.spec)return '';const ready=!!M.week.ready[MP.myPid];const n=MP.draft.moves.length;
+ const waiting=actors().filter(p=>!M.week.ready[p.pid]).length;
+ return `<div class="actbar" role="region" aria-label="This week"><div><b>${ready?'Plan locked in':`${n} of 3 moves planned`}</b><span>${ready?(waiting?`Waiting on ${waiting} player${waiting>1?'s':''}`:'Everyone’s in'):esc(M.week.date)}</span></div>${ready?'<button class="btn" data-act="mpUnready">Change plan</button>':'<button class="btn gold" data-act="mpSubmit">Ready</button>'}</div>`;}
 /* ========== saved candidates & policy library ========== */
 function getLib(){try{const l=JSON.parse(localStorage.getItem('wibi-lib'));if(l&&Array.isArray(l.cands))return{cands:l.cands,policies:l.policies||{}};}catch(e){}return{cands:[],policies:{}};}
 function setLib(l){try{localStorage.setItem('wibi-lib',JSON.stringify(l));}catch(e){}}
@@ -3011,6 +3140,7 @@ let delPending=null;
 function vSaved(){
  const lib=getLib();
  return `<div class="savedrow">${lib.cands.length?`<section class="card"><div class="card-h"><h2>Your saved candidates</h2><span class="lab">Skip the setup and run again</span></div><div class="pgrid">${lib.cands.map((c,i)=>`<div class="pcard saved" style="--pc:${PARTIES[c.party]?.color||'var(--nav)'}"><span class="ph"><b>${esc(c.name)}</b><span class="small muted">${esc(PARTIES[c.party]?.noun||'')}</span></span><span class="small muted">${esc(BGS[c.bg]?.name||'')} · ${esc(STATES[c.state]?.n||'')} · ${Object.keys(c.planks||{}).length} positions</span><div class="btns"><button class="btn go sm" data-act="quickStart" data-i="${i}">Run again</button><button class="link small" data-act="delCand" data-i="${i}">${delPending===i?'Click again to delete':'Delete'}</button></div></div>`).join('')}</div></section>`:''}
+  ${vSync()}
   <section class="card"><div class="card-h"><h2>Back up your saves</h2></div><p class="small muted" style="margin-bottom:10px;max-width:70ch">Your game, saved candidates and written policies save automatically in this browser. To keep a copy or move them to another computer, download a backup file and load it there.</p>
   <div class="btns"><button class="btn" data-act="exportSave">Download backup</button><label class="btn" for="imp-file">Load a backup</label><input type="file" id="imp-file" accept=".json,application/json" hidden></div></section></div>`;
 }
@@ -3112,18 +3242,74 @@ $('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]')
  else if(a==='look'){LOOK=v;prefSet('wibi-lobby',v);openPrefs([a,v]);if(typeof inMP!=='undefined'&&inMP)render();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#prefs').hidden)closePrefs();});
 
+
+/* ========== play on another device: send saves straight to your phone or another computer ========== */
+let installEvt=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();installEvt=e;if(!inMP&&S.phase==='title')app.innerHTML=vTitle();});
+addEventListener('appinstalled',()=>{installEvt=null;toast('Installed. Open it from your home screen or app list.');});
+const isStandalone=()=>matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function installBtn(){if(isStandalone()||window.claude||location.protocol==='file:')return '';if(installEvt)return '<button class="navbtn" data-act="install">Install app</button>';if(isIOS())return '<button class="navbtn" data-act="installHelp">Add to phone</button>';return '';}
+const SYNC_PREFIX='winitorbinit-sync-';let SYNC=null;
+function syncRefresh(){if(!inMP&&S.phase==='title'){const y=scrollY;app.innerHTML=vTitle();scrollTo(0,y);}}
+function syncClose(){try{SYNC&&SYNC.peer&&SYNC.peer.destroy();}catch(e){}clearTimeout(SYNC&&SYNC.timer);}
+function syncCode(){const a='ABCDEFGHJKMNPQRSTUVWXYZ23456789';let c='';for(let i=0;i<6;i++)c+=a[Math.floor(Math.random()*a.length)];return c;}
+function syncPayload(){const lib=getLib();return{kind:'wibi-sync',v:1,lib,game:loadSave(),prefs:{theme:THEME,look:LOOK}};}
+async function syncSend(){
+ syncClose();if(window.claude){SYNC={mode:'send',status:'blocked'};return syncRefresh();}
+ SYNC={mode:'send',status:'starting'};syncRefresh();
+ try{await loadPeerLib();}catch(e){SYNC.status='offline';return syncRefresh();}
+ const code=syncCode();const p=new Peer(SYNC_PREFIX+code.toLowerCase(),{debug:0});SYNC={mode:'send',status:'starting',code,peer:p};
+ p.on('open',()=>{SYNC.status='waiting';syncRefresh();});
+ p.on('connection',conn=>{conn.on('open',()=>{conn.send(syncPayload());SYNC.status='sent';syncRefresh();setTimeout(()=>{try{p.destroy();}catch(e){}},4000);});});
+ p.on('error',e=>{if(e&&e.type==='unavailable-id')return syncSend();SYNC.status='offline';syncRefresh();});
+ SYNC.timer=setTimeout(()=>{if(SYNC&&SYNC.mode==='send'&&SYNC.status==='waiting'){syncClose();SYNC.status='expired';syncRefresh();}},10*60*1000);}
+async function syncGet(){
+ const code=(SYNC&&SYNC.input||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(code.length!==6){toast('Type the 6-character code from your other device.');return;}
+ syncClose();SYNC={mode:'get',status:'connecting',input:code};syncRefresh();
+ try{await loadPeerLib();}catch(e){SYNC.status='offline';return syncRefresh();}
+ const p=new Peer({debug:0});SYNC.peer=p;
+ p.on('open',()=>{const conn=p.connect(SYNC_PREFIX+code.toLowerCase(),{reliable:true});
+  conn.on('data',d=>{if(d&&d.kind==='wibi-sync'&&d.lib){SYNC.got=d;SYNC.status='got';clearTimeout(SYNC.timer);syncRefresh();setTimeout(()=>{try{p.destroy();}catch(e){}},500);}});});
+ p.on('error',e=>{SYNC.status=e&&e.type==='peer-unavailable'?'notfound':'offline';syncRefresh();});
+ SYNC.timer=setTimeout(()=>{if(SYNC&&SYNC.status==='connecting'){syncClose();SYNC.status='notfound';syncRefresh();}},15000);}
+function syncApply(withGame){
+ const d=SYNC&&SYNC.got;if(!d)return;const cur=getLib();const lib={cands:[...cur.cands],policies:{...cur.policies}};
+ (d.lib.cands||[]).forEach(c=>{if(!c||!c.name)return;const i=lib.cands.findIndex(x=>x.name===c.name);if(i>=0)lib.cands[i]=c;else lib.cands.push(c);});
+ Object.entries(d.lib.policies||{}).forEach(([a,list])=>{if(!AREA[a]||!Array.isArray(list))return;const have=lib.policies[a]=[...(lib.policies[a]||[])];list.forEach(p=>{if(p&&p.text&&!have.some(x=>x.text===p.text))have.push(p);});});
+ setLib(lib);let msg=`Got ${(d.lib.cands||[]).length} saved candidate${(d.lib.cands||[]).length===1?'':'s'}.`;
+ if(withGame&&d.game&&d.game.v>=2){try{localStorage.setItem('wibi-save-v2',JSON.stringify(d.game));msg+=' Your game is here too. Hit Continue.';}catch(e){msg+=' The game was too big to save here.';}}
+ if(d.prefs&&THEMES.some(t=>t[0]===d.prefs.theme)){THEME=d.prefs.theme;prefSet('wibi-theme',THEME);applyTheme();}
+ SYNC=null;toast(msg);app.innerHTML=vTitle();}
+function vSync(){
+ const st=SYNC&&SYNC.status;let body='';
+ const intro='<p class="small muted" style="max-width:70ch">Your saves live in this browser. To get them on your phone, tablet or another computer, open Win It or Bin It on both. Tap <b>Send</b> here and <b>Get</b> on the other one.</p>';
+ if(!SYNC)body=`${intro}<div class="btns" style="margin-top:10px"><button class="btn go" data-act="syncSend">Send from this device</button><button class="btn" data-act="syncOpen">Get from another device</button></div>`;
+ else if(SYNC.mode==='send'){
+  if(st==='waiting')body=`<p>On your other device, tap <b>Get from another device</b> and type this code:</p><p class="sync-code">${SYNC.code.slice(0,3)} ${SYNC.code.slice(3)}</p><p class="small muted">Keep this screen open until it says sent. The code works for 10 minutes.</p><div class="btns"><button class="btn" data-act="syncCancel">Cancel</button></div>`;
+  else if(st==='sent')body=`<p class="up"><b>Sent.</b> Your other device has everything. You can close this.</p><div class="btns"><button class="btn" data-act="syncCancel">Done</button></div>`;
+  else if(st==='starting')body='<p><span class="spin"></span> Getting a code…</p>';
+  else body=`<p class="down"><b>${st==='expired'?'The code ran out.':st==='blocked'?'This page can’t send saves.':'Couldn’t get online.'}</b> ${st==='blocked'?'Open the Win It or Bin It website or the downloaded game instead.':'Check your internet and try again.'}</p><div class="btns"><button class="btn go" data-act="syncSend">Try again</button><button class="btn" data-act="syncCancel">Cancel</button></div>`;}
+ else{
+  if(st==='got'){const d=SYNC.got;const g=d.game&&d.game.phase&&d.game.phase!=='title'?d.game:null;const nc=(d.lib.cands||[]).length;
+   body=`<p><b>Found it.</b> ${nc} saved candidate${nc===1?'':'s'}${g?` and a game in progress as ${esc(g.cand?.name||'your candidate')}`:''}.</p>${g&&loadSave()?.phase&&loadSave().phase!=='title'?'<p class="small muted">Loading the game replaces the game on this device.</p>':''}
+   <div class="btns">${g?'<button class="btn go" data-act="syncLoadAll">Load everything</button><button class="btn" data-act="syncLoadLib">Just the saved candidates</button>':'<button class="btn go" data-act="syncLoadLib">Load them</button>'}<button class="btn" data-act="syncCancel">Cancel</button></div>`;}
+  else{const err=st==='notfound'?'<p class="down small"><b>No device is sending that code.</b> Check the code, and keep the other device on its Send screen.</p>':st==='offline'?'<p class="down small"><b>Couldn’t get online.</b> Check your internet and try again.</p>':'';
+   body=`<p>Type the code shown on your other device.</p>${err}<div class="row" style="margin-top:8px"><label class="fld" style="flex:0 1 200px"><span>Code</span><input type="text" id="sync-code" maxlength="7" autocomplete="off" autocapitalize="characters" inputmode="text" placeholder="ABC 123" value="${esc(SYNC.input||'')}" style="text-transform:uppercase;letter-spacing:.15em"></label><button class="btn go" data-act="syncGet" ${st==='connecting'?'disabled':''}>${st==='connecting'?'<span class="spin"></span> Connecting':'Get'}</button><button class="btn" data-act="syncCancel">Cancel</button></div>`;}}
+ return `<section class="card"><div class="card-h"><h2>Play on another device</h2><span class="lab">Phone, tablet or computer</span></div>${body}</section>`;}
+
 /* ========== render ========== */
 const app=$('#app');
 function render(){
  const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
- if(inMP){if(tut)endTut();app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`;
+ if(inMP){if(tut)endTut();const ab=mpActBar();document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`+ab;
   if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
   document.querySelectorAll('.mp-chatlog').forEach(l=>l.scrollTop=l.scrollHeight);return;}
- if(S.phase==='title'){if(tut)endTut();app.innerHTML=vTitle();return;}
+ if(S.phase==='title'){if(tut)endTut();document.body.classList.remove('has-actbar');app.innerHTML=vTitle();return;}
  let body='';
  if(S.phase==='hq')body=S.tab==='map'?vMapTab():S.tab==='platform'?vPlatformBody():vCampaign();
  else body=({quiz:vQuiz,compass:vCompass,candidate:vCandidate,platform:vPlatform,debate:vDebate,results:vResults,convention:vConvention,night:vNight,end:vEnd}[S.phase]||(()=>''))();
- app.innerHTML=vNav()+`<main class="wrap">${body}</main>`;
+ const ab=S.phase==='hq'?vActBar():'';document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vNav()+`<main class="wrap">${body}</main>`+ab;
  if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
  save();
  if(tut){if(tutKey()!==tut.k)endTut();else requestAnimationFrame(placeTut);}else setTimeout(maybeTutorial,80);
@@ -3253,6 +3439,15 @@ const H={
  mpRematch(){mpSend({t:'rematch'});},
  mpNightSkip(){MP.nightShown=M.night.order.length;MP.nightDone=true;render();},
  prefs(){openPrefs();},
+ install(){if(!installEvt)return;installEvt.prompt();installEvt.userChoice.finally(()=>{installEvt=null;app.innerHTML=vTitle();});},
+ installHelp(){toast('Tap the Share button at the bottom of Safari, then “Add to Home Screen”.');},
+ syncSend(){syncSend();},
+ syncOpen(){syncClose();SYNC={mode:'get',status:'idle',input:''};syncRefresh();setTimeout(()=>$('#sync-code')?.focus(),50);},
+ syncGet(){syncGet();},
+ syncCancel(){syncClose();SYNC=null;syncRefresh();},
+ syncLoadAll(){syncApply(true);},
+ syncLoadLib(){syncApply(false);},
+ toNews(){if(S.tab!=='campaign'&&!inMP){S.tab='campaign';render();}const w=document.querySelector('.wire');if(w)w.scrollIntoView({behavior:'smooth',block:'center'});},
  pickSt(d){if(inMP){MP.selSt=d.st;}else S.selSt=d.st;render();},
  vpAct(d){if(!S.vp)S.vp={plan:{k:'rally',sts:[]},log:null};S.vp.plan.k=d.k;render();},
  vpSt(d){const P=S.vp.plan;if(P.sts.includes(d.st))P.sts=P.sts.filter(x=>x!==d.st);else{if(P.sts.length>=2)P.sts.shift();P.sts.push(d.st);}render();},
@@ -3279,6 +3474,7 @@ function tooFast(act,e){if(!ADVANCE.has(act))return false;if(e&&e.detail>1)retur
 app.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||t.disabled)return;const f=H[t.dataset.act];if(f){e.preventDefault();if(tooFast(t.dataset.act,e))return;f({...t.dataset},t);}});
 app.addEventListener('input',e=>{const id=e.target.id||'';
  if(id.startsWith('mp-')&&MP){const v=e.target.value;if(id==='mp-evtext'){MP.draft.evText=v;return;}if(id==='mp-name'){MP.form.name=v;setMpName(cleanTxt(v,24));}else if(id==='mp-cname'){mpQB().name=v;if(meP()?.ready)mpSend({t:'ready',v:false});}else if(id==='mp-gname')MP.form.gname=v;else if(e.target.type!=='checkbox'&&e.target.tagName!=='SELECT')MP.form[id]=v;return;}
+ if(id==='sync-code'&&SYNC){SYNC.input=e.target.value;return;}
  if(id.startsWith('cx-'))S.drafts[id.slice(3)]=e.target.value;else if(id==='press-ans')S.pressDraft=e.target.value;else if(id==='db-ans')S.dbDraft=e.target.value;else if(id==='f-name')S.cand.name=e.target.value;else if(id==='quiz-own')S.quizDraft=e.target.value;else if(id==='adv-q')S.advDraft=e.target.value;});
 app.addEventListener('change',e=>{const el=e.target;
  if(el.id==='imp-file'){importSave(el.files&&el.files[0]);el.value='';return;}
@@ -3289,7 +3485,7 @@ app.addEventListener('change',e=>{const el=e.target;
  if(el.id==='f-state')S.cand.state=el.value;else if(el.name==='f-bg')S.cand.bg=el.value;
  else if(el.id==='f-plank')S.form.plank=el.value;else if(el.id==='f-target')S.form.target=el.value;else if(el.id==='f-region')S.form.region=el.value;else if(el.id==='f-dbtarget')S.form.dbTarget=el.value;});
 app.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const id=e.target.id;
- if(id==='adv-q'){e.preventDefault();askAdvisor();}else if(id==='mp-chat'){e.preventDefault();H.mpChat();}else if(id==='mp-lchat'){e.preventDefault();H.mpLChat();}else if(id==='mp-code'){e.preventDefault();H.mpJoinCode();}else if(id==='mp-advq'){e.preventDefault();H.mpAskAdv();}});
+ if(id==='adv-q'){e.preventDefault();askAdvisor();}else if(id==='mp-chat'){e.preventDefault();H.mpChat();}else if(id==='mp-lchat'){e.preventDefault();H.mpLChat();}else if(id==='mp-code'){e.preventDefault();H.mpJoinCode();}else if(id==='mp-advq'){e.preventDefault();H.mpAskAdv();}else if(id==='sync-code'){e.preventDefault();H.syncGet();}});
 document.addEventListener('keydown',e=>{if(S.phase!=='quiz'||e.repeat||e.target.closest('input,textarea,select')||!$('#prefs').hidden)return;const k=+e.key;if(k>=1&&k<=5&&!tooFast('answer'))H.answer({v:String(k-3)});});
 
 /* ========== auto-update (downloaded copies) ========== */
@@ -3322,5 +3518,6 @@ try{window.claude?.hot?.snapshot?.(()=>JSON.parse(JSON.stringify(S)));}catch(e){
 if(window.claude?.hot?.ready)window.claude.hot.ready(start);else start(window.claude?.hot?.data??{});
 </script>
 
+<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')&&!window.claude)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));</script>
 </body>
 </html>
