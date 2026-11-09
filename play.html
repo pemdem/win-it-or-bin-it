@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>var WIBI_BUILD=1794199395;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <title>Win It or Bin It</title>
@@ -2919,8 +2920,31 @@ app.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const id=e.target.i
  if(id==='adv-q'){e.preventDefault();askAdvisor();}else if(id==='mp-chat'){e.preventDefault();H.mpChat();}else if(id==='mp-lchat'){e.preventDefault();H.mpLChat();}else if(id==='mp-code'){e.preventDefault();H.mpJoinCode();}else if(id==='mp-advq'){e.preventDefault();H.mpAskAdv();}});
 document.addEventListener('keydown',e=>{if(S.phase!=='quiz'||e.target.closest('input,textarea,select'))return;const k=+e.key;if(k>=1&&k<=5)H.answer({v:String(k-3)});});
 
+/* ========== auto-update (downloaded copies) ========== */
+// Downloaded copies check the website for a newer build, save it, and the loader at the top of the file runs it next time.
+function checkUpdate(){
+ if(typeof WIBI_BUILD==='undefined'||window.claude)return;
+ const test=/[?&]updtest/.test(location.search);if(location.protocol!=='file:'&&!test)return;
+ const base=test?'./':'https://pemdem.github.io/win-it-or-bin-it/';const t0=Date.now();
+ fetch(base+'version.json?t='+t0,{cache:'no-store'}).then(r=>r.ok?r.json():null).then(v=>{
+  if(!v||!(v.build>WIBI_BUILD))return;
+  return fetch(base+'play.html?t='+t0,{cache:'no-store'}).then(r=>r.ok?r.text():null).then(html=>{
+   if(!html||!html.includes('var WIBI_BUILD='+v.build+';'))return;
+   try{localStorage.setItem('wibi-update',JSON.stringify({build:v.build,html}));}catch(e){return;}
+   if(!inMP&&S.phase==='title'&&Date.now()-t0<10000&&$('#prefs').hidden){location.reload();return;}
+   toast('A new version downloaded. It loads next time you open the game.');
+  });
+ }).catch(()=>{});
+}
+function updateNote(){
+ if(typeof WIBI_BUILD==='undefined')return;window.WIBI_BOOTED=1;
+ let seen=0;try{seen=+localStorage.getItem('wibi-seenbuild')||0;}catch(e){}
+ if(window.WIBI_SWAP&&seen&&seen<WIBI_BUILD)setTimeout(()=>toast('Updated to the newest version.'),600);
+ try{localStorage.setItem('wibi-seenbuild',String(Math.max(seen,WIBI_BUILD)));}catch(e){}
+}
+
 /* ========== boot ========== */
-function start(data){initMap();if(data&&data.phase&&data.v>=2){S=data;sanitize();}render();initAI();
+function start(data){initMap();if(data&&data.phase&&data.v>=2){S=data;sanitize();}render();initAI();updateNote();checkUpdate();
  const jm=location.hash.match(/^#join-([a-z0-9]{5})$/i);if(jm){try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}openMultiplayer({join:jm[1].toLowerCase()});}}
 try{window.claude?.hot?.snapshot?.(()=>JSON.parse(JSON.stringify(S)));}catch(e){}
 if(window.claude?.hot?.ready)window.claude.hot.ready(start);else start(window.claude?.hot?.data??{});
