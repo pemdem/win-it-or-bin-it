@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794278404;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794278783;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -433,6 +433,10 @@ div.dopt{cursor:default}
 #prefs[hidden]{display:none}
 .prefs-box{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
 .prefs-box h2{font-size:1.7rem}
+.news-rel h3{font-size:1rem;margin:12px 0 6px}
+.news-rel ul{margin:0;padding-left:20px;display:grid;gap:5px;line-height:1.45;list-style:disc}
+.news-rel li{display:list-item}
+.news-box .btns{justify-content:flex-end}
 .themes{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
 .theme{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 6px 8px;cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.9rem}
 .theme.on{outline:2px solid var(--gold);outline-offset:1px}
@@ -3850,11 +3854,12 @@ function lookPv(k){
 function vPrefs(){return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Settings"><div class="card-h"><h2>Settings</h2><button class="btn sm" data-pact="close">Close</button></div>
  <div><p class="lab" style="margin-bottom:8px">Theme</p><div class="themes">${THEMES.map(t=>`<button class="theme ${THEME===t[0]?'on':''}" data-pact="theme" data-v="${t[0]}" aria-pressed="${THEME===t[0]}">${swatch(t)}<span>${t[1]}<br><small>${t[2]}</small></span></button>`).join('')}</div></div>
  <div><p class="lab" style="margin-bottom:8px">Multiplayer lobby</p><div class="looks">${LOOKS.map(l=>`<button class="look ${LOOK===l[0]?'on':''}" data-pact="look" data-v="${l[0]}" aria-pressed="${LOOK===l[0]}">${lookPv(l[0])}<span><b>${l[1]}</b><span class="small">${l[2]}</span></span></button>`).join('')}</div></div>
- <p class="small muted">Saved on this device.</p></section>`;}
+ <p class="small muted">Saved on this device. <button class="link small" data-pact="news">What’s new</button></p></section>`;}
 function openPrefs(fk){const el=$('#prefs');el.innerHTML=vPrefs();el.hidden=false;(fk&&el.querySelector(`[data-pact="${fk[0]}"][data-v="${fk[1]}"]`)||el.querySelector('button'))?.focus();}
 function closePrefs(){$('#prefs').hidden=true;}
 $('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]');if(!t){if(e.target.id==='prefs')closePrefs();return;}const a=t.dataset.pact,v=t.dataset.v;
  if(a==='close')closePrefs();
+ else if(a==='news')openNews();
  else if(a==='theme'){THEME=v;prefSet('wibi-theme',v);applyTheme();openPrefs([a,v]);}
  else if(a==='look'){LOOK=v;prefSet('wibi-lobby',v);openPrefs([a,v]);if(typeof inMP!=='undefined'&&inMP)render();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#prefs').hidden)closePrefs();});
@@ -4149,10 +4154,49 @@ function checkUpdate(){
   });
  }).catch(()=>{});
 }
+/* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
+const CHANGES=[
+ {v:1,date:'Nov 9, 2026',
+  add:['The map is now the main campaign screen. Click a state to see who’s ahead, what voters there care about, and what’s happened there.',
+   'Pick several states at once and see the cost before you confirm.',
+   'Every move is in the weekly plan, with what it should get you in each state. After the week you see what actually happened.',
+   'Territories and Democrats Abroad vote in the primaries.',
+   'Maine and Nebraska give one electoral vote per district. DC is easier to pick.',
+   'If nobody gets 270, the House picks the president and the Senate picks the VP.',
+   'Lose the primary and you can still run as the VP, in single-player and multiplayer.',
+   '6- and 8-player games. In 8-player games the third-party players write the primary debate questions.',
+   'Third-party candidates can hold their own forum.',
+   'Rejoin a multiplayer game if you drop out.',
+   'A corner panel for news, Riley, opponents and alerts.',
+   'A demo campaign you can try without touching your real save.',
+   'This window, so you can see what changed after each update.'],
+  chg:['Third parties don’t run in primaries anymore. Every Green, Libertarian and Independent goes straight to November.',
+   'States show the leader’s color even under 50%. No more brown states. Exact ties are striped.',
+   'Riley can answer more kinds of questions and tells you when it doesn’t know.',
+   'Computer opponents stick to what they said in debates and spend money more like real campaigns.',
+   'District leanings and territory primary dates match real numbers.',
+   'Everyone in a multiplayer game needs this version to join.']},
+];
+function vNews(list){const ul=(h,xs)=>xs&&xs.length?`<h3>${h}</h3><ul>${xs.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'';
+ return `<section class="card prefs-box news-box" role="dialog" aria-modal="true" aria-label="What’s new"><div class="card-h"><h2>What’s new</h2><button class="btn sm" data-pact="close">Close</button></div>
+ ${list.map(c=>`<div class="news-rel"><p class="lab">${esc(c.date)}</p>${ul('Added',c.add)}${ul('Changed',c.chg)}</div>`).join('')}
+ <div class="btns"><button class="btn gold" data-pact="close">Got it</button></div></section>`;}
+function openNews(list){const el=$('#prefs');el.innerHTML=vNews(list||CHANGES.slice(0,3));el.hidden=false;el.querySelector('button')?.focus();}
+// Show the notes for any update this device hasn't seen. Brand-new players don't get it.
+function whatsNew(){
+ const rel=CHANGES[0].v;let seen=null,old=false;
+ try{seen=localStorage.getItem('wibi-seenrel');old=!!(localStorage.getItem('wibi-seenbuild')||localStorage.getItem('wibi-save-v2')||localStorage.getItem('wibi-lib'));}catch(e){return false;}
+ const since=seen==null?(old?0:rel):(+seen||0);
+ try{localStorage.setItem('wibi-seenrel',String(rel));}catch(e){}
+ const list=CHANGES.filter(c=>c.v>since);if(!list.length)return false;
+ setTimeout(()=>{if($('#prefs').hidden&&$('#tut').hidden)openNews(list);},700);return true;
+}
 function updateNote(){
- if(typeof WIBI_BUILD==='undefined')return;window.WIBI_BOOTED=1;
+ if(typeof WIBI_BUILD!=='undefined')window.WIBI_BOOTED=1;
+ let shown=false;try{shown=whatsNew();}catch(e){}
+ if(typeof WIBI_BUILD==='undefined')return;
  let seen=0;try{seen=+localStorage.getItem('wibi-seenbuild')||0;}catch(e){}
- if(window.WIBI_SWAP&&seen&&seen<WIBI_BUILD)setTimeout(()=>toast('Updated to the newest version.'),600);
+ if(!shown&&window.WIBI_SWAP&&seen&&seen<WIBI_BUILD)setTimeout(()=>toast('Updated to the newest version.'),600);
  try{localStorage.setItem('wibi-seenbuild',String(Math.max(seen,WIBI_BUILD)));}catch(e){}
 }
 
