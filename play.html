@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794282831;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794283420;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -442,6 +442,7 @@ div.dopt{cursor:default}
 body.phone main.wrap{max-width:560px}
 body.phone .sheet{left:50%;right:auto;width:100%;max-width:560px;transform:translateX(-50%)}
 .cp-race .av{width:26px;height:26px;display:inline-flex;vertical-align:middle;margin-right:6px}
+.confirm-box{max-width:460px}.confirm-box p{margin:6px 0 4px}
 .now-bar{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;margin:0 0 8px;border-radius:8px;background:color-mix(in srgb,var(--gold) 16%,transparent);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);font-size:.9rem}
 .now-bar>div{display:flex;flex-direction:column;gap:2px;min-width:0}.now-bar span{overflow-wrap:anywhere}
 .now-dot{flex:0 0 10px;width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--gold);animation:nowpulse 1.6s ease-in-out infinite}
@@ -1274,23 +1275,53 @@ function howTo(mp){if(!howOn())return '';return `<div class="howto"><b>How a wee
 const AV_SKIN=['#F3D3B5','#E2B48C','#C68B5E','#9C6640','#6E4529','#4A2E1B'];
 const AVATARS=[['a1',0,'short','#3B2A1E','#2F4A7A'],['a2',1,'long','#1F1712','#7A2F3B'],['a3',2,'bun','#2B1B12','#2E6B4F'],['a4',3,'short','#121212','#4A4A6A'],['a5',4,'curly','#151010','#8A5A1E'],['a6',5,'bald','#000','#2F4A7A'],
  ['a7',0,'long','#C9A34E','#5B3B8A'],['a8',1,'side','#6B4A2E','#1F5F6B'],['a9',2,'curly','#3A2618','#9A3B2B'],['a10',3,'bun','#0E0E0E','#3C6E3C'],['a11',0,'short','#B9B9B9','#3A3A4A'],['a12',4,'side','#1A1210','#6A2E5E']];
-const AV_IDS=[...AVATARS.map(a=>a[0]),'trump'];
+const AV_IDS=[...AVATARS.map(a=>a[0]),'biden','harris','trumpkim','mugshot','trump'];
+/* famous faces, drawn in the game's own flat style. The mugshot is the hidden one */
+const FAMOUS={
+ biden:['Joe Biden',`<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#D6DEEB"/><g opacity=".35"><rect x="47" y="0" width="17" height="3" fill="#B22234"/><rect x="47" y="6" width="17" height="3" fill="#B22234"/><rect x="47" y="12" width="17" height="3" fill="#B22234"/><rect x="47" y="0" width="7" height="8" fill="#3C3B6E"/></g><path d="M8 64C8 47 19 42 32 42C45 42 56 47 56 64Z" fill="#1F2A44"/><path d="M26 42L32 52L38 42Z" fill="#fff"/><path d="M30.5 44H33.5L35 60L32 63L29 60Z" fill="#2F6FD6"/><rect x="27" y="36" width="10" height="7" fill="#E9B9A0"/><ellipse cx="32" cy="28" rx="13" ry="14" fill="#F1C7AE"/><path d="M19 26C18 13 46 13 45 26C44 21 41 18.5 38 17.8C34 17 30 17 26 17.8C23 18.6 20.5 21.5 19 26Z" fill="#ECECEF"/><path d="M19 25C17.8 28 18.2 31.5 19.6 33.5L21 29Z" fill="#ECECEF"/><path d="M45 25C46.2 28 45.8 31.5 44.4 33.5L43 29Z" fill="#ECECEF"/><path d="M25 28.6Q27 26.9 29 28.6M35 28.6Q37 26.9 39 28.6" stroke="#2A2A2A" stroke-width="1.4" fill="none" stroke-linecap="round"/><path d="M25.5 33.4Q32 40.5 38.5 33.4Z" fill="#fff" stroke="#8A4A3A" stroke-width="1.2" stroke-linejoin="round"/></svg>`],
+ harris:['Kamala Harris',`<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#D6DEEB"/><g opacity=".35"><rect x="0" y="0" width="17" height="3" fill="#B22234"/><rect x="0" y="6" width="17" height="3" fill="#B22234"/><rect x="0" y="12" width="17" height="3" fill="#B22234"/><rect x="10" y="0" width="7" height="8" fill="#3C3B6E"/></g><path d="M17 30C15 12 49 12 47 30L49 49C45 51 43 45 43 35C40 25 24 25 21 35C21 45 19 51 15 49Z" fill="#2E1E16"/><path d="M10 64C10 47 20 42 32 42C44 42 54 47 54 64Z" fill="#1F2A44"/><path d="M26 42L32 50L38 42Z" fill="#151515"/>${[25.5,28,30.5,33,35.5,38].map((x,i)=>`<circle cx="${x}" cy="${44+Math.abs(i-2.5)*-0.6+1.5}" r="1.15" fill="#F5F1E6"/>`).join('')}<rect x="27" y="36" width="10" height="7" fill="#A86F4C"/><ellipse cx="32" cy="28" rx="12.5" ry="13.5" fill="#B57A54"/><path d="M19.5 28C19 15.5 45 14 45 27.5C42 21 36 18.6 30 19.2C26 21 22 24 19.5 28Z" fill="#2E1E16"/><circle cx="19.8" cy="32" r="1" fill="#F5F1E6"/><circle cx="44.2" cy="32" r="1" fill="#F5F1E6"/><circle cx="27.5" cy="29" r="1.3" fill="#1A1A1A"/><circle cx="36.5" cy="29" r="1.3" fill="#1A1A1A"/><path d="M26.5 33.8Q32 39.5 37.5 33.8Z" fill="#fff" stroke="#7A3A2E" stroke-width="1.1" stroke-linejoin="round"/></svg>`],
+ trumpkim:['Donald Trump and Kim Jong Un',`<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#3A3D44"/><path d="M27 64C27 52 35 48 45 48C55 48 63 52 63 64Z" fill="#2B2B2B"/><rect x="41" y="47" width="8" height="3" fill="#1C1C1C"/><ellipse cx="45" cy="35" rx="11" ry="12" fill="#EBC39A"/><path d="M34.5 31C33.5 20.5 40 17.5 45.5 17.5C51.5 17.5 56 21.5 55 30C52 25.5 48.5 24 45 24C41 24 37.5 27 34.5 31Z" fill="#111"/><path d="M40.5 33.5Q42 32.3 43.5 33.5M46.5 33.5Q48 32.3 49.5 33.5" stroke="#2A2A2A" stroke-width="1.2" fill="none" stroke-linecap="round"/><path d="M40.5 39.5Q45 44.5 49.5 39.5Z" fill="#fff" stroke="#7A3A2E" stroke-width="1" stroke-linejoin="round"/><path d="M0 64C0 50 9 45 21 45C33 45 41 50 41 64Z" fill="#1F2A44"/><path d="M17 45L21 52L25 45Z" fill="#fff"/><path d="M20 46.5H22L23.2 59L21 61L18.8 59Z" fill="#C8102E"/><ellipse cx="21" cy="33" rx="11.5" ry="12.5" fill="#F2B07C"/><path d="M8.5 31C7 18 31 13 36 24C37 28 33.5 28 31.5 26C26 21.5 16.5 22 11.5 30C10.8 31.2 9.5 32 8.5 31Z" fill="#F2D16B"/><path d="M15.5 31.5Q17.5 30 19.5 31.5M22.5 31.5Q24.5 30 26.5 31.5" stroke="#2A2A2A" stroke-width="1.3" fill="none" stroke-linecap="round"/><path d="M14.5 36.5Q21 45 27.5 36.5Z" fill="#fff" stroke="#8A4A3A" stroke-width="1.2" stroke-linejoin="round"/></svg>`],
+ mugshot:['Donald Trump (mugshot)',`<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#C9CCD1"/><polygon points="10,5 11.6,9.2 16,9.4 12.6,12.1 13.8,16.4 10,13.9 6.2,16.4 7.4,12.1 4,9.4 8.4,9.2" fill="#C9A54E"/><circle cx="10" cy="11" r="2" fill="#E4D29A"/><path d="M8 64C8 47 20 43 33 43C46 43 57 47 57 64Z" fill="#1F2A44"/><path d="M27 43L33 53L39 43Z" fill="#fff"/><path d="M31.5 45H34.5L36 60L33 63L30 60Z" fill="#C8102E"/><rect x="28" y="37" width="10" height="7" fill="#E89C66"/><ellipse cx="33" cy="29.5" rx="13" ry="14" fill="#EFA270"/><path d="M19 27.5C17.5 13.5 43 8.5 49 21C50 25 46.5 25 44.5 23C39.5 18.5 28 18.5 22 26C21 27.4 20 28.4 19 27.5Z" fill="#F2D16B"/><path d="M41.5 13C46.5 13.5 50 17 50.5 21C47 19 44 17.5 41.5 13Z" fill="#E8C34E"/><path d="M25 26.2L31 27.8M41 26.2L35 27.8" stroke="#E8C34E" stroke-width="2" stroke-linecap="round"/><circle cx="28.5" cy="30" r="1.3" fill="#1A1A1A"/><circle cx="37.5" cy="30" r="1.3" fill="#1A1A1A"/><path d="M28.5 37.6Q33 35.6 37.5 37.6" stroke="#7A3B2A" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>`],
+};
+const avName=id=>FAMOUS[id==='trump'?'mugshot':id]?.[0]||'';
+const secretOn=()=>{const u=unlocks();return u.includes('mugshot')||u.includes('trump');};
+
 const HAIR={short:c=>`<path d="M19 27C18 14 46 14 45 27C42 20 37 18 32 18C26 18 22 21 19 27Z" fill="${c}"/>`,
  long:c=>`<path d="M18 29C16 12 48 12 46 29L47 45C44 47 42 41 43 31C39 22 25 22 21 31C22 41 20 47 17 45Z" fill="${c}"/>`,
  bun:c=>`<circle cx="32" cy="12" r="6" fill="${c}"/><path d="M19 27C18 14 46 14 45 27C42 20 37 18 32 18C26 18 22 21 19 27Z" fill="${c}"/>`,
  curly:c=>[[21,23],[25,17],[32,14],[39,17],[43,23]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6" fill="${c}"/>`).join(''),
  side:c=>`<path d="M19 28C17 14 44 11 46 25C40 18 30 18 24 22C22 24 20 26 19 28Z" fill="${c}"/>`,bald:()=>''};
 function avatarSVG(id){
- if(id==='trump')return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#C9D6EA"/><path d="M8 64C8 47 19 42 32 42C45 42 56 47 56 64Z" fill="#1F2A44"/><path d="M26 42L32 52L38 42Z" fill="#fff"/><path d="M30.5 44H33.5L35 60L32 63L29 60Z" fill="#C8102E"/><rect x="27" y="36" width="10" height="7" fill="#EFA874"/><ellipse cx="32" cy="28" rx="13" ry="14" fill="#F2B07C"/><path d="M17 26C15 12 41 6 49 18C51 23 47 24 44 21C38 17 27 17 21 25C20 26 18 27 17 26Z" fill="#F2D16B"/><path d="M40 13C45 13 49 16 50 20C46 18 43 17 40 13Z" fill="#E8C34E"/><circle cx="27" cy="29" r="1.4" fill="#222"/><circle cx="37" cy="29" r="1.4" fill="#222"/><path d="M28 35Q32 33.5 36 35" stroke="#7A3B2A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;
+ if(id==='trump')id='mugshot';if(FAMOUS[id])return FAMOUS[id][1];
+ if(id==='oldtrump')return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#C9D6EA"/><path d="M8 64C8 47 19 42 32 42C45 42 56 47 56 64Z" fill="#1F2A44"/><path d="M26 42L32 52L38 42Z" fill="#fff"/><path d="M30.5 44H33.5L35 60L32 63L29 60Z" fill="#C8102E"/><rect x="27" y="36" width="10" height="7" fill="#EFA874"/><ellipse cx="32" cy="28" rx="13" ry="14" fill="#F2B07C"/><path d="M17 26C15 12 41 6 49 18C51 23 47 24 44 21C38 17 27 17 21 25C20 26 18 27 17 26Z" fill="#F2D16B"/><path d="M40 13C45 13 49 16 50 20C46 18 43 17 40 13Z" fill="#E8C34E"/><circle cx="27" cy="29" r="1.4" fill="#222"/><circle cx="37" cy="29" r="1.4" fill="#222"/><path d="M28 35Q32 33.5 36 35" stroke="#7A3B2A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;
  const a=AVATARS.find(x=>x[0]===id)||AVATARS[0];const [,sk,hs,hc,sh]=a;const skin=AV_SKIN[sk];
  return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#DDE3EE"/><path d="M10 64C10 47 20 42 32 42C44 42 54 47 54 64Z" fill="${sh}"/><rect x="27" y="36" width="10" height="7" fill="${skin}"/>${hs==='long'?HAIR.long(hc):''}<circle cx="32" cy="28" r="13" fill="${skin}"/>${hs!=='long'?HAIR[hs](hc):`<path d="M19 27C18 14 46 14 45 27C42 20 37 18 32 18C26 18 22 21 19 27Z" fill="${hc}"/>`}<circle cx="27" cy="29" r="1.4" fill="#222"/><circle cx="37" cy="29" r="1.4" fill="#222"/><path d="M28 34Q32 37 36 34" stroke="#6B3A2A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;}
 const unlocks=()=>{try{return JSON.parse(localStorage.getItem('wibi-unlocks')||'[]');}catch(e){return [];}};
-const avList=()=>[...AVATARS.map(a=>a[0]),...(unlocks().includes('trump')?['trump']:[])];
-function avatarPicker(cur,act){return `<div class="avgrid" role="group" aria-label="Profile picture">${avList().map((id,i)=>`<button class="avpick ${cur===id?'on':''}" data-act="${act}" data-v="${id}" aria-pressed="${cur===id}" aria-label="${id==='trump'?'Donald J. Trump':'Profile picture '+(i+1)}" title="${id==='trump'?'Donald J. Trump':''}">${avatarSVG(id)}</button>`).join('')}</div>`;}
+const avList=()=>['biden','harris','trumpkim',...AVATARS.map(a=>a[0]),...(secretOn()?['mugshot']:[])];
+function avatarPicker(cur,act,pane){if(cur==='trump')cur='mugshot';return `<div class="avgrid" role="group" aria-label="Profile picture">${avList().map((id,i)=>`<button class="avpick ${cur===id?'on':''}" ${pane?'data-pact':'data-act'}="${act}" data-v="${id}" aria-pressed="${cur===id}" aria-label="${esc(avName(id)||'Profile picture '+(i+1))}" title="${esc(avName(id))}">${avatarSVG(id)}</button>`).join('')}</div>`;}
 const avImg=(id,col,label)=>`<span class="av av-img" style="background:${col}" title="${esc(label||'')}">${avatarSVG(id)}</span>`;
 let bizN=0,bizT=0;
 document.addEventListener('click',e=>{if(e.target.tagName!=='INPUT'||e.target.name!=='f-bg')return;const now=Date.now();if(e.target.value!=='biz'){bizN=0;return;}bizN=now-bizT<2500?bizN+1:1;bizT=now;
- if(bizN>=5){bizN=0;const u=unlocks();if(!u.includes('trump')){u.push('trump');try{localStorage.setItem('wibi-unlocks',JSON.stringify(u));}catch(err){}toast('Unlocked: the Donald J. Trump profile picture. It’s in Profile picture now.');award('secret');render();}}},true);
+ if(bizN>=5){bizN=0;const u=unlocks();if(!u.includes('mugshot')){u.push('mugshot');try{localStorage.setItem('wibi-unlocks',JSON.stringify(u));}catch(err){}toast('Unlocked: the Trump mugshot profile picture. Find it in Profile.');award('secret');render();}}},true);
+/* ========== profile: picture and trophies ========== */
+const myAv=()=>{const a=(typeof S!=='undefined'&&S&&S.avatar)||prefGet('wibi-avatar','');return AV_IDS.includes(a)?a:'';};
+function setAvatar(v){if(!AV_IDS.includes(v))return;prefSet('wibi-avatar',v);if(typeof S!=='undefined'&&S)S.avatar=v;
+ if(typeof inMP!=='undefined'&&inMP&&M&&M.phase==='lobby'){mpQB().avatar=v;const me=meP();if(me&&me.setup)mpSend({t:'setup',setup:{...me.setup,avatar:v}});}}
+function vProfile(){const t=myTrophies();const n=TROPHIES.filter(x=>t[x[0]]).length;const cur=myAv();
+ return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Profile"><div class="card-h"><h2>Profile</h2><button class="btn sm" data-pact="close">Close</button></div>
+ <div><p class="lab" style="margin-bottom:4px">Profile picture</p><p class="small muted">Shows next to your name in the race and in multiplayer.${cur?` Now: ${esc(avName(cur)||'your pick')}.`:''}</p>${avatarPicker(cur,'avatar',true)}</div>
+ <div><p class="lab" style="margin-bottom:4px">Trophies</p><p class="small muted">${n} of ${TROPHIES.length} earned. Saved on this device.</p>
+ <div class="trophies" style="margin-top:8px">${TROPHIES.map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></div></section>`;}
+function openProfile(){const el=$('#prefs');el.innerHTML=vProfile();el.hidden=false;(el.querySelector('.avpick.on')||el.querySelector('button'))?.focus();}
+/* ask before doing something you can't take back */
+let pendingConfirm=null;
+function askConfirm(title,body,yes,fn){pendingConfirm=fn;const el=$('#prefs');
+ el.innerHTML=`<section class="card prefs-box confirm-box" role="alertdialog" aria-modal="true" aria-label="${esc(title)}"><h2>${esc(title)}</h2><p>${esc(body)}</p><div class="btns"><button class="btn gold" data-pact="close">Stay</button><button class="btn" data-pact="confirmYes">${esc(yes)}</button></div></section>`;
+ el.hidden=false;el.querySelector('button')?.focus();}
+function confirmLeave(fn){if(!(typeof inMP!=='undefined'&&inMP&&M&&MP.code))return fn();
+ const host=MP.isHost;const body=host?'You’re the host. If you leave, the game ends for everyone.':M.phase==='lobby'?'You’ll give up your seat in the room.':'Your candidate rests every week until you come back. You can rejoin from the multiplayer screen while the game is still going.';
+ askConfirm('Leave this game?',body,host?'End the game and leave':'Leave the game',fn);}
+
 /* ========== trophies ========== */
 const TROPHIES=[['first','First Campaign','Finish a campaign.'],['debate','Debate Champ','Win a debate.'],['nominee','Nominee','Win your party’s nomination.'],['potus','Hail to the Chief','Win the presidency.'],
  ['landslide','Landslide','Win with 400 or more electoral votes.'],['squeaker','Squeaker','Win with 280 or fewer electoral votes.'],['third','Third Party, First Place','Win the presidency as a Libertarian, Green or Independent.'],
@@ -1896,7 +1927,7 @@ function finishNight(){const n=S.night;n.shown=n.order.length;n.done=true;const 
 
 /* ========== views: shared ========== */
 const stamp=(v,cls='')=>`<span class="stamp ${v==='WIN IT'?'win':'bin'} ${cls}">${v}</span>`;
-const av=(c,col)=>c&&c.isPlayer&&S.avatar&&AV_IDS.includes(S.avatar)?avImg(S.avatar,col||c.color,'You'):`<span class="av" style="background:${col||c.color}">${c.isPlayer?'YOU':initials(c)}</span>`;
+const av=(c,col)=>c&&c.isPlayer&&myAv()?avImg(myAv(),col||c.color,'You'):`<span class="av" style="background:${col||c.color}">${c.isPlayer?'YOU':initials(c)}</span>`;
 function vNav(){
  const me=you();let stats='';
  if(me&&['hq','debate','results','convention','night'].includes(S.phase)){
@@ -1904,7 +1935,7 @@ function vNav(){
   stats=s('Cash',money(me.funds),me.funds<2?'warn':'')+s('Energy',Math.round(me.energy),me.energy<30?'warn':'')+s('Name ID',Math.round(me.recog)+'%')+s('Momentum',sgn(me.mom),me.mom>=3?'good':me.mom<=-3?'warn':'')+s('Scandal',Math.round(me.scandal),me.scandal>30?'warn':'');
  }
  const tabs=S.phase==='hq'?`<div class="tabs" role="tablist">${[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']].map(([k,l])=>`<button class="tab ${S.tab===k?'on':''}" role="tab" aria-selected="${S.tab===k}" data-act="tab" data-k="${k}">${l}</button>`).join('')}</div>`:'';
- return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="home" title="Title screen (your game is saved)">Win It <span>or</span> Bin It</button>${tabs}<div class="stats">${stats}</div>${tutKey()?'<button class="navbtn" data-act="tutorial">Tutorial</button>':''}<button class="navbtn" data-act="prefs">Settings</button></div></header><div class="subbar"><div class="wrap"><b>${esc(subLabel())}</b>${S.demo?'<span class="tag demo">Demo campaign</span>':''}${S.phase==='hq'&&me?`<span class="muted">${esc(dispName(me))} · ${PARTIES[S.party].name}</span>`:''}</div></div>`;
+ return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="home" title="Title screen (your game is saved)">Win It <span>or</span> Bin It</button>${tabs}<div class="stats">${stats}</div>${tutKey()?'<button class="navbtn" data-act="tutorial">Tutorial</button>':''}<button class="navbtn" data-act="profile">Profile</button><button class="navbtn" data-act="prefs">Settings</button></div></header><div class="subbar"><div class="wrap"><b>${esc(subLabel())}</b>${S.demo?'<span class="tag demo">Demo campaign</span>':''}${S.phase==='hq'&&me?`<span class="muted">${esc(dispName(me))} · ${PARTIES[S.party].name}</span>`:''}</div></div>`;
 }
 function vRace(){
  if(S.track==='primary'){
@@ -2252,9 +2283,9 @@ const pvIsOpen=k=>{const o=S.pvOpen||{};return k in o?o[k]:!!PV_DEFAULT_OPEN[k];
 function pvSecW(k,title,html){const open=pvIsOpen(k);return `<div class="cp-sec"><button class="cp-sec-h" data-act="pvSec" data-k="${k}" aria-expanded="${open}"><span>${title}</span><i>${open?'−':'+'}</i></button>${open?`<div class="cp-sec-b">${html}</div>`:''}</div>`;}
 function slimRace(){
  if(S.track==='primary'){const me=you();const tot=totalDels(),need=needDels();const lead=active().filter(c=>!c.isPlayer).sort((a,b)=>b.dels-a.dels)[0];
-  return `<div class="cp-race"><span>${S.avatar?avImg(S.avatar,me.color,'You'):''}<b style="color:${me.color}">You ${me.dels.toLocaleString()}</b></span><div class="rbar"><i style="width:${me.dels/tot*100}%;background:${me.color}"></i>${lead?`<i style="width:${lead.dels/tot*100}%;background:${lead.color}"></i>`:''}<i style="flex:1;background:var(--none)"></i><span class="mark" style="left:${need/tot*100}%"></span></div><span>${lead?`${esc(lastName(lead))} ${lead.dels.toLocaleString()} · `:''}${need.toLocaleString()} to clinch</span></div>`;}
+  return `<div class="cp-race"><span>${myAv()?avImg(myAv(),me.color,'You'):''}<b style="color:${me.color}">You ${me.dels.toLocaleString()}</b></span><div class="rbar"><i style="width:${me.dels/tot*100}%;background:${me.color}"></i>${lead?`<i style="width:${lead.dels/tot*100}%;background:${lead.color}"></i>`:''}<i style="flex:1;background:var(--none)"></i><span class="mark" style="left:${need/tot*100}%"></span></div><span>${lead?`${esc(lastName(lead))} ${lead.dels.toLocaleString()} · `:''}${need.toLocaleString()} to clinch</span></div>`;}
  const pr=projection();const k=myKey();const ks=['D','T','R'].filter(x=>S.gen.ids[x]);const opp=ks.filter(x=>x!==k).sort((a,b)=>pr.ev[b]-pr.ev[a])[0];const others=ks.filter(x=>x!==k&&x!==opp);
- return `<div class="cp-race"><span>${S.avatar?avImg(S.avatar,keyColor(k),'You'):''}<b style="color:${keyColor(k)}">You ${pr.ev[k]}</b></span><div class="rbar"><i style="width:${pr.ev[k]/538*100}%;background:${keyColor(k)}"></i>${others.map(x=>`<i style="width:${pr.ev[x]/538*100}%;background:${keyColor(x)}"></i>`).join('')}<i style="flex:1;background:var(--none)"></i><i style="width:${pr.ev[opp]/538*100}%;background:${keyColor(opp)}"></i><span class="mark" style="left:50.2%"></span></div><span><b style="color:${keyColor(opp)}">${esc(lastName(keyCand(opp)))} ${pr.ev[opp]}</b> · 270 to win</span></div>`;}
+ return `<div class="cp-race"><span>${myAv()?avImg(myAv(),keyColor(k),'You'):''}<b style="color:${keyColor(k)}">You ${pr.ev[k]}</b></span><div class="rbar"><i style="width:${pr.ev[k]/538*100}%;background:${keyColor(k)}"></i>${others.map(x=>`<i style="width:${pr.ev[x]/538*100}%;background:${keyColor(x)}"></i>`).join('')}<i style="flex:1;background:var(--none)"></i><i style="width:${pr.ev[opp]/538*100}%;background:${keyColor(opp)}"></i><span class="mark" style="left:50.2%"></span></div><span><b style="color:${keyColor(opp)}">${esc(lastName(keyCand(opp)))} ${pr.ev[opp]}</b> · 270 to win</span></div>`;}
 const QUICK=[['news','News'],['adv','Riley'],['opp','Opponents'],['alerts','Alerts']];
 const quickTab=()=>{try{return localStorage.getItem('wibi-pv-quick')||'news';}catch(e){return 'news';}};
 function pvAlerts(){const me=you();const ev=S.event;const out=[];
@@ -2515,9 +2546,9 @@ function vPlatform(){return `<div><h2 style="font-size:2rem">Your platform</h2><
 function vTitle(){
  const sv=loadSave();const canCont=sv&&sv.phase&&sv.phase!=='title'&&sv.v>=2;
  const fill=st=>{const p=STATES[st].pvi;return{fill:Math.abs(p)<3?mix(p<0?'var(--d)':'var(--r)',35):p<0?mix('var(--d)',Math.abs(p)>12?90:60):mix('var(--r)',p>12?90:60),ink:'#fff'};};
- return `<div class="hero"><div class="hero-set">${installBtn()}<button class="navbtn" data-act="prefs">Settings</button></div><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
+ return `<div class="hero"><div class="hero-set">${installBtn()}<button class="navbtn" data-act="profile">Profile</button><button class="navbtn" data-act="prefs">Settings</button></div><div class="wrap hero-in"><div><p class="eyebrow">2028 Presidential Election</p><h1>Win It<span>or</span>Bin It</h1>
   <p class="sub">Pick a side, write your own platform, survive the primaries and get to 270.</p>
-  <div class="btns"><button class="btn gold big" data-act="newGame">${confirmNew?'Start over? This replaces your save':'New campaign'}</button><button class="btn big" data-act="mpOpen">Multiplayer</button><button class="btn" data-act="trophies">Trophies</button>${canCont?`<button class="btn big" data-act="continue">Continue as ${esc(sv.cand?.name||'your candidate')}</button>`:''}</div>
+  <div class="btns"><button class="btn gold big" data-act="newGame">${confirmNew?'Start over? This replaces your save':'New campaign'}</button><button class="btn big" data-act="mpOpen">Multiplayer</button>${canCont?`<button class="btn big" data-act="continue">Continue as ${esc(sv.cand?.name||'your candidate')}</button>`:''}</div>
   <div class="demo-box"><p><span class="tag demo">Demo</span> <b>Try a demo campaign.</b> A ready-made candidate, no test or platform setup. Demo saves are kept apart from your campaign.</p>
    <div class="btns"><button class="btn" data-act="demo" data-k="pri">Demo: primaries</button><button class="btn" data-act="demo" data-k="gen">Demo: general election</button>${(()=>{const dv=loadDemo();return dv&&dv.phase&&dv.phase!=='title'?'<button class="btn" data-act="continueDemo">Continue the demo</button>':'';})()}</div></div></div>
   <div>${usMap(fill,{labels:false})}</div></div></div>
@@ -2559,7 +2590,7 @@ function vCompass(){
 function vCandidate(){const c=S.cand;
  return `<section class="card form2" style="padding:clamp(18px,4vw,32px)"><span class="lab">Statement of Candidacy · President of the United States · ${PARTIES[S.party].name}</span><h2 style="font-size:2rem;margin:4px 0 14px">Who’s running?</h2>
  <div class="row"><label class="fld"><span>Name</span><input type="text" id="f-name" maxlength="40" value="${esc(c.name)}" placeholder="e.g. Jordan Avery" autocomplete="off"></label><label class="fld"><span>Home state</span><select id="f-state">${ST_KEYS.filter(s=>s!=='DC').map(s=>`<option value="${s}" ${s===c.state?'selected':''}>${STATES[s].n}</option>`).join('')}</select></label></div>
-  <p class="lab" style="margin-top:16px">Profile picture</p>${avatarPicker(S.avatar||prefGet('wibi-avatar','a1'),'pickAv')}
+  <p class="lab" style="margin-top:16px">Profile picture</p>${avatarPicker(myAv()||'a1','pickAv')}
   <p class="lab" style="margin-top:16px">Background</p><div class="bgs">${Object.entries(BGS).map(([k,b])=>`<label class="bgopt"><input type="radio" name="f-bg" value="${k}" ${k===c.bg?'checked':''}><span><b>${b.name}</b>${b.note} ${money(b.funds)} to start.</span></label>`).join('')}</div>
  <div class="btns" style="margin-top:18px"><button class="btn gold big" data-act="fileForm">Next: your platform</button><button class="btn" data-act="backCompass">Back</button></div></section>`;}
 
@@ -3140,7 +3171,7 @@ function mpSub(){if(!M)return 'Multiplayer';if(M.phase==='lobby')return `${M.nam
 function vMPNav(){
  const inRoom=MP.code&&M;
  const c=M&&M.cands&&myCand();const tabs=M&&M.phase==='week'&&(c&&!c.spec||viewCand())?(c&&!c.spec?[['campaign','Campaign'],['map','Map & Analytics'],['platform','Platform']]:[['campaign','The race'],['map','Map & Analytics'],['platform','Platforms']]).map(([k,l])=>`<button class="tab ${MP.tab===k||(!MP.tab&&k==='campaign')?'on':''}" data-act="mpTab" data-k="${k}">${l}</button>`).join(''):'<span class="tab on">Multiplayer</span>';
- return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="mpExit" title="Leave multiplayer">Win It <span>or</span> Bin It</button><div class="tabs">${tabs}</div><div class="stats">${M&&M.cands?mpStats():''}</div>${inRoom?`<span class="navbtn">Room ${esc(MP.code.toUpperCase())}</span><button class="navbtn" data-act="mpLeave">Leave game</button>`:`<button class="navbtn" data-act="mpExit">Back to title</button>`}<button class="navbtn" data-act="prefs">Settings</button></div></header>
+ return `<header class="nav"><div class="wrap nav-in"><button class="logo" data-act="mpExit" title="Leave multiplayer">Win It <span>or</span> Bin It</button><div class="tabs">${tabs}</div><div class="stats">${M&&M.cands?mpStats():''}</div>${inRoom?`<span class="navbtn">Room ${esc(MP.code.toUpperCase())}</span><button class="navbtn" data-act="mpLeave">Leave game</button>`:`<button class="navbtn" data-act="mpExit">Back to title</button>`}<button class="navbtn" data-act="profile">Profile</button><button class="navbtn" data-act="prefs">Settings</button></div></header>
  <div class="subbar"><div class="wrap"><b>${esc(mpSub())}</b><span class="muted">${MP.status==='online'?'● Online':MP.status==='connecting'?'Connecting…':'Offline'}</span></div></div>`;
 }
 function vErr(){if(!MP.err||!JOIN_ERR[MP.err])return '';const [t,d]=JOIN_ERR[MP.err];return `<section class="joinerr" role="alert"><b>Couldn’t join: ${esc(t)}</b>${d?`<p>${esc(d)}</p>`:''}<button class="link small" data-act="mpDismiss">Dismiss</button></section>`;}
@@ -3221,7 +3252,7 @@ function qbSetup(){const q=mpQB();const lib=getLib();
 function qbChanged(){const me=meP();if(me&&me.ready)mpSend({t:'ready',v:false});render();}
 function mpQbReady(){const me=meP();if(!me)return;if(me.ready){mpSend({t:'ready',v:false});return;}
  const s=qbSetup();if(Object.keys(s.planks).length<5)return toast('Pick at least 5 positions first.');
- const {src,...setup}=s;setup.avatar=mpQB().avatar||prefGet('wibi-avatar','')||null;mpSend({t:'setup',setup});}
+ const {src,...setup}=s;setup.avatar=mpQB().avatar||myAv()||null;mpSend({t:'setup',setup});}
 function mpFullTest(){if(meP()?.ready)mpSend({t:'ready',v:false});MP.editing=true;const q=mpQB();
  if(q.src.startsWith('saved:')&&getLib().cands[+q.src.slice(6)]){const i=+q.src.slice(6);q.src='custom';quickStart(i);return;}
  S.phase=S.party&&Object.keys(S.planks).length?'platform':'quiz';mpQB().src='custom';render();window.scrollTo(0,0);}
@@ -3276,7 +3307,7 @@ function vMPRoomClassic(){
  return `${mpCodeCard()}
  <div class="main2"><div class="side">${mpPlayersCard(true)}${mpRoomChat('Talk some trash')}</div>
  <aside class="side"><section class="card"><div class="card-h"><h2>Your candidate</h2></div>
-  <div class="fld"><span>Profile picture</span>${avatarPicker(mpQB().avatar||prefGet('wibi-avatar','a1'),'mpQbAv')}</div>
+  <div class="fld"><span>Profile picture</span>${avatarPicker(mpQB().avatar||myAv()||'a1','mpQbAv')}</div>
   <div class="fld"><span>Party</span><div class="seg">${ffaParties().map(pt=>`<button class="${s.party===pt?'on':''}" data-act="mpQbParty" data-v="${pt}">${PARTIES[pt].noun}</button>`).join('')}</div></div>
   <label class="fld" style="margin-top:10px"><span>Candidate</span><select id="mp-src">${srcOpts}</select></label>
   ${q.src==='quick'?`<div class="row" style="margin-top:10px"><label class="fld"><span>Candidate name</span><input type="text" id="mp-cname" maxlength="32" value="${esc(q.name)}" placeholder="${esc(mpName()||'Your name')}" autocomplete="off"></label></div>
@@ -4278,7 +4309,7 @@ function vPrefs(){return `<section class="card prefs-box" role="dialog" aria-mod
  <div><p class="lab" style="margin-bottom:8px">Screen layout</p><div class="seg">${[['auto','Fit my screen'],['phone','Phone layout']].map(([k,l])=>`<button class="${LAYOUTP===k?'on':''}" data-pact="layout" data-v="${k}" aria-pressed="${LAYOUTP===k}">${l}</button>`).join('')}</div><p class="small muted" style="margin-top:6px">${LAYOUTP==='phone'?'Always use the phone layout: the map on top and a panel at the bottom with State, Plan and Updates. Good for tablets.':'Phones get the phone layout and bigger screens get the full layout, automatically.'}</p></div>
  <div><p class="lab" style="margin-bottom:8px">Campaign screen</p><div class="seg">${[['new','Map first'],['classic','Moves on top (classic)']].map(([k,l])=>`<button class="${CVIEW===k?'on':''}" data-pact="cview" data-v="${k}" aria-pressed="${CVIEW===k}">${l}</button>`).join('')}</div><p class="small muted" style="margin-top:6px">${CVIEW==='classic'?'The old layout. Pick a move at the top, then click states on the map. Works in single-player and multiplayer.':'The map takes most of the screen. Click states, then plan your moves in the side panel.'}</p></div>
  <div><p class="lab" style="margin-bottom:8px">Multiplayer lobby</p><div class="looks">${LOOKS.map(l=>`<button class="look ${LOOK===l[0]?'on':''}" data-pact="look" data-v="${l[0]}" aria-pressed="${LOOK===l[0]}">${lookPv(l[0])}<span><b>${l[1]}</b><span class="small">${l[2]}</span></span></button>`).join('')}</div></div>
- <p class="small muted">Saved on this device. <button class="link small" data-pact="news">What’s new</button> · <button class="link small" data-pact="trophies">Trophies</button></p></section>`;}
+ <p class="small muted">Saved on this device. <button class="link small" data-pact="news">What’s new</button> · <button class="link small" data-pact="profile">Profile and trophies</button></p></section>`;}
 function openPrefs(fk){const el=$('#prefs');el.innerHTML=vPrefs();el.hidden=false;(fk&&el.querySelector(`[data-pact="${fk[0]}"][data-v="${fk[1]}"]`)||el.querySelector('button'))?.focus();}
 function closePrefs(){$('#prefs').hidden=true;}
 $('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]');if(!t){if(e.target.id==='prefs')closePrefs();return;}const a=t.dataset.pact,v=t.dataset.v;
@@ -4286,7 +4317,9 @@ $('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]')
  else if(a==='layout'){LAYOUTP=v;prefSet('wibi-layout',v);openPrefs([a,v]);render();}
  else if(a==='cview'){CVIEW=v;prefSet('wibi-campview',v);openPrefs([a,v]);render();}
  else if(a==='news')openNews();
- else if(a==='trophies')openTrophies();
+ else if(a==='trophies'||a==='profile')openProfile();
+ else if(a==='avatar'){setAvatar(v);openProfile();render();}
+ else if(a==='confirmYes'){const f=pendingConfirm;pendingConfirm=null;closePrefs();f&&f();}
  else if(a==='theme'){THEME=v;prefSet('wibi-theme',v);applyTheme();openPrefs([a,v]);}
  else if(a==='look'){LOOK=v;prefSet('wibi-lobby',v);openPrefs([a,v]);if(typeof inMP!=='undefined'&&inMP)render();}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#prefs').hidden)closePrefs();});
@@ -4381,8 +4414,9 @@ const H={
  quizOwn(){quizOwn();},
  retake(){S.quiz={i:0,a:Array(QUIZ.length).fill(null),nudge:{},note:{}};S.phase='quiz';render();},
  setLen(d){S.len=d.k;render();},
- pickAv(d){S.avatar=d.v;prefSet('wibi-avatar',d.v);render();},
- trophies(){openTrophies();},
+ pickAv(d){setAvatar(d.v);render();},
+ profile(){openProfile();},
+ trophies(){openProfile();},
  howOff(){try{localStorage.setItem('wibi-howto','off');}catch(e){}render();},
  howOn(){try{localStorage.removeItem('wibi-howto');}catch(e){}render();},
  mpQbAv(d){mpQB().avatar=d.v;prefSet('wibi-avatar',d.v);qbChanged();},
@@ -4443,8 +4477,8 @@ const H={
  nightSkip(){clearTimeout(nightTimer);nightTimer=null;finishNight();render();},
  toEnd(){S.phase='end';render();window.scrollTo(0,0);},
  mpOpen(){openMultiplayer();},
- mpExit(){mpExit();},
- mpLeave(){mpLeave();},
+ mpExit(){confirmLeave(()=>mpExit());},
+ mpLeave(){confirmLeave(()=>{mpLeave();render();});},
  mpRetry(){openMultiplayer();},
  mpOpt(d){MP.form[d.k]=d.v;render();},
  mpHost(){const n=cleanTxt(MP.form.name,24);if(n.length<2){MP.err='noname';render();return;}setMpName(n);hostGame();},
@@ -4593,6 +4627,10 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:6,date:'Nov 9, 2026',
+  add:['A Profile button next to Settings, with your profile picture and trophies in one place.',
+   'New profile pictures: Joe Biden, Kamala Harris, and Donald Trump with Kim Jong Un. The hidden one is now the Trump mugshot.',
+   'Leaving a multiplayer game now asks you to confirm first.']},
  {v:5,date:'Nov 9, 2026',
   add:['Profile pictures. Pick one when you file your candidacy, or in the multiplayer setup.',
    'Trophies for things like winning a debate, a landslide, or a third-party win. Find them on the title screen or in Settings.',
