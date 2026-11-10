@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794330568;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794331091;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -76,9 +76,9 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:.96875rem;line-height:1.45;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav)}
-.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:80rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 main.wrap{padding-block:16px 64px;display:flex;flex-direction:column;gap:16px}
 h1,h2,h3{margin:0;font-weight:700;text-wrap:balance}
 h2{font-family:var(--display);font-size:1.45rem;letter-spacing:.01em;line-height:1.1}
@@ -260,7 +260,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .feat p{color:var(--muted);font-size:.95rem}
 @media(max-width:720px){.feat{grid-template-columns:minmax(0,1fr)}}
 
-.quiz{max-width:800px;margin:0 auto;width:100%}
+.quiz{max-width:50rem;margin:0 auto;width:100%}
 .prog{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-top:8px}
 .prog i{display:block;height:100%;background:var(--gold)}
 .quiz-q{font-size:clamp(1.3rem,3vw,1.75rem);font-weight:700;line-height:1.28;margin:22px 0 20px;min-height:3.9em;text-wrap:balance}
@@ -270,7 +270,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 @media(max-width:560px){.likert{grid-template-columns:minmax(0,1fr)}.lk{text-align:left;padding:11px 14px}}
 .own{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:8px}
 .readas{font-size:.9rem;background:var(--goodbg);border-radius:6px;padding:6px 10px}
-.compass{width:100%;max-width:360px;height:auto;display:block}
+.compass{width:100%;max-width:22.5rem;height:auto;display:block}
 .cq-a{fill:var(--cqa)} .cq-b{fill:var(--cqb)} .cq-c{fill:var(--cqc)} .cq-d{fill:var(--cqd)}
 .cgrid{stroke:var(--line);stroke-width:1} .caxis{stroke:#8C94A3;stroke-width:1.2}
 .clab{fill:var(--muted);font-family:var(--body);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
@@ -295,7 +295,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:3px;align-self:flex-start}
 .badge.rec{background:var(--goodbg);color:var(--good)} .badge.hard{background:var(--badbg);color:var(--bad)}
 
-.form2{max-width:780px;margin:0 auto;width:100%}
+.form2{max-width:48.75rem;margin:0 auto;width:100%}
 .bgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:6px}
 .bgopt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:10px 12px;cursor:pointer;font-size:.88rem;color:var(--muted)}
 .bgopt:has(input:checked){border-color:var(--sel);background:var(--soft)}
@@ -382,7 +382,7 @@ div.dopt{cursor:default}
 #tut-card h3{font-family:var(--display);font-size:1.35rem}
 #tut-card p{font-size:.95rem}
 @media (prefers-reduced-motion:reduce){#tut-hl{transition:none}}
-.mp-msg{max-width:640px;margin:20px auto;display:flex;flex-direction:column;gap:12px}
+.mp-msg{max-width:40rem;margin:20px auto;display:flex;flex-direction:column;gap:12px}
 .mp-head h1{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:clamp(2.2rem,6vw,3.4rem);line-height:1}
 .mp-head p{color:var(--muted);max-width:62ch;margin-top:4px}
 .mp-games{display:flex;flex-direction:column}
@@ -433,32 +433,36 @@ div.dopt{cursor:default}
 .hero-set{position:absolute;top:12px;right:max(16px,env(safe-area-inset-right,0px));z-index:2;display:flex;gap:6px}
 #prefs{position:fixed;inset:0;z-index:40;background:rgba(6,10,20,.55);display:flex;align-items:flex-start;justify-content:center;padding:max(40px,6vh) 16px 16px;overflow-y:auto}
 #prefs[hidden]{display:none}
-.prefs-box{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
+.prefs-box{width:100%;max-width:40rem;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
 .prefs-box h2{font-size:1.7rem}
 .usmap .ol.now{stroke:var(--ink);stroke-width:4.5;stroke-dasharray:none;animation:nowpulse 1.6s ease-in-out infinite}
 .usmap .cbox.now rect{stroke:var(--ink);stroke-width:3}
 @keyframes nowpulse{50%{stroke-opacity:.3}}
 @media (prefers-reduced-motion:reduce){.usmap .ol.now{animation:none}}
-body.phone main.wrap{max-width:560px}
-body.phone .sheet{left:50%;right:auto;width:100%;max-width:560px;transform:translateX(-50%)}
+body.phone main.wrap{max-width:35rem}
+body.phone .sheet{left:50%;right:auto;width:100%;max-width:35rem;transform:translateX(-50%)}
 .cp-race .av{width:26px;height:26px;display:inline-flex;vertical-align:middle;margin-right:6px}
-.confirm-box{max-width:460px}.confirm-box p{margin:6px 0 4px}
+.confirm-box{max-width:28.75rem}.confirm-box p{margin:6px 0 4px}
 .tpri{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 :root[data-theme=dark] [style*="color:var(--pa)"],:root[data-theme=midnight] [style*="color:var(--pa)"],:root[data-theme=black] [style*="color:var(--pa)"]{text-shadow:0 0 1px #fff,0 0 3px rgba(255,255,255,.75)}
 @media (prefers-color-scheme:dark){:root:not([data-theme]) [style*="color:var(--pa)"]{text-shadow:0 0 1px #fff,0 0 3px rgba(255,255,255,.75)}}
 /* big screens: use the whole width, keep the campaign on one screen */
 body.wide .wrap{max-width:none}
+/* every screen grows with big monitors: text, cards and page width scale together */
+@media(min-width:1600px){html{font-size:calc(16px + (100vw - 1600px) * .00625)}.wrap{max-width:94rem}}
+/* phones: the title screen buttons sit above the title instead of on top of it */
+@media(max-width:700px){.hero-set{position:static;display:flex;justify-content:flex-end;flex-wrap:wrap;padding:max(10px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0}}
 @media(min-width:901px){body.wide main.wrap{padding-bottom:12px!important}}
 .cockpit>.cp-more{grid-column:1/-1}
-@media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - 152px)}
+@media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - 9.5rem)}
  body.wide .cockpit>.cp-map{grid-row:1/3}body.wide .cockpit>.cp-side{grid-row:1}
  body.wide .cockpit>.cp-more{grid-column:2;grid-row:2;overflow:auto;min-height:0;margin-top:0}
  body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap}}
-@media(min-width:1500px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 380px 420px;grid-template-rows:calc(100vh - 152px)}
+@media(min-width:1500px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 23.75rem 26.25rem;grid-template-rows:calc(100vh - 9.5rem)}
  body.wide .cockpit>.cp-more{grid-column:3;grid-row:1;margin-top:0;overflow:auto;min-height:0;display:flex;flex-direction:column}
  body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap;padding-bottom:2px}
  body.wide .cp-more .cp-morebody>.card{margin-bottom:12px}}
-@media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 420px 460px}}
+@media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 25rem 28rem}}
 .now-bar{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;margin:0 0 8px;border-radius:8px;background:color-mix(in srgb,var(--gold) 16%,transparent);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);font-size:.9rem}
 .now-bar>div{display:flex;flex-direction:column;gap:2px;min-width:0}.now-bar span{overflow-wrap:anywhere}
 .now-dot{flex:0 0 10px;width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--gold);animation:nowpulse 1.6s ease-in-out infinite}
@@ -492,7 +496,7 @@ body.wide .wrap{max-width:none}
 .mp-sidel .plat{grid-template-columns:minmax(0,1fr) 260px}
 .mp-sidel .issues{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}
 @media(max-width:760px){.mp-sidel .plat{grid-template-columns:minmax(0,1fr)}}
-#tip{position:fixed;z-index:35;pointer-events:none;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;box-shadow:0 10px 28px rgba(0,0,0,.22);width:max-content;max-width:300px}
+#tip{position:fixed;z-index:35;pointer-events:none;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 12px;box-shadow:0 10px 28px rgba(0,0,0,.22);width:max-content;max-width:18.75rem}
 #tip[hidden]{display:none}
 .tip-h{display:flex;flex-direction:column;line-height:1.15;margin-bottom:6px}
 .tip-h b{font-family:var(--display);font-size:1.2rem}
@@ -588,7 +592,7 @@ body.wide .wrap{max-width:none}
 .pvbar{background:var(--gold);color:#241A02;font-size:.85rem;padding:6px max(16px,env(safe-area-inset-left,0px));text-align:center}
 .pvbar a{color:#241A02;font-weight:700}
 .tag.demo{background:var(--gold);color:#241A02;border-color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
-.demo-box{margin-top:18px;padding:12px 14px;border:1px dashed var(--gold);border-radius:8px;max-width:560px;color:#D5DBE8}
+.demo-box{margin-top:18px;padding:12px 14px;border:1px dashed var(--gold);border-radius:8px;max-width:35rem;color:#D5DBE8}
 .demo-box b{color:#fff}
 .demo-box .btns{margin-top:10px}
 .pvgrid{display:grid;grid-template-columns:minmax(0,1fr) 370px;grid-template-areas:"map side";gap:16px;align-items:start}
@@ -626,7 +630,7 @@ body.wide .wrap{max-width:none}
 @media(pointer:coarse){.pv-chip{min-height:44px}.pv-mover{padding-block:11px}}
 
 /* cockpit (desktop) */
-.cockpit{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:14px;height:calc(100vh - 150px);min-height:560px}
+.cockpit{display:grid;grid-template-columns:minmax(0,1fr) 23.75rem;gap:14px;height:calc(100vh - 150px);min-height:560px}
 .cp-map{display:flex;flex-direction:column;min-height:0;padding:12px 14px 10px}
 .cp-race{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.92rem;margin-bottom:8px}
 .cp-race .rbar{margin-top:0;height:16px}
@@ -3547,7 +3551,7 @@ function vMPConv(){
  const vpForm=vpE&&vpE.pick==null&&!vpE.offerTo?`<div class="setup"><b>Pick a running mate</b><div class="pgrid">${vpE.opts.map((o,i)=>{const ef=vpEffectC(c,o);return `<button class="pcard ${String(MP.form.vp)===String(i)?'on':''}" data-act="mpVp" data-i="${i}"><b>${esc(o.name)}</b><span class="small muted">${esc(o.tag)} · ${STATES[o.home].n}</span><span class="small">November ${sgn(ef.gen)}${c.party==='D'||c.party==='R'?` · base ${sgn(ef.base)}`:''} · helps in ${o.home}</span></button>`;}).join('')}</div>
   ${mpVpNote(vpE)}<b style="margin-top:6px">Acceptance speech</b><div class="pgrid">${sp.map(([k,t,d])=>`<button class="pcard ${MP.form.speech===k?'on':''}" data-act="mpSpeech" data-k="${k}"><b>${t}</b><span class="small muted">${d}</span></button>`).join('')}</div>
   <div class="btns"><button class="btn gold" data-act="mpVpLock" ${MP.form.vp!=null&&MP.form.speech?'':'disabled'}>Lock it in</button></div></div>`:'';
- return `<section class="card mp-msg" style="max-width:860px"><h2 style="font-size:1.9rem">The nominees</h2><ul class="notes">${noms}</ul>${cv.notes.length?`<ul class="notes" style="margin-top:8px">${cv.notes.map(n=>`<li class="small">${esc(n)}</li>`).join('')}</ul>`:''}
+ return `<section class="card mp-msg" style="max-width:53.75rem"><h2 style="font-size:1.9rem">The nominees</h2><ul class="notes">${noms}</ul>${cv.notes.length?`<ul class="notes" style="margin-top:8px">${cv.notes.map(n=>`<li class="small">${esc(n)}</li>`).join('')}</ul>`:''}
  ${pend?`<div class="setup"><b>You didn’t get the nomination.</b><p class="small">Run as an independent and stay on the November ballot, or drop out and watch.</p>${mpVpPendingUI()}<div class="btns"><button class="btn gold" data-act="mpChoice" data-v="indie">Run as an independent</button><button class="btn" data-act="mpChoice" data-v="spec">Drop out and watch</button></div></div>`:
   (vpE&&vpE.offerTo&&vpE.pick==null?mpVpWaitUI(vpE):vpForm)||`<div class="btns">${acked?`<span class="small muted">Waiting on ${esc(listJoin(wl))}</span>`:'<button class="btn go" data-act="mpAck">On to the general election</button>'}${isHostMe()?'<button class="link small" data-act="mpForce">Don’t wait</button>':''}</div>`}</section>`;
 }
@@ -4715,6 +4719,8 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:10,date:'Nov 10, 2026',
+  chg:['Every screen now grows to fit big monitors, not just the campaign map.','On phones, the buttons at the top of the title screen no longer cover the title.']},
  {v:9,date:'Nov 10, 2026',
   chg:['On computers the campaign screen now uses the whole width and fits on one screen, with no scrolling. On wide screens, Where you stand, Riley and the log get their own column.']},
  {v:8,date:'Nov 9, 2026',
