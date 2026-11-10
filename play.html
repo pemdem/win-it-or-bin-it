@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794331963;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794333935;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -77,7 +77,8 @@
 }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:.96875rem;line-height:1.45;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav);pointer-events:none}
+body{padding-top:env(safe-area-inset-top,0px)}
 .wrap{max-width:80rem;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 main.wrap{padding-block:16px 64px;display:flex;flex-direction:column;gap:16px}
 h1,h2,h3{margin:0;font-weight:700;text-wrap:balance}
@@ -451,7 +452,7 @@ body.wide .wrap{max-width:none}
 /* every screen grows with big monitors: text, cards and page width scale together */
 @media(min-width:1600px){html{font-size:calc(16px + (100vw - 1600px) * .00625)}.wrap{max-width:94rem}}
 /* phones: the title screen buttons sit above the title instead of on top of it */
-@media(max-width:700px){.hero-set{position:static;display:flex;justify-content:flex-end;flex-wrap:wrap;padding:max(10px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0}}
+@media(max-width:700px){.hero-set{position:static;display:flex;justify-content:flex-end;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-right,0px)) 0}}
 @media(min-width:901px){body.wide main.wrap{padding-bottom:12px!important}}
 .cockpit>.cp-more{grid-column:1/-1}
 @media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - 9.5rem)}
@@ -730,6 +731,8 @@ body.wide .wrap{max-width:none}
 .w-ans li:first-child{border-top:0}
 .w-ans p{margin-top:4px;white-space:pre-wrap}
 .qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+/* short screens, like phones turned sideways */
+@media(max-height:520px){.nav{position:static}.sheet{max-height:56vh}.sheet-pad.open{height:56vh}}
 </style></head>
 <body>
 
@@ -807,6 +810,22 @@ const IDEOS=[
   {id:'socon',name:'Social Conservative',v:[3,7,0],b:'Faith, family and the pro-life cause come first.'},
   {id:'maga',name:'America First Populist',v:[1,6,7],b:'Border security, tariffs and a fight with the elites.'},
   {id:'green',name:'Green Left',v:[-7,-6,3],b:'Climate first, even at the cost of growth.'},
+  {id:'socdem',name:'Social Democrat',v:[-5,-3,-2],b:'A Nordic-style safety net built through the institutions we already have.'},
+  {id:'leftpop',name:'Left Populist',v:[-6,-1,8],b:'Take on Wall Street and the leaders of both parties.'},
+  {id:'libsoc',name:'Libertarian Socialist',v:[-8,-8,7],b:'Workers run their workplaces, and people run their own lives.'},
+  {id:'neolib',name:'Neoliberal',v:[2,-4,-6],b:'Free markets, free trade, open immigration and socially liberal.'},
+  {id:'techno',name:'Technocrat',v:[0,-2,-8],b:'Let experts and evidence drive policy, not ideology.'},
+  {id:'bluedog',name:'Blue Dog Democrat',v:[1,2,-3],b:'A careful-with-money, culturally moderate Democrat.'},
+  {id:'reform',name:'Anti-Corruption Reformer',v:[-1,-1,7],b:'Term limits, no lobbyist money, clean up Washington.'},
+  {id:'chrdem',name:'Christian Democrat',v:[-2,5,-2],b:'Faith-based values with a generous safety net.'},
+  {id:'modrep',name:'Moderate Republican',v:[3,-1,-4],b:'Business-friendly, socially moderate and steady.'},
+  {id:'fiscon',name:'Fiscal Conservative',v:[6,1,-2],b:'Balance the budget, cut spending, keep taxes low.'},
+  {id:'classlib',name:'Classical Liberal',v:[5,-2,-2],b:'Limited government, free speech and the rule of law.'},
+  {id:'neocon',name:'Neoconservative',v:[4,4,-6],b:'A strong military, an active foreign policy and traditional values.'},
+  {id:'natcon',name:'National Conservative',v:[-1,7,5],b:'A strong nation, industrial policy and family first.'},
+  {id:'paleo',name:'Paleoconservative',v:[2,7,6],b:'Tradition, tight borders and no foreign wars.'},
+  {id:'minarch',name:'Minarchist',v:[8,-3,5],b:'Government only for courts, police and defense.'},
+  {id:'ancap',name:'Anarcho-Capitalist',v:[10,-5,9],b:'No state at all. Private markets handle everything.'},
   {id:'commie',name:'Communist',v:[-9.5,-3,7],b:'Public ownership of major industries and an end to private profit in essentials.',fringe:true},
   {id:'fasc',name:'Fascist',v:[3,9.5,9.5],b:'An all-powerful national state, a strongman leader, and opposition shut down.',fringe:true},
   {id:'anarch',name:'Anarchist',v:[-5,-9,10],b:'No state at all: voluntary communities, mutual aid, no police or prisons.',fringe:true},
@@ -843,6 +862,18 @@ const QUIZ=[
  {t:'Religion should play a bigger role in public life.',s:1},
  {t:'Federal spending should be cut, even if that means trimming popular programs.',e:1,p:-0.2},
  {t:'The government should be able to monitor phone and internet data to stop terrorism.',s:0.8,p:-0.3},
+ {t:'The U.S. should bring troops home and stay out of foreign wars.',p:0.8},
+ {t:'Climate change means the government should phase out fossil fuels quickly.',e:-0.8,s:-0.3},
+ {t:'Taxes should be as low as possible, even if that means fewer government services.',e:1},
+ {t:'The government should own and run key industries like energy and railroads.',e:-1,p:0.3},
+ {t:'Traditional family values are under attack in America.',s:1,p:0.3},
+ {t:'Adults should be free to do anything that doesn’t hurt others, including using drugs.',s:-1,e:0.3},
+ {t:'Washington is run by career politicians and lobbyists who need to be cleared out.',p:1},
+ {t:'Tariffs on imports protect American jobs.',p:0.7,e:-0.3},
+ {t:'The losing side of an election should always accept the result.',p:-0.8},
+ {t:'America should take in more refugees.',s:-0.8,p:-0.3},
+ {t:'Owning a gun is a basic right the government should not limit.',s:0.8,e:0.3},
+ {t:'Big decisions are best left to experts, not public opinion.',p:-1,s:-0.2},
 ];
 
 /* [id, title, description, econ, social, populism, general appeal, tag] */
@@ -1132,7 +1163,6 @@ function tileMap(fill,{sel,targets=[],up=[]}){
 const mix=(c,p)=>p>=100?c:`color-mix(in srgb, ${c} ${p}%, var(--mixbase))`;
 const cat=m=>{const a=Math.abs(m);return a<3?'toss':a<8?'lean':a<15?'likely':'safe';};
 const CATMIX={lean:40,likely:68,safe:100};
-function partyFill(color,m){const a=Math.abs(m);if(a<3)return{fill:mix(color,32),ink:'var(--ink)'};const c=cat(m);return{fill:mix(color,c==='safe'?86:CATMIX[c]),ink:c==='lean'?'var(--ink)':'#fff'};}
 
 /* ========== AI ========== */
 let AI=null,aiStatus='checking';
@@ -1390,7 +1420,7 @@ const HAIR={short:c=>`<path d="M19 27C18 14 46 14 45 27C42 20 37 18 32 18C26 18 
  side:c=>`<path d="M19 28C17 14 44 11 46 25C40 18 30 18 24 22C22 24 20 26 19 28Z" fill="${c}"/>`,bald:()=>''};
 function avatarSVG(id){
  if(id==='trump')id='mugshot';if(FAMOUS[id])return FAMOUS[id][1];
- if(id==='oldtrump')return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#C9D6EA"/><path d="M8 64C8 47 19 42 32 42C45 42 56 47 56 64Z" fill="#1F2A44"/><path d="M26 42L32 52L38 42Z" fill="#fff"/><path d="M30.5 44H33.5L35 60L32 63L29 60Z" fill="#C8102E"/><rect x="27" y="36" width="10" height="7" fill="#EFA874"/><ellipse cx="32" cy="28" rx="13" ry="14" fill="#F2B07C"/><path d="M17 26C15 12 41 6 49 18C51 23 47 24 44 21C38 17 27 17 21 25C20 26 18 27 17 26Z" fill="#F2D16B"/><path d="M40 13C45 13 49 16 50 20C46 18 43 17 40 13Z" fill="#E8C34E"/><circle cx="27" cy="29" r="1.4" fill="#222"/><circle cx="37" cy="29" r="1.4" fill="#222"/><path d="M28 35Q32 33.5 36 35" stroke="#7A3B2A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;
+
  const a=AVATARS.find(x=>x[0]===id)||AVATARS[0];const [,sk,hs,hc,sh]=a;const skin=AV_SKIN[sk];
  return `<svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" fill="#DDE3EE"/><path d="M10 64C10 47 20 42 32 42C44 42 54 47 54 64Z" fill="${sh}"/><rect x="27" y="36" width="10" height="7" fill="${skin}"/>${hs==='long'?HAIR.long(hc):''}<circle cx="32" cy="28" r="13" fill="${skin}"/>${hs!=='long'?HAIR[hs](hc):`<path d="M19 27C18 14 46 14 45 27C42 20 37 18 32 18C26 18 22 21 19 27Z" fill="${hc}"/>`}<circle cx="27" cy="29" r="1.4" fill="#222"/><circle cx="37" cy="29" r="1.4" fill="#222"/><path d="M28 34Q32 37 36 34" stroke="#6B3A2A" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>`;}
 const unlocks=()=>{try{return JSON.parse(localStorage.getItem('wibi-unlocks')||'[]');}catch(e){return [];}};
@@ -1437,10 +1467,6 @@ function endTrophies({won,ev,pop,ce,party,vp,ffa,long,mp,popMax}){const ids=['fi
  if(['C','F','A'].includes(party)&&ev>0)ids.push('fringe');if(!won&&popMax)ids.push('popnot');award(...ids);}
 function spTrophies(){const e=S.end;if(!e)return;if(e.stage!=='general'){award('first');return;}const k=myKey();const ev=e.ev?.[k]||0;const pop=e.pop||{};const popMax=Object.keys(pop).every(x=>x===k||(pop[x]||0)<=(pop[k]||0));
  if(isMajor(S.origParty||S.party)&&!S.vpMode&&!S.origParty)award('nominee');endTrophies({won:e.won,ev,pop,ce:e.ce,party:S.party,vp:S.vpMode,ffa:S.ffa,long:S.len==='long',mp:false,popMax});}
-function vTrophies(){const t=myTrophies();const n=shownT().filter(x=>t[x[0]]).length;
- return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Trophies"><div class="card-h"><h2>Trophies</h2><button class="btn sm" data-pact="close">Close</button></div><p class="small muted">${n} of ${shownT().length} earned. Saved on this device.</p>
- <div class="trophies">${shownT().map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></section>`;}
-function openTrophies(){const el=$('#prefs');el.innerHTML=vTrophies();el.hidden=false;el.querySelector('button')?.focus();}
 
 /* single-player third parties: follow the two big primaries */
 function thirdPri(){if(S.tpri)return S.tpri;const used=new Set(S.cands.map(c=>c.name));
@@ -1913,9 +1939,10 @@ Reply with only JSON: {"value":-2 to 2 (strongly disagree to strongly agree; dec
 function nextQ(){if(S.quiz.i<QUIZ.length-1)S.quiz.i++;else{S.compass=scoreQuiz();S.phase='compass';window.scrollTo(0,0);}render();}
 function scoreQuiz(){
  const tot={e:0,s:0,p:0},max={e:0,s:0,p:0};
- QUIZ.forEach((q,i)=>{const a=S.quiz.a[i]??0;['e','s','p'].forEach(k=>{if(q[k]){max[k]+=2*Math.abs(q[k]);tot[k]+=a*q[k];}});});
- const n={e:0,s:0,p:0};Object.values(S.quiz.nudge||{}).forEach(x=>{n.e+=x.e;n.s+=x.s;n.p+=x.p;});
- return[clamp(tot.e/max.e*10+n.e*0.5,-10,10),clamp(tot.s/max.s*10+n.s*0.5,-10,10),clamp(tot.p/max.p*10+n.p*0.5,-10,10)];
+ QUIZ.forEach((q,i)=>{const a=S.quiz.a[i];if(a==null)return;['e','s','p'].forEach(k=>{if(q[k]){max[k]+=2*Math.abs(q[k]);tot[k]+=a*q[k];}});});
+ const n={e:0,s:0,p:0};Object.values(S.quiz.nudge||{}).forEach(x=>{n.e+=x.e||0;n.s+=x.s||0;n.p+=x.p||0;});
+ const ax=k=>max[k]?clamp(tot[k]/max[k]*10+n[k]*0.5,-10,10):0;
+ return[ax('e'),ax('s'),ax('p')];
 }
 
 /* ========== debates ========== */
@@ -2690,7 +2717,7 @@ function compassSVG(pt,{ideos=[],parties=false,label='You'}={}){
  return g+`<circle class="cyou" cx="${X(pt[0])}" cy="${Y(pt[1])}" r="8"/><text class="cyou-t" x="${X(pt[0])}" y="${Y(pt[1])-13}" text-anchor="middle">${esc(label)}</text></svg>`;
 }
 function vCompass(){
- const c=S.compass;const m=IDEOS.filter(d=>!d.fringe||ffaOn()).map(d=>({...d,m:clamp(Math.round(100-dist(c,d.v,0.6)*7),0,99)})).sort((a,b)=>b.m-a.m);
+ const c=S.compass;const m=IDEOS.filter(d=>!d.fringe||ffaOn()).map(d=>({...d,m:clamp(Math.round(100-dist(c,d.v,1)*7),0,99)})).sort((a,b)=>b.m-a.m);
  const fits=ffaParties().map(k=>({k,fit:clamp(Math.round(100-dist(c,PARTIES[k].base,0.6)*(k==='I'?6:7)),0,99)}));const rec=fits.filter(f=>isMajor(f.k)).sort((a,b)=>b.fit-a.fit)[0].k;
  const ax=(v,a,b)=>Math.abs(v)<0.5?'Center':(v<0?a:b);
  const path=inMP?{D:'Primary against other Democrats in the room and computer rivals.',R:'Primary against other Republicans in the room and computer rivals.',L:'No primary. You go straight to November.',G:'No primary. You go straight to November.',I:'No primary. Every independent gets a spot in November.',C:'No primary. You go straight to November.',F:'No primary. You go straight to November.',A:'No primary. You go straight to November.'}:{D:'Primaries against 4 rivals, then the general.',R:'Primaries against 4 rivals, then the general.',L:'No primary. On most ballots, polling around 5%. Need 15% for debates.',G:'No primary. On the ballot in the Northeast and West only.',I:'No primary and no ballot access yet. Start from zero.',C:'No primary. In a free-for-all, anyone can win.',F:'No primary. In a free-for-all, anyone can win.',A:'No primary. In a free-for-all, anyone can win.'};
@@ -3544,9 +3571,6 @@ function swingRows(c,n){const h=(M.hist||[]).filter(x=>x.m[c.id]);if(h.length<2)
 function vLastWeek(){const lw=M.lastWeek;const c=myCand();if(!lw)return '';const mine=c?(lw.notes||[]).filter(n=>n.id===c.id):[];const sw=c&&!c.spec?swingRows(c,6):[];
  const swHtml=sw.length?`<p class="lab" style="margin:8px 0 4px">Biggest moves for you</p><div class="tchips">${sw.map(r=>`<span class="tag"><b class="${r.d>=0?'up':'down'}">${r.d>=0?'▲':'▼'}${f1(Math.abs(r.d))}</b> ${STATES[r.st].n}</span>`).join('')}</div>`:'';const vis=lw.lines.filter(l=>M.cands[l.id]&&(M.cands[l.id].human||l.id===M.gen?.D||l.id===M.gen?.R||!c||M.cands[l.id].party===c.party)).slice(0,14);
  return `<section class="card"><div class="card-h"><h2>Last week</h2><span class="lab">${esc(lw.date)}</span></div><ul class="notes">${mine.map(n=>`<li class="mp-hit">${esc(n.txt)}</li>`).join('')}${vis.map(l=>`<li><b style="color:${M.cands[l.id].color}">${esc(cName(l.id,false))}</b> ${esc(l.txt)}${/[.”…]$/.test(l.txt)?'':'.'}</li>`).join('')}</ul>${swHtml}</section>`;}
-function vMPWatch(){
- return `${mpRaceBar()}<div class="main2"><section class="card"><div class="card-h"><h2>You’re watching</h2></div><p class="small muted">Your campaign is over, but you can follow the race and chat.</p><div class="mapwrap">${usMap(mpFill(),{})}</div></section><aside class="side">${vLastWeek()}<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section></aside></div>`;
-}
 function vMPDebate(){if(M.written)return vMPDebateWritten();
  const c=myCand();const g=c&&M.dgroups.find(x=>x.parts.includes(c.id));
  const chat=`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
@@ -4055,7 +4079,6 @@ function mpVpBanner(){const c=myCand();if(!c||!c.vpFor||M.track!=='general')retu
 const mcActive=()=>{const c=myCand();return !!(c&&!c.spec&&M&&M.phase==='week'&&M.week);};
 const mcLocked=()=>!!(M&&M.week&&M.week.ready[MP.myPid]);
 const mcInPrim=()=>{const v=viewCand();return !!(M.track==='primary'&&v&&v.inPrimary&&M.prim[v.party]&&!M.prim[v.party].nominee);};
-const mcPty=()=>{const v=viewCand();return v&&(v.party==='D'||v.party==='R')?v.party:null;};
 /* your margin in one state, straight from the model */
 function mcUnit(st){const v=viewCand();if(!v)return null;
  if(M.track==='general'&&M.gen&&genIds().includes(v.id))return marginFor(v.id,rcvMP(st,mpShares(st)));
@@ -4761,6 +4784,9 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:13,date:'Nov 10, 2026',
+  add:['The political compass test has 42 questions and 27 ideologies to match, from Social Democrat and Left Populist to Neoliberal, Paleoconservative and Minarchist.'],
+  chg:['Skipping a question in the compass test no longer pulls you toward the middle.','On phones, the top bar no longer hides under the notch, so Profile and Settings are always reachable. Phones turned sideways show more of the map.']},
  {v:12,date:'Nov 10, 2026',
   chg:['Campaign, Map & Analytics and Platform now share the same full-width layout and all fit on one screen. Switching tabs fades in smoothly.','On the classic screen, the state you click shows up next to the map instead of shrinking it.']},
  {v:11,date:'Nov 10, 2026',
