@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794331551;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794331963;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -465,7 +465,7 @@ body.wide .wrap{max-width:none}
 @media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 25rem 28rem}}
 /* Map & Analytics and the classic screen fit on one screen too */
 @media(min-width:901px){
- body.mapscr main.wrap{display:grid;grid-template-columns:minmax(0,1fr) 22rem 30rem;grid-template-rows:auto auto minmax(0,1.2fr) minmax(0,1fr);height:calc(100vh - 6rem);gap:12px;padding-bottom:12px!important;align-content:stretch}
+ body.mapscr main.wrap{display:grid;grid-template-columns:minmax(0,1fr) 22rem 30rem;grid-template-rows:auto auto minmax(0,1.2fr) minmax(0,1fr);height:calc(100vh - 6.25rem);gap:12px;padding-bottom:12px!important;align-content:stretch}
  body.mapscr main.wrap>*{grid-column:1/-1;margin:0!important}
  body.mapscr main.wrap>.main2{display:contents}
  body.mapscr .mapcard{grid-column:1;grid-row:3/5;display:flex;flex-direction:column;min-height:0;overflow:hidden;margin:0}
@@ -473,7 +473,7 @@ body.wide .wrap{max-width:none}
  body.mapscr aside.sd{grid-column:2;grid-row:3/5;overflow:auto;min-height:0;margin:0}
  body.mapscr main.wrap>.atable{grid-column:3;grid-row:3;overflow:auto;min-height:0}
  body.mapscr main.wrap>.main2~.card:not(.atable){grid-column:3;grid-row:4;overflow:auto;min-height:0}
- body.classic main.wrap{display:flex;flex-direction:column;height:calc(100vh - 6rem);gap:12px;padding-bottom:12px!important}
+ body.classic main.wrap{display:flex;flex-direction:column;height:calc(100vh - 6.25rem);gap:12px;padding-bottom:12px!important}
  body.classic main.wrap>*{margin:0!important;flex:none}
  body.classic main.wrap>.main2{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) 22rem 24rem;grid-template-rows:minmax(0,1fr);align-items:stretch}
  body.classic .main2>.side:first-child{display:contents}
@@ -494,6 +494,14 @@ body.wide .wrap{max-width:none}
  body.classic .main2>.side:first-child>*:nth-child(n+2){grid-column:2;grid-row:2}
  body.classic .main2>aside.side{grid-column:2;grid-row:1}
 }
+.cl-col{display:flex;flex-direction:column;gap:12px;min-height:0}
+@media(min-width:1101px){body.platscr main.wrap{height:calc(100vh - 6.25rem);padding-bottom:12px!important;display:flex;flex-direction:column;gap:10px}
+ body.platscr main.wrap>*{flex:none;margin-top:0;margin-bottom:0}body.platscr main.wrap>.plat{flex:1;min-height:0;align-items:stretch}
+ body.platscr .plat>*{overflow:auto;min-height:0}}
+@media(min-width:1500px){body.wide .opts{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
+@media(min-width:901px){body.classic .main2>.side:first-child>.cl-col{overflow:auto}}
+.tabin{animation:tabin .22s ease-out}@keyframes tabin{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tabin{animation:none}}
 .now-bar{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;margin:0 0 8px;border-radius:8px;background:color-mix(in srgb,var(--gold) 16%,transparent);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);font-size:.9rem}
 .now-bar>div{display:flex;flex-direction:column;gap:2px;min-width:0}.now-bar span{overflow-wrap:anywhere}
 .now-dot{flex:0 0 10px;width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--gold);animation:nowpulse 1.6s ease-in-out infinite}
@@ -2253,8 +2261,8 @@ function vCampClassic(){
  const tb=MOVES.filter(m=>!m.third||(S.track==='third'&&Object.values(S.access).some(x=>!x))).map(m=>`<button class="mv ${S.mode===m.id?'on':''}" data-act="mode" data-k="${m.id}" ${!canStart(m.id)&&S.mode!==m.id?'disabled':''}>${m.name}<small>${m.lab}</small></button>`).join('');
  return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vSetup()}
   <div style="margin-top:10px">${nowBar()}</div><div class="cp-maptop">${viewSeg(view)}</div>
-  <div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div>${quick}</section>
-  ${vStand()}</div>
+  <div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div></section>
+  <div class="cl-col">${quick?`<section class="card">${quick}</section>`:''}${vStand()}</div></div>
   <aside class="side">${vWeek()}${vWire()}${vVP()}${vThirdPri()}${vAdvisor()}</aside></div>`;}
 /* classic moves still feed the week's explanation: what you did where, and what the model expected */
 function pvLogMove(kind,T,est){turnLog(kind,T);if(S.turn&&est){S.turn.exp=S.turn.exp||{};T.forEach(st=>{if(est[st]!=null){const g=est[st],o=S.turn.exp[st]||{lo:0,hi:0};S.turn.exp[st]={lo:o.lo+g*0.7,hi:o.hi+g*1.3};}});}mCache.k=null;}
@@ -3522,8 +3530,8 @@ function vMPWeek(){
    <p class="small muted">After this plan: ${Math.round(left.e)} energy, ${money(left.f)}. Empty slots become rest.</p></div>
    <div class="mp-readybox">${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${ready?`<button class="btn big" data-act="mpUnready">Change my plan</button>`:`<button class="btn gold big" data-act="mpSubmit">Ready</button>`}<span class="small muted">${waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'}</span>${isHostMe()&&waiting.length&&ready?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}</div></div>
   ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vMPSetupMove()}`}
-  <div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div>${MP.selSt&&!MP.mode?statePeek(MP.selSt):''}</section>
-  ${mpStandCard()}</div>
+  <div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>
+  <div class="cl-col">${MP.selSt&&!MP.mode?`<section class="card">${statePeek(MP.selSt)}</section>`:''}${mpStandCard()}</div></div>
   <aside class="side">
    <section class="card wire"><span class="lab">News</span><h3>${esc(w.ev.headline)}</h3><p class="small">${esc(w.ev.body)}</p><div class="wire-ch">${w.ev.choices.map((ch,i)=>`<button class="btn ${MP.draft.ev===i&&!(MP.draft.evText||'').trim()?'go':''}" data-act="mpEv" data-i="${i}" ${ready?'disabled':''}>${esc(ch.label)}</button>`).join('')}</div>
     <label class="lab" for="mp-evtext" style="display:block;margin-top:10px">Or say it your way</label><textarea id="mp-evtext" rows="2" maxlength="400" placeholder="What you tell reporters" ${ready?'disabled':''}>${esc(MP.draft.evText||'')}</textarea>
@@ -4504,10 +4512,12 @@ function vSync(){
 
 /* ========== render ========== */
 const app=$('#app');
+let lastTabKey='';
+function tabFade(){let k='';try{k=inMP?(M?M.phase+':'+(MP.tab||'campaign'):'mp'):S.phase+':'+(S.tab||'');}catch(e){}if(k!==lastTabKey){lastTabKey=k;const m=document.querySelector('#app main');if(m){m.classList.remove('tabin');void m.offsetWidth;m.classList.add('tabin');}}}
 function render(){
- document.body.classList.toggle('phone',LAYOUTP==='phone');
- {let ms=false,cl=false;try{if(inMP){ms=!!(M&&M.phase==='week'&&MP.tab==='map');cl=!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign')&&CVIEW==='classic');}else{ms=S.phase==='hq'&&S.tab==='map';cl=S.phase==='hq'&&(!S.tab||S.tab==='campaign')&&CVIEW==='classic';}}catch(e){}document.body.classList.toggle('mapscr',ms);document.body.classList.toggle('classic',cl);}
- {let wide=false;try{wide=inMP?!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign'||MP.tab==='map')):(S.phase==='hq'&&(!S.tab||S.tab==='campaign'||S.tab==='map'));}catch(e){}document.body.classList.toggle('wide',wide);}const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
+ setTimeout(tabFade,0);document.body.classList.toggle('phone',LAYOUTP==='phone');
+ {let ms=false,cl=false;try{if(inMP){ms=!!(M&&M.phase==='week'&&MP.tab==='map');cl=!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign')&&CVIEW==='classic');}else{ms=S.phase==='hq'&&S.tab==='map';cl=S.phase==='hq'&&(!S.tab||S.tab==='campaign')&&CVIEW==='classic';}}catch(e){}document.body.classList.toggle('mapscr',ms);{let ps=false;try{ps=inMP?!!(M&&M.phase==='week'&&MP.tab==='platform'):(S.phase==='hq'&&S.tab==='platform');}catch(e){}document.body.classList.toggle('platscr',ps);}document.body.classList.toggle('classic',cl);}
+ {let wide=false;try{wide=inMP?!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign'||MP.tab==='map'||MP.tab==='platform')):(S.phase==='hq'&&(!S.tab||S.tab==='campaign'||S.tab==='map'||S.tab==='platform'));}catch(e){}document.body.classList.toggle('wide',wide);}const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
  if(inMP){if(tut)endTut();const ab=mpActBar();document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`+ab;
   if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
   document.querySelectorAll('.mp-chatlog').forEach(l=>l.scrollTop=l.scrollHeight);return;}
@@ -4751,6 +4761,8 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:12,date:'Nov 10, 2026',
+  chg:['Campaign, Map & Analytics and Platform now share the same full-width layout and all fit on one screen. Switching tabs fades in smoothly.','On the classic screen, the state you click shows up next to the map instead of shrinking it.']},
  {v:11,date:'Nov 10, 2026',
   chg:['Map & Analytics and the classic Moves-on-top screen now fit on one screen, like the map-first screen.']},
  {v:10,date:'Nov 10, 2026',
