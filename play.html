@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794284671;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794330568;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -446,6 +446,19 @@ body.phone .sheet{left:50%;right:auto;width:100%;max-width:560px;transform:trans
 .tpri{display:flex;flex-direction:column;gap:6px;margin-top:10px}
 :root[data-theme=dark] [style*="color:var(--pa)"],:root[data-theme=midnight] [style*="color:var(--pa)"],:root[data-theme=black] [style*="color:var(--pa)"]{text-shadow:0 0 1px #fff,0 0 3px rgba(255,255,255,.75)}
 @media (prefers-color-scheme:dark){:root:not([data-theme]) [style*="color:var(--pa)"]{text-shadow:0 0 1px #fff,0 0 3px rgba(255,255,255,.75)}}
+/* big screens: use the whole width, keep the campaign on one screen */
+body.wide .wrap{max-width:none}
+@media(min-width:901px){body.wide main.wrap{padding-bottom:12px!important}}
+.cockpit>.cp-more{grid-column:1/-1}
+@media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - 152px)}
+ body.wide .cockpit>.cp-map{grid-row:1/3}body.wide .cockpit>.cp-side{grid-row:1}
+ body.wide .cockpit>.cp-more{grid-column:2;grid-row:2;overflow:auto;min-height:0;margin-top:0}
+ body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap}}
+@media(min-width:1500px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 380px 420px;grid-template-rows:calc(100vh - 152px)}
+ body.wide .cockpit>.cp-more{grid-column:3;grid-row:1;margin-top:0;overflow:auto;min-height:0;display:flex;flex-direction:column}
+ body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap;padding-bottom:2px}
+ body.wide .cp-more .cp-morebody>.card{margin-bottom:12px}}
+@media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 420px 460px}}
 .now-bar{display:flex;gap:10px;align-items:flex-start;padding:8px 12px;margin:0 0 8px;border-radius:8px;background:color-mix(in srgb,var(--gold) 16%,transparent);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent);font-size:.9rem}
 .now-bar>div{display:flex;flex-direction:column;gap:2px;min-width:0}.now-bar span{overflow-wrap:anywhere}
 .now-dot{flex:0 0 10px;width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--gold);animation:nowpulse 1.6s ease-in-out infinite}
@@ -2404,8 +2417,8 @@ function vCampDesk(){
    <div class="cp-mapbox">${usMap(campFill(view),{sel,targets:S.pvSel,up})}</div>
    <div class="cp-foot"><div class="legend">${campLegend(view)}${prim?'<span>Thick pulsing outline = votes next · dashed = votes after that</span>':''}<span>Gold outline = your picks</span></div>${smallChips(sel)}</div></section>
   <aside class="cp-side">${vQuick()}${trayCard()}<section class="card statepanel" id="statepanel" aria-live="polite" aria-label="State details">${vPanel(sel)}</section></aside>
- </div>
- <section class="cp-more" id="cp-more"><div class="seg cp-moretabs" role="tablist">${tabs.map(([k,l])=>`<button class="${mk===k?'on':''}" role="tab" aria-selected="${mk===k}" data-act="pvMore" data-k="${k}">${l}</button>`).join('')}</div><div class="cp-morebody">${body}</div></section>`;}
+ <section class="cp-more" id="cp-more"><div class="seg cp-moretabs" role="tablist">${tabs.map(([k,l])=>`<button class="${mk===k?'on':''}" role="tab" aria-selected="${mk===k}" data-act="pvMore" data-k="${k}">${l}</button>`).join('')}</div><div class="cp-morebody">${body}</div></section>
+ </div>`;}
 function vCampSheet(){
  const view=S.pvView||'lead';const prim=S.track==='primary';const sel=S.selSt&&STATES[S.selSt]?S.selSt:null;const up=prim?upcomingStates(2):[];
  const tab=S.pvTab||'state';const open=!!S.pvSheet;const n=S.pvSel.length;const ev=S.event;const blocked=ev&&!ev.done&&!ev.loading;
@@ -4209,8 +4222,8 @@ function vMPCamp(){
    <div class="cp-mapbox">${usMap(mcFill(view),{sel,targets:MP.cSel,up})}</div>
    <div class="cp-foot"><div class="legend">${mcLegend(view)}${up.length?'<span>Thick pulsing outline = votes next · dashed = votes after that</span>':''}<span>Gold outline = your picks</span></div>${mcSmall(sel)}</div></section>
   <aside class="cp-side">${mcQuick()}${mcTray()}<section class="card statepanel" id="statepanel" aria-live="polite" aria-label="State details">${mcPanel(sel)}</section></aside>
- </div>
- <section class="cp-more" id="cp-more"><div class="seg cp-moretabs" role="tablist">${tabs.map(([k,l])=>`<button class="${mk===k?'on':''}" role="tab" aria-selected="${mk===k}" data-act="mc" data-do="more" data-k="${k}">${l}</button>`).join('')}</div><div class="cp-morebody">${mcMoreBody(mk)}</div></section>`;}
+ <section class="cp-more" id="cp-more"><div class="seg cp-moretabs" role="tablist">${tabs.map(([k,l])=>`<button class="${mk===k?'on':''}" role="tab" aria-selected="${mk===k}" data-act="mc" data-do="more" data-k="${k}">${l}</button>`).join('')}</div><div class="cp-morebody">${mcMoreBody(mk)}</div></section>
+ </div>`;}
 function mcSheet(view,sel,up){
  const tab=MP.cTab||'state';const open=!!MP.cSheet;const n=MP.cSel.length;const locked=mcLocked();const newsDot=mcNewsOpen()&&!locked;
  let sum,btn;
@@ -4457,7 +4470,8 @@ function vSync(){
 /* ========== render ========== */
 const app=$('#app');
 function render(){
- document.body.classList.toggle('phone',LAYOUTP==='phone');const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
+ document.body.classList.toggle('phone',LAYOUTP==='phone');
+ {let wide=false;try{wide=inMP?!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign'||MP.tab==='map')):(S.phase==='hq'&&(!S.tab||S.tab==='campaign'||S.tab==='map'));}catch(e){}document.body.classList.toggle('wide',wide);}const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
  if(inMP){if(tut)endTut();const ab=mpActBar();document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`+ab;
   if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
   document.querySelectorAll('.mp-chatlog').forEach(l=>l.scrollTop=l.scrollHeight);return;}
@@ -4701,6 +4715,8 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:9,date:'Nov 10, 2026',
+  chg:['On computers the campaign screen now uses the whole width and fits on one screen, with no scrolling. On wide screens, Where you stand, Riley and the log get their own column.']},
  {v:8,date:'Nov 9, 2026',
   add:['Communists, Fascists and Anarchists have their own positions on all 10 issues, and quick build uses them.',
    'Not in a primary? Follow both party primaries: in single-player under Party primaries, in multiplayer by switching the map to either party’s race.'],

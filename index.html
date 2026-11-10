@@ -40,6 +40,7 @@
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--nav)}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media(min-width:1600px){.wrap{max-width:1480px}}@media(min-width:2200px){.wrap{max-width:1800px}}
 h1,h2,h3{margin:0;text-wrap:balance}
 p{margin:0}
 a{color:var(--d)}
