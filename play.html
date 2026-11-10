@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794278783;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794279956;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -434,6 +434,11 @@ div.dopt{cursor:default}
 .prefs-box{width:100%;max-width:640px;display:flex;flex-direction:column;gap:16px;box-shadow:0 18px 50px rgba(0,0,0,.4)}
 .prefs-box h2{font-size:1.7rem}
 .news-rel h3{font-size:1rem;margin:12px 0 6px}
+.mc-plan{margin:6px 0 10px;padding-left:20px;display:grid;gap:4px;list-style:decimal}
+.mc-plan li{display:list-item;font-size:.9rem}
+.mc-plan li small{display:block}
+.mc-plan li .link{margin-left:6px}
+.mc-note{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin-bottom:8px;font-size:.92rem}
 .news-rel ul{margin:0;padding-left:20px;display:grid;gap:5px;line-height:1.45;list-style:disc}
 .news-rel li{display:list-item}
 .news-box .btns{justify-content:flex-end}
@@ -2797,7 +2802,9 @@ function allocP(sh,dels,thr,wta,pt){
  raw.map((r,i)=>[r-fl[i],i]).sort((a,b)=>b[0]-a[0]).forEach(([,i])=>{if(rem>0&&q[i]>0){fl[i]++;rem--;}});return fl;
 }
 function upcomingMP(n){const out=[];for(let i=M.step;i<M.steps.length&&out.length<n;i++)if(M.steps[i].t==='contest')out.push(M.steps[i].id);return out;}
-const upStatesMP=n=>upcomingMP(n).flatMap(id=>MPC[id].states).filter(st=>!STATES[st].terr||Object.values(STATES[st].dels).some(x=>x>0));
+/* states voting in the next n contests for one party (territories vote on different dates for each party) */
+const mcMyPt=()=>{const c=M&&M.players&&MP&&myCand();return c&&(c.party==='D'||c.party==='R')?c.party:null;};
+const upStatesMP=(n,pt)=>{if(pt===undefined)pt=mcMyPt();return upcomingMP(n).flatMap(id=>MPC[id].states.filter(st=>!STATES[st].terr||(pt?delsP(pt,st)>0&&terrIn(st,id,pt):Object.values(STATES[st].dels).some(x=>x>0))));};
 function mpRunContest(id){
  const C=MPC[id];const res={name:C.name,date:C.date,by:{}};
  ['D','R'].forEach(pt=>{const pr=M.prim[pt];if(!pr.active||pr.nominee)return;
@@ -2824,7 +2831,7 @@ function mpConvention(){
  ['D','R'].forEach(pt=>{const pr=M.prim[pt];let nom=pr.nominee;if(!nom){const f=primField(pt);nom=f.reduce((a,b)=>b.dels>a.dels?b:a).id;notes.push(`No one reached a majority on the ${PARTIES[pt].name} side. ${M.cands[nom].name} leads in delegates and wins on the second ballot.`);}
   pr.nominee=nom;noms[pt]=nom;
   Object.values(M.cands).filter(c=>c.human&&c.party===pt&&c.id!==nom).forEach(c=>{pending[c.pid]=true;});});
- const third=Object.values(M.cands).filter(c=>c.human&&['L','G','I'].includes(c.party));if(third.length)notes.push(`Also on the November ballot: ${listJoin(third.map(c=>`${c.name} (${PARTIES[c.party].name})`))}. Third parties don't run in the primaries.`);
+ const third=Object.values(M.cands).filter(c=>c.human&&['L','G','I'].includes(c.party));if(third.length)notes.push(`Also on the November ballot: ${listJoin(third.map(c=>`${c.name} (${PARTIES[c.party].name})`))}. Third parties don’t run in the primaries.`);
  const vp={};Object.values(M.cands).filter(c=>c.human&&!pending[c.pid]&&(Object.values(noms).includes(c.id)||['L','G','I'].includes(c.party))).forEach(c=>{vp[c.pid]={opts:(c.party==='D'||c.party==='R')?vpFromParty(c):vpGeneric(c),pick:null,speech:null};});
  M.conv={noms,pending,choice:{},notes,vp};M.phase='conv';
 }
@@ -2845,7 +2852,7 @@ function mpStartGeneral(){
   c.vpB=ef.gen;c.enthB=(c.enthB||0)+ef.base;c.vpHome=o.home;c.vpName=o.name;const sp=e.speech||'unity';
   if(sp==='unity')c.enthB+=3;else if(sp==='pivot'){c.genB=(c.genB||0)+2;c.enthB-=2;}else c.mom=clamp(c.mom+4,-20,20);});
  M.gen={D:n.D,R:n.R,T};M.gen.minors=mpMinors(T);
- [n.D,n.R,...T].forEach(id=>{const c=M.cands[id];c.presence={};c.visits={};c.ads={};c.energy=100;c.prep=0;});
+ [n.D,n.R,...T].forEach(id=>{const c=M.cands[id];if(c.inPrimary||c.indie){c.presence={};c.visits={};c.ads={};}c.energy=100;c.prep=0;});
  M.pollHist=[];M.step=M.steps.findIndex(s=>s.track==='general');M.chat.push({n:'',txt:'General election. Everyone still running is on the same map now.'});
  mpEnterStep();regGame();
 }
@@ -2920,12 +2927,12 @@ function mpDoMove(c,mv,notes){
  c.energy=clamp(c.energy+40,0,100);c.mom-=0.5;return 'took a day off';
 }
 function mpAIWeek(lines){
- if(M.track==='primary'){const nxt=upStatesMP(2);if(!nxt.length)return;
-  ['D','R'].forEach(pt=>{if(!M.prim[pt].active||M.prim[pt].nominee)return;primField(pt).filter(c=>!c.human).forEach(c=>{const went=new Set();for(let k=0;k<4;k++){const st=wpick(nxt,s=>(delsP(pt,s)+20)*(1+0.6*Math.max(0,issueFit(null,c.v,s,'pri'))));c.presence[st]=(c.presence[st]||0)+rnd(0.7,1.3);visit(c,st);went.add(st);}c.recog=clamp(c.recog+rnd(0,1.5),0,100);lines.push({id:c.id,txt:`campaigned in ${stNames([...went].slice(0,3))}`});});});
+ if(M.track==='primary'){
+  ['D','R'].forEach(pt=>{const nxt=upStatesMP(2,pt);if(!nxt.length||!M.prim[pt].active||M.prim[pt].nominee)return;primField(pt).filter(c=>!c.human).forEach(c=>{const went=new Set();aiBudget(c);const stops=c.energy<30?2:c.funds<1?3:4;const gap={};nxt.forEach(st=>{const p=pollP(pt,st);gap[st]=(p[c.id]||0)-Math.max(0,...Object.keys(p).filter(k=>k!==c.id).map(k=>p[k]));});for(let k=0;k<stops;k++){const st=wpick(nxt,s=>(delsP(pt,s)+20)/(1+Math.abs(gap[s]+2)/12)*(1+0.6*Math.max(0,issueFit(null,c.v,s,'pri'))));c.presence[st]=(c.presence[st]||0)+rnd(0.7,1.3);visit(c,st);went.add(st);}c.energy=clamp(c.energy-6*stops+18,0,100);c.funds=Math.max(0,c.funds-0.3*stops+0.5+c.recog*0.01);c.recog=clamp(c.recog+rnd(0,1.5),0,100);lines.push({id:c.id,txt:`campaigned in ${stNames([...went].slice(0,3))}`});});});
   return;}
  const pr=mpProj();
  [M.gen.D,M.gen.R].map(id=>M.cands[id]).filter(c=>!c.human).forEach(c=>{const went=new Set();const close=ST_KEYS.map(st=>({st,m:marginFor(c.id,pr.st[st])}));
-  for(let i=0;i<5;i++){const t=wpick(close,o=>STATES[o.st].ev/(1+Math.abs(o.m)**1.6)*(1+0.5*Math.max(0,issueFit(null,c.v,o.st,'gen'))));c.presence[t.st]=(c.presence[t.st]||0)+rnd(0.9,1.3);if(Math.random()<0.5)visit(c,t.st);else visit(c,t.st,'a',2);went.add(t.st);}
+  aiBudget(c);const n=c.energy<30?3:5;for(let i=0;i<n;i++){const t=wpick(close,o=>STATES[o.st].ev/(1+Math.abs(o.m)**1.6)*(1+0.5*Math.max(0,issueFit(null,c.v,o.st,'gen'))));c.presence[t.st]=(c.presence[t.st]||0)+rnd(0.9,1.3);const ad=c.funds>=2&&Math.random()<0.5;if(ad){visit(c,t.st,'a',2);c.funds-=2;}else visit(c,t.st);went.add(t.st);}c.energy=clamp(c.energy-5*n+20,0,100);c.funds+=1.2+c.recog*0.02;
   if(pr.ev[c.id]<270)c.v=lerp(c.v,GEN_CENTER,0.1);c.mom+=rnd(-0.5,1.2);lines.push({id:c.id,txt:`campaigned in ${stNames([...went].slice(0,3))}`});});
 }
 function mpResolveWeek(){
@@ -3000,7 +3007,7 @@ function vMP(){
  if(MP.screen==='home'||!M)return vMPHome();
  if(M.phase==='lobby')return vMPRoom();
  const c=myCand();
- if(M.phase==='week'){if(!c||c.spec)return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatView():vMPWatch();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():vMPWeek();}
+ if(M.phase==='week'){if(!c||c.spec)return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatView():vMPWatch();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():vMPCamp();}
  if(M.phase==='debate')return vMPDebate();
  if(M.phase==='contest')return vMPContest();
  if(M.phase==='conv')return vMPConv();
@@ -3160,7 +3167,7 @@ function vMPRoom(){
 function mpPlanLeft(){const c=myCand();let e=c.energy,f=c.funds;MP.draft.moves.forEach(mv=>{const k=mpCost(mv);e-=k.e;f-=k.f;if(mv.id==='rest')e+=40;if(mv.id==='fund')f+=fundAmt(c,mv.opt,M.track);});return{e,f};}
 const moveLabel=mv=>{if(mv.id==='revise')return `Change position · ${AREA[mv.area]?.short||''}: “${mv.newPlank?.title||''}”`;if(mv.id==='press')return `Interview · ${AREA[mv.area]?.short||''}${mv.kind==='typed'?' · your answer':mv.kind==='firm'?' · stand firm':mv.kind==='soft'?' · soften it':' · dodge'}`;const n=MP_MOVES.find(x=>x.id===mv.id)?.name||mv.id;const t=mv.targets&&mv.targets.length?' · '+mv.targets.join(', '):'';const extra=mv.id==='ad'?(mv.opt==='nat'?' · national TV':` · ${mv.tone==='con'?'contrast':mv.tone==='atk'?'attack on '+cName(mv.target,true):'positive'}`):mv.id==='oppo'?' on '+cName(mv.target,true):mv.id==='media'?` · ${MEDIA.find(m=>m.id===mv.opt)?.name||''}`:mv.id==='fund'?(mv.opt==='big'?' · donor dinner':' · small donors'):'';return n+extra+t;};
 const rivalsOf=c=>Object.values(M.cands).filter(x=>x!==c&&!x.out&&!x.spec&&(M.track==='general'?genIds().includes(x.id):(x.human||x.inPrimary)&&(x.party===c.party||!x.inPrimary||!c.inPrimary)));
-function validTargetMP(st){const c=myCand();if(M.track==='primary'&&c.inPrimary)return upStatesMP(2).includes(st);return true;}
+function validTargetMP(st){const c=myCand();if(M.track==='primary'&&c.inPrimary)return upStatesMP(2,c.party).includes(st);return true;}
 function vMPSetupMove(){
  const id=MP.mode;if(!id)return '';const mv=MP_MOVES.find(m=>m.id===id);const c=myCand();const T=MP.targets;const left=mpPlanLeft();const others=rivalsOf(c);
  const add=(extra='',dis=false,label='Add to plan')=>`<button class="btn go" data-act="mpAdd" ${extra} ${dis?'disabled':''}>${label}</button>`;
@@ -3188,7 +3195,8 @@ function mpRaceBar(final,shown){
   const pts=['D','R'].filter(pt=>M.prim[pt].active);const mine=c&&c.inPrimary&&!c.spec?c.party:pts[0];
   if(!mine)return `<section class="race"><p class="small">Both major-party nominees are set. Third-party and independent candidates are building up for November.</p></section>`;
   const pt=mine;const f=Object.values(M.cands).filter(x=>x.inPrimary&&x.party===pt).sort((a,b)=>b.dels-a.dels);const tot=totalP(pt),need=needP(pt);
-  return `<section class="race"><div class="race-top"><div><span class="lab">${PARTIES[pt].name} primary</span><div class="mp-cands" style="margin-top:6px">${f.map(x=>`<div class="mp-cand"><span class="av" style="background:${x.color}">${x.pid===MP.myPid?'YOU':esc(initials(x))}</span><div class="nm">${esc(x.name)}${x.out?' (out)':''}<small>${esc(ownerOf(x))}</small></div><span class="big">${x.dels}</span></div>`).join('')}</div></div></div>
+  const me3=myCand();
+  return `<section class="race">${me3&&!me3.spec&&!me3.inPrimary?`<p class="small" style="margin-bottom:8px"><b>${esc(PARTIES[me3.party].name)} · no primary.</b> You go straight to November. This is the ${esc(PARTIES[pt].name)} race.</p>`:''}<div class="race-top"><div><span class="lab">${PARTIES[pt].name} primary</span><div class="mp-cands" style="margin-top:6px">${f.map(x=>`<div class="mp-cand"><span class="av" style="background:${x.color}">${x.pid===MP.myPid?'YOU':esc(initials(x))}</span><div class="nm">${esc(x.name)}${x.out?' (out)':''}<small>${esc(ownerOf(x))}</small></div><span class="big">${x.dels}</span></div>`).join('')}</div></div></div>
   <div class="rbar">${f.map(x=>`<i style="width:${x.dels/tot*100}%;background:${x.color}"></i>`).join('')}<span class="mark" style="left:${need/tot*100}%"></span></div>
   <div class="race-legend"><span>${need.toLocaleString()} delegates to clinch</span>${M.prim[pt].nominee?`<span><b>${esc(M.cands[M.prim[pt].nominee].name)} clinched</b></span>`:''}${pts.filter(x=>x!==pt).map(x=>{const lead=Object.values(M.cands).filter(y=>y.inPrimary&&y.party===x).sort((a,b)=>b.dels-a.dels)[0];return `<span>${PARTIES[x].name} leader: ${esc(lead.name)} ${lead.dels}</span>`;}).join('')}</div></section>`;
  }
@@ -3296,7 +3304,7 @@ function vMPNight(){
  const fill=st=>{if(!shown.has(st))return{fill:'var(--none)',ink:'var(--muted)'};const sh=n.final[st],w=winKey(sh);return{...shFill(sh,mpKeyColor,true),tip:`${mpWhoName(w)} +${f1(leadM(sh))}`};};
  const e=M.end;
  if(MP.nightDone){const ks=Object.keys(e.ev).sort((a,b)=>e.ev[b]-e.ev[a]);const won=c&&e.winner===c.id;
-  return `<section class="card end">${stamp(won?'WIN IT':'BIN IT','xl slam')}<h1>${won?'You win the White House':esc(M.cands[e.winner].name)+' wins'}</h1><p class="muted">${esc(e.note||'')}</p>
+  return `<section class="card end">${stamp(won?'WIN IT':'BIN IT','xl slam')}<h1>${won?'You win the White House':esc(M.cands[e.winner].name)+' wins'}</h1><p class="muted">${esc(e.note||'')}</p>${e.ce?vContingent(e.ce):''}
   <div class="stats4">${ks.map(s=>`<div style="border-top-color:${genColor(s)}"><span class="lab">${esc(cName(s,false))}</span><b>${e.ev[s]} EV</b><span class="small muted">${f1(e.pop[s])}% of the vote</span></div>`).join('')}</div>
   <div style="width:100%">${usMap(fill,{})}</div>
   <div class="btns">${isHostMe()?'<button class="btn gold big" data-act="mpRematch">Rematch</button>':'<span class="small muted">The host can start a rematch.</span>'}<button class="btn" data-act="mpLeave">Leave game</button></div></section>`;}
@@ -3315,7 +3323,7 @@ function mpClock(){
  }
 }
 function mpMapClick(st){
- if(!M||M.phase!=='week')return;if(MP.tab==='map'){MP.selSt=st;render();return;}const mv=MP_MOVES.find(m=>m.id===MP.mode);
+ if(!M||M.phase!=='week')return;if(mcOn()){if(window.__mods)mcToggle(st);MP.selSt=st;if(pvLayout()==='sheet'){MP.cTab='state';MP.cSheet=true;}render();mcSheetScroll();return;}if(MP.tab==='map'){MP.selSt=st;render();return;}const mv=MP_MOVES.find(m=>m.id===MP.mode);
  if(!mv||!mv.max){MP.selSt=st;render();return;}
  if(MP.targets.includes(st)){MP.targets=MP.targets.filter(x=>x!==st);render();return;}
  if(!validTargetMP(st))return toast(`${STATES[st].n} doesn’t vote soon. Pick a state with a dashed outline.`);
@@ -3379,7 +3387,7 @@ function mpSim(n=400){const c=viewCand();const key=M.rev+':'+c.id;if(mpSimCache.
   let win=ev[c.id]>=270;if(!ids.some(k=>ev[k]>=270))win=c.id===(ev[M.gen.R]>=ev[M.gen.D]?M.gen.R:M.gen.D);if(win)wins++;}
  ST_KEYS.forEach(s=>sw[s]=sw[s]/n*100);const v={win:wins/n*100,sw};mpSimCache={key,v};return v;}
 function mpProjDels(pt){const f=primField(pt);const tot={};f.forEach(c=>tot[c.id]=c.dels);upcomingMP(10).forEach(id=>MPC[id].states.forEach(st=>{const p=pollP(pt,st);const al=allocP(f.map(c=>p[c.id]),delsP(pt,st),pt==='D'?15:20,pt==='R'&&['mar','apr','fin','rest'].includes(id),pt);f.forEach((c,i)=>tot[c.id]+=al[i]);}));return tot;}
-const mpContestOf=st=>M.steps.find(s=>s.t==='contest'&&MPC[s.id].states.includes(st))?.id;
+const mpContestOf=(st,pt)=>{if(pt===undefined)pt=mcMyPt();return M.steps.find(s=>s.t==='contest'&&MPC[s.id].states.includes(st)&&(!pt||terrIn(st,s.id,pt)))?.id;};
 const histFor=(c,st)=>(M.hist||[]).filter(h=>h.m[c.id]).map(h=>h.m[c.id][st]);
 function mpModeFill(mode){
  const c=viewCand();
@@ -3566,7 +3574,7 @@ const issAdjC=(c,st,mode)=>c?2.5*(issueFit(c.human?c.planks:null,candV(c),st,mod
 
 /* bottom bar on phones: what's left this week, and the button that ends it */
 function mpActBar(){
- if(!M||M.phase!=='week'||!M.week)return '';const c=myCand();if(!c||c.spec)return '';const ready=!!M.week.ready[MP.myPid];const n=MP.draft.moves.length;
+ if(!M||M.phase!=='week'||!M.week)return '';const c=myCand();if(!c||c.spec)return '';if(mcOn()&&pvLayout()==='sheet')return '';const ready=!!M.week.ready[MP.myPid];const n=MP.draft.moves.length;
  const waiting=actors().filter(p=>!M.week.ready[p.pid]).length;
  return `<div class="actbar" role="region" aria-label="This week"><div><b>${ready?'Plan locked in':`${n} of 3 moves planned`}</b><span>${ready?(waiting?`Waiting on ${waiting} player${waiting>1?'s':''}`:'Everyone’s in'):esc(M.week.date)}</span></div>${ready?'<button class="btn" data-act="mpUnready">Change plan</button>':'<button class="btn gold" data-act="mpSubmit">Ready</button>'}</div>`;}
 
@@ -3743,6 +3751,256 @@ function mpVpNote(e){if(!e)return '';const cv=M.conv;const ps=e.opts.map((o,i)=>
 function mpVpWaitUI(e){const o=e.opts[e.offerI];return `<div class="setup"><p>You offered the running-mate slot to <b>${esc(o?o.name:'')}</b>. Waiting for their answer.</p></div>`;}
 function mpVpBanner(){const c=myCand();if(!c||!c.vpFor||M.track!=='general')return '';const n=M.cands[c.vpFor];if(!n)return '';
  return `<section class="card mp-strip"><div><b>You’re ${esc(n.name)}’s running mate.</b><p class="small">Your stops, ads, momentum and debate answers count for the ticket. ${n.human?`${esc(ownerOf(n))} runs the top of it.`:'The computer runs the top of it.'}</p></div></section>`;}
+
+/* ========== multiplayer campaign screen: same layout as single-player ========== */
+/* map with views, state panel, plan tray with costs and expected effects, corner panel, phone bottom sheet */
+const mcActive=()=>{const c=myCand();return !!(c&&!c.spec&&M&&M.phase==='week'&&M.week);};
+const mcLocked=()=>!!(M&&M.week&&M.week.ready[MP.myPid]);
+const mcInPrim=()=>{const v=viewCand();return !!(M.track==='primary'&&v&&v.inPrimary&&M.prim[v.party]&&!M.prim[v.party].nominee);};
+const mcPty=()=>{const v=viewCand();return v&&(v.party==='D'||v.party==='R')?v.party:null;};
+/* your margin in one state, straight from the model */
+function mcUnit(st){const v=viewCand();if(!v)return null;
+ if(M.track==='general'&&M.gen&&genIds().includes(v.id))return marginFor(v.id,rcvMP(st,mpShares(st)));
+ if(mcInPrim()){const p=pollP(v.party,st);return(p[v.id]||0)-Math.max(0,...Object.keys(p).filter(k=>k!==v.id).map(k=>p[k]));}
+ return null;}
+function mcMargins(){const v=viewCand();const out={};if(!v)return out;
+ if(M.track==='general'&&M.gen&&genIds().includes(v.id))ST_KEYS.forEach(st=>{out[st]=marginFor(v.id,rcvMP(st,mpShares(st)));});
+ else if(mcInPrim()){const pt=v.party;const voted=new Set(M.prim[pt].log.map(r=>r.st));priKeys(pt).filter(st=>!voted.has(st)).forEach(st=>{out[st]=mcUnit(st);});}
+ return out;}
+let mcCache={k:null,v:null};
+const mcMarginsC=()=>{const k=M.rev+':'+M.step+':'+(viewCand()?.id||'');if(mcCache.k!==k)mcCache={k,v:mcMargins()};return mcCache.v;};
+/* week start: remember where every state stood and everyone's ground game. Week end: split each change into
+   your campaigning, rivals' campaigning and national movement by recomputing with the week's ground game taken back out. */
+function mcTrack(){
+ if(!M||M.phase!=='week'||!M.week||!mcActive())return;const wk=M.week.n;
+ if(MP.cTurn&&MP.cTurn.wk===wk){MP.cTurn.moves=MP.draft.moves;MP.cTurn.vp=MP.vpPlan;return;}
+ if(MP.cTurn&&MP.cTurn.track===M.track)mcTurnEnd();else MP.cLast=null;
+ MP.cTurn={wk,track:M.track,date:M.week.date,m0:mcMargins(),pres:Object.fromEntries(Object.values(M.cands).map(x=>[x.id,{...(x.presence||{})}])),moves:MP.draft.moves};}
+function mcTurnEnd(){
+ const t=MP.cTurn,v=viewCand(),me=myCand();if(!t||!v)return;const m1=mcMargins();const keys=Object.keys(m1).filter(st=>t.m0[st]!=null);if(!keys.length){MP.cLast=null;return;}
+ const mine=new Set([v.id,me.id,...Object.values(M.cands).filter(x=>x.vpFor===v.id).map(x=>x.id)]);const all=Object.values(M.cands);
+ const swap=pred=>{const saved=[];all.forEach(x=>{if(pred(x)&&t.pres[x.id]){saved.push([x,x.presence]);x.presence=t.pres[x.id];}});const m=mcMargins();saved.forEach(([x,p])=>{x.presence=p;});return m;};
+ const cfMe=swap(x=>mine.has(x.id)),cfOp=swap(x=>!mine.has(x.id)),cfAll=swap(()=>true);const d={};
+ keys.forEach(st=>{const tot=m1[st]-t.m0[st];const a=((m1[st]-cfMe[st])+(cfOp[st]-cfAll[st]))/2,o=((m1[st]-cfOp[st])+(cfMe[st]-cfAll[st]))/2;const R={t:r1(tot),me:r1(a),op:r1(o)};R.nat=r1(R.t-R.me-R.op);d[st]=R;});
+ const acts={},atk=[],exp={};const add=(st,k)=>{const a=acts[st]=acts[st]||[];if(!a.includes(k))a.push(k);};
+ (t.moves||[]).forEach(m=>{const T=m.targets||[];if(m.id==='rally'||m.id==='stop')T.forEach(st=>add(st,m.id));else if(m.id==='ad'&&m.opt!=='nat'){const k=m.tone==='atk'?'atk':'ad';T.forEach(st=>add(st,k));if(k==='atk')atk.push(...T);}
+  if(m.exp)Object.entries(m.exp).forEach(([st,[lo,hi]])=>{const o=exp[st]||{lo:0,hi:0};exp[st]={lo:o.lo+lo,hi:o.hi+hi};});});
+ (M.lastWeek?.lines||[]).filter(l=>mine.has(l.id)&&l.txt.startsWith('running mate')).forEach(l=>ST_KEYS.forEach(st=>{if(l.txt.includes(STATES[st].n))add(st,'vp');}));
+ Object.values(M.cands).filter(x=>x.vpFor===v.id&&x.id!==me.id).forEach(x=>mpWentTo(x.id).forEach(st=>add(st,'vp')));
+ const opp={};rivalsOf(v).forEach(x=>mpWentTo(x.id).forEach(st=>{const a=opp[st]=opp[st]||[];const n=x.name.split(' ').slice(-1)[0];if(!a.includes(n))a.push(n);}));
+ MP.cLast={lab:t.date,track:t.track,d,acts,atk,opp,exp};mcCache.k=null;}
+const MC_WORD={rally:'rally',stop:'town halls',ad:'ads',atk:'attack ads',vp:'running mate'};
+function mcWhy(st){
+ const L=MP.cLast;const d=L&&L.track===M.track&&L.d[st];if(!d)return '';if(Math.abs(d.t)<0.1)return 'No real change last week.';
+ const sg=x=>(x>0?'+':'−')+f1(Math.abs(x));const parts=[];const acts=(L.acts[st]||[]).filter(k=>k!=='atk');
+ if(Math.abs(d.me)>=0.2)parts.push(`${sg(d.me)} from ${acts.length?'your '+listJoin(acts.map(k=>MC_WORD[k])):'your campaigning in nearby states'}`);
+ if(Math.abs(d.op)>=0.2){const who=L.opp[st]||[];parts.push(d.op>0&&L.atk.includes(st)?`${sg(d.op)} from your attack ads`:`${sg(d.op)} from ${who.length===1?who[0]+'’s campaigning here':who.length?'rivals campaigning here':'rival campaigning nearby'}`);}
+ if(Math.abs(d.nat)>=0.2)parts.push(`${sg(d.nat)} from national movement`);
+ const ex=L.exp&&L.exp[st];if(ex&&parts.length)parts[0]+=` (expected ${rng(ex.lo,ex.hi)})`;
+ const head=`${d.t>0?'Up':'Down'} ${f1(Math.abs(d.t))} point${Math.abs(d.t)===1?'':'s'}`;
+ return parts.length?`${head}: ${parts.join(', ')}.`:`${head}.`;}
+/* slim race line above the map */
+function mcSlim(){const v=viewCand();if(!v)return '';
+ if(M.track==='primary'){
+  if(mcInPrim()){const pt=v.party;const tot=totalP(pt),need=needP(pt);const lead=primField(pt).filter(x=>x!==v).sort((a,b)=>b.dels-a.dels)[0];
+   return `<div class="cp-race"><span><b style="color:${v.color}">You ${v.dels.toLocaleString()}</b></span><div class="rbar"><i style="width:${v.dels/tot*100}%;background:${v.color}"></i>${lead?`<i style="width:${lead.dels/tot*100}%;background:${lead.color}"></i>`:''}<i style="flex:1;background:var(--none)"></i><span class="mark" style="left:${need/tot*100}%"></span></div><span>${lead?`${esc(cName(lead.id,true))} ${lead.dels.toLocaleString()} · `:''}${need.toLocaleString()} to clinch</span></div>`;}
+  const ld=['D','R'].map(pt=>{const pr=M.prim[pt];if(!pr||!pr.active)return '';if(pr.nominee)return `${PARTIES[pt].name} nominee: ${esc(cName(pr.nominee,false))}`;const l=primField(pt).sort((a,b)=>b.dels-a.dels)[0];return l?`${PARTIES[pt].name} leader: ${esc(cName(l.id,false))}, ${l.dels.toLocaleString()} delegates`:'';}).filter(Boolean);
+  const third=['L','G','I'].includes(v.party);
+  return `<div class="mc-note"><b style="color:${v.color}">${third?`${PARTIES[v.party].name} · no primary`:'Your primary is over'}</b><span class="small">${third?'You go straight to November. Name ID, money and ground game you build now all carry over.':'Build up for November.'}</span>${ld.length?`<span class="small muted">${ld.join(' · ')}</span>`:''}</div>`;}
+ if(!M.gen)return '';const pr=mpProj();const ks=genIds();const opp=ks.filter(k=>k!==v.id).sort((a,b)=>(pr.ev[b]||0)-(pr.ev[a]||0))[0];const others=ks.filter(k=>k!==v.id&&k!==opp);
+ return `<div class="cp-race"><span><b style="color:${genColor(v.id)}">You ${pr.ev[v.id]||0}</b></span><div class="rbar"><i style="width:${(pr.ev[v.id]||0)/538*100}%;background:${genColor(v.id)}"></i>${others.map(k=>`<i style="width:${(pr.ev[k]||0)/538*100}%;background:${genColor(k)}"></i>`).join('')}<i style="flex:1;background:var(--none)"></i><i style="width:${(pr.ev[opp]||0)/538*100}%;background:${genColor(opp)}"></i><span class="mark" style="left:50.2%"></span></div><span><b style="color:${genColor(opp)}">${esc(cName(opp,true))} ${pr.ev[opp]||0}</b> · 270 to win</span></div>`;}
+/* map views */
+function mcFill(view){
+ const prim=M.track==='primary';const v=viewCand();const pt=mcInPrim()?v.party:null;const base=mpFill();const done={};if(pt)M.prim[pt].log.forEach(r=>done[r.st]=r.w);
+ const voted=st=>{const w=M.cands[done[st]];return{fill:w.color,ink:'#fff',sub:'✓',tip:`Won by ${w.name}`};};
+ if(view==='margin'){const Mg=mcMarginsC();return st=>{if(done[st])return voted(st);const m=Mg[st];if(m==null)return base(st);const a=Math.abs(m);
+  return{fill:a<0.5?'var(--none)':mix(m>=0?'var(--good)':'var(--bad)',clamp(Math.round(18+a*5),18,100)),ink:a>9?'#fff':'var(--ink)',sub:a<0.5?'0':(m>=0?'+':'−')+Math.round(a),tip:`You ${m>=0?'lead':'trail'} by ${f1(a)}`};};}
+ if(view==='change'){const L=MP.cLast&&MP.cLast.track===M.track?MP.cLast:null;return st=>{if(done[st])return voted(st);const d=L&&L.d[st];if(!d)return{fill:'var(--none)',ink:'var(--muted)',sub:'·'};const a=Math.abs(d.t);
+  return{fill:a<0.1?'var(--none)':mix(d.t>0?'var(--good)':'var(--bad)',clamp(Math.round(20+a*28),20,100)),ink:a>2.2?'#fff':'var(--ink)',sub:a<0.1?'0':(d.t>0?'+':'−')+f1(a),tip:mcWhy(st)};};}
+ return st=>{const x=base(st);if(done[st])return x;return{...x,sub:prim&&pt?delsP(pt,st):STATES[st].ev};};}
+function mcLegend(view){
+ const prim=M.track==='primary';const pt=mcInPrim()?viewCand().party:null;
+ if(view==='margin')return `<span><i style="background:var(--good)"></i>You lead</span><span><i style="background:var(--bad)"></i>You trail</span><span>Number = points ${pt?'ahead of or behind the top rival':'ahead or behind'}</span>`;
+ if(view==='change'){const L=MP.cLast&&MP.cLast.track===M.track?MP.cLast:null;return L?`<span><i style="background:var(--good)"></i>Moved toward you</span><span><i style="background:var(--bad)"></i>Moved away</span><span>Change in your margin last week (${esc(L.lab)})</span>`:'<span>Shows up after your first week.</span>';}
+ if(prim&&pt)return primField(pt).map(x=>`<span><i style="background:${x.color}"></i>${esc(x.pid===MP.myPid?'You':x.name.split(' ').slice(-1)[0])}</span>`).join('')+'<span>Lighter = narrower lead · ✓ already voted · number = delegates</span>';
+ if(prim)return `<span><i style="background:${mix(viewCand().color,30)}"></i>A little</span><span><i style="background:${viewCand().color}"></i>A lot of your visits and ads</span><span>You’re not in a primary. Number = electoral votes</span>`;
+ return genIds().map(k=>`<span><i style="background:${genColor(k)}"></i>${esc(cName(k,true))}</span>`).join('')+'<span>Lighter = narrower lead · stripes = tied · number = electoral votes</span>';}
+const mcViewSeg=view=>`<div class="seg pv-views" role="group" aria-label="Map view">${[['lead','Who’s leading'],['margin','My margin'],['change','Change since last week']].map(([k,l])=>`<button class="${view===k?'on':''}" data-act="mc" data-do="view" data-k="${k}" aria-pressed="${view===k}">${l}</button>`).join('')}</div>`;
+const mcSmall=sel=>`<div class="pv-small"><span class="lab">Small states</span>${SMALL_ST.map(st=>`<button class="pv-chip ${st===sel?'on':''} ${(MP.cSel||[]).includes(st)?'picked':''}" data-act="mc" data-do="focus" data-st="${st}">${st}</button>`).join('')}</div>`;
+const mcOpenSec=k=>{const o=MP.cOpen||{};return k in o?o[k]:k==='trend';};
+function mcSec(k,title,html){const open=mcOpenSec(k);return `<div class="cp-sec"><button class="cp-sec-h" data-act="mc" data-do="sec" data-k="${k}" aria-expanded="${open}"><span>${title}</span><i>${open?'−':'+'}</i></button>${open?`<div class="cp-sec-b">${html}</div>`:''}</div>`;}
+function mcValid(st){const c=myCand();if(M.track==='primary'&&c.inPrimary&&!M.prim[c.party].nominee)return upStatesMP(2,c.party).includes(st)&&!M.prim[c.party].log.some(r=>r.st===st);return !STATES[st].terr;}
+/* the state panel */
+function mcPanel(st){
+ const c=myCand(),v=viewCand();const pt=mcInPrim()?v.party:null;
+ const jump=`<label class="fld pv-jump"><span>Go to a state</span><select id="mp-jump"><option value="">Pick a state</option>${[...ST_KEYS].sort((a,b)=>STATES[a].n.localeCompare(STATES[b].n)).map(k=>`<option value="${k}" ${k===st?'selected':''}>${STATES[k].n}</option>`).join('')}</select></label>`;
+ if(!st){const L=MP.cLast&&MP.cLast.track===M.track?MP.cLast:null;const wt=k=>pt?delsP(pt,k):STATES[k].ev;
+  const movers=L?Object.entries(L.d).filter(([k,d])=>Math.abs(d.t)>=0.2).sort((a,b)=>Math.abs(b[1].t)*wt(b[0])-Math.abs(a[1].t)*wt(a[0])).slice(0,5):[];
+  return `<h3>Pick a state</h3><p class="small muted">Click or tap any state on the map to see it here. Shift-click to select several at once.</p>${jump}
+   ${movers.length?`<div class="sd-sec"><span class="lab">Biggest moves last week</span><p class="small muted">National movement means momentum, news and debates shifting every state at once.</p>${movers.map(([k])=>`<button class="pv-mover" data-act="mc" data-do="focus" data-st="${k}"><b>${STATES[k].n}</b><span>${esc(mcWhy(k))}</span></button>`).join('')}</div>`:''}`;}
+ const s=STATES[st];const done=pt&&M.prim[pt].log.find(r=>r.st===st);const cid=pt?mpContestOf(st,pt):null;
+ const sub=pt?`${delsP(pt,st)} delegates${cid?` · ${MPC[cid].name}, ${MPC[cid].date}`:''}`:`${s.ev} electoral votes · baseline ${leanText(st)}`;
+ let d=null;try{d=slicesMP(st);}catch(e){}const rows=d?[...d.rows].sort((a,b)=>b.pct-a.pct).slice(0,6):[];
+ let lead='';const m=mcMarginsC()[st];
+ if(!done&&m!=null){let rival='';
+  if(pt){const p=pollP(pt,st);const t=Object.keys(p).filter(k=>k!==v.id).sort((a,b)=>p[b]-p[a])[0];rival=t?cName(t,false):'';}
+  else{const sh=mpProj().st[st];const k=Object.keys(sh).filter(x=>x!==v.id).reduce((a,b)=>sh[b]>sh[a]?b:a);rival=mpWhoName(k);}
+  lead=`<div class="pv-lead"><b class="${m>=0?'up':'down'}">${m>=0?'+':'−'}${f1(Math.abs(m))}</b><span>${m>=0?'You lead':'You trail'} ${esc(rival)}</span></div>`;}
+ const pie=rows.length?`<div class="tip-b pv-pie">${pieSVG(rows)}<ul>${rows.map(x=>`<li class="${x.me?'me':''}"><i style="background:${x.color}"></i><span>${esc(x.name)}</span><b>${f1(x.pct)}%</b></li>`).join('')}</ul></div>${d&&d.note?`<p class="tip-n">${esc(d.note)}</p>`:''}`:'';
+ const tr=histFor(v,st).filter(x=>x!=null);const why=mcWhy(st);
+ const rivals=rivalsOf(v).map(x=>({x,vi:x.visits?.[st]||0,a:x.ads?.[st]||0})).filter(r=>r.vi||r.a).sort((a,b)=>b.vi+b.a-a.vi-a.a).slice(0,3);
+ const inSel=(MP.cSel||[]).includes(st);const ok=!done&&mcValid(st);const locked=mcLocked();
+ const btn=done?'':locked?'<p class="small muted">Your plan is locked in. Hit “Change my plan” to edit it.</p>':`<button class="btn ${inSel?'':'go'} big pv-pick" data-act="mc" data-do="toggle" data-st="${st}" ${ok||inSel?'':'disabled'} aria-pressed="${inSel}">${inSel?'Selected · tap to remove':'Select for this week'}</button>${ok||inSel?'':`<p class="small muted">${s.terr?'Territories only vote in the primaries.':`Votes ${cid?MPC[cid].date:'later'}. You can campaign here once it’s in the next two contests.`}</p>`}`;
+ const thirdNote=M.track==='general'&&M.gen?mpThirdNote(st,mpProj()):'';
+ return `<div class="pv-head"><div><h3>${esc(s.n)}</h3><p class="sub">${sub}</p></div><button class="link small" data-act="mc" data-do="focus" data-st="">Close</button></div>
+  ${done?`<p><b>Already voted.</b> ${done.w===v.id?'You won it.':`${esc(cName(done.w,false))} won it.`}</p>`:lead}
+  ${pie}${thirdNote}${btn}
+  ${mcSec('trend',pt?'Your share by week':'Your margin by week',`${spark(tr)}${why?`<p class="small pv-why">${esc(why)}</p>`:''}`)}
+  ${mcSec('issues','What voters here care about',issueBlock(st,c.planks,candV(c),pt?'pri':'gen').replace('<span class="lab">What voters here care about</span>','').replace(/^<div class="sd-sec">|<\/div>$/g,''))}
+  ${mcSec('act','Your campaign here',`<div class="kv"><span>Visits</span><b>${c.visits?.[st]||0}</b></div><div class="kv"><span>Ads</span><b>${money(c.ads?.[st]||0)}</b></div><div class="kv"><span>Ground game</span><b>${presWord(presOf(c,st))}</b></div>${c.home===st?'<p class="small">Your home state.</p>':''}${(MP.cLast?.acts?.[st]||[]).includes('vp')?'<p class="small">Your running mate was here last week.</p>':''}
+   ${rivals.length?`<span class="lab" style="margin-top:6px">Rivals here</span>${rivals.map(r=>`<div class="kv"><span>${esc(cName(r.x.id,true))}</span><b>${r.vi} visits · ${money(r.a)}</b></div>`).join('')}`:''}`)}
+  ${jump}<p class="small"><button class="link" data-act="mc" data-do="analytics" data-st="${st}">All analytics for ${esc(s.n)}</button></p>`;}
+/* picking states and planning moves */
+function mcToggle(st){MP.cSel=MP.cSel||[];if(MP.cSel.includes(st)){MP.cSel=MP.cSel.filter(x=>x!==st);return;}
+ if(mcLocked())return toast('Your plan is locked in. Hit “Change my plan” first.');
+ if(STATES[st].terr)return toast('Territories only vote in the primaries. They have no electoral votes.');
+ if(!mcValid(st))return toast(`${STATES[st].n} doesn’t vote soon. Pick a state with a dashed outline.`);
+ if(MP.cSel.length>=5)return toast('You can pick up to 5 states at a time.');MP.cSel.push(st);}
+const MC_STATE=['rally','stop','ad'];
+function mcEst(act,sts){
+ if(!MC_STATE.includes(act)||!sts.length)return null;const c=myCand();const n=sts.length;const tone=MP.form.tone||'pos';const prim=M.track==='primary'&&c.inPrimary;
+ if(mcUnit(sts[0])==null)return null;const k=mpCost({id:act,targets:sts,tone});const en=Math.max(0,mpPlanLeft().e-k.e);
+ let amt=()=>0;if(act==='rally'){const pl=c.planks[MP.form.plank]||bestPlankC(c);const sc=pl?(prim?pl.pri:pl.gen):50;const per=(0.75+en/160)*(0.6+sc/100)*(n>1?0.7:1);amt=st=>per*1.3*(hotIn(st,pl?.area)?1.3:1);}
+ else if(act==='stop')amt=()=>1.05;else amt=()=>tone==='con'?1.4:1.1;
+ const out={};sts.forEach(st=>{const m0=mcUnit(st);if(m0==null)return;
+  if(act==='ad'&&tone==='atk'){const others=rivalsOf(c);const t=M.cands[MP.form.target]&&others.includes(M.cands[MP.form.target])?M.cands[MP.form.target]:others[0];if(!t)return;const o=t.presence[st]||0;t.presence[st]=Math.max(0,o-1.1);out[st]=mcUnit(st)-m0;t.presence[st]=o;}
+  else{const o=c.presence[st]||0;c.presence[st]=o+amt(st);out[st]=mcUnit(st)-m0;c.presence[st]=o;}});return out;}
+function mcProblem(act,sel){const c=myCand();const mv=MP_MOVES.find(m=>m.id===act);const n=sel.length;const k=mpCost({id:act,targets:sel,tone:MP.form.tone||'pos'});const left=mpPlanLeft();
+ if(mcLocked())return 'Your plan is locked in. Hit “Change my plan” to edit it.';
+ if(MP.draft.moves.length>=3)return 'All 3 moves are planned. Remove one to add this.';
+ if(n>mv.max)return `${mv.name} ${act==='stop'?'cover':'covers'} up to ${mv.max} state${mv.max>1?'s':''}. Remove ${n-mv.max}.`;
+ if(act==='ad'&&(MP.form.tone||'pos')==='atk'&&!rivalsOf(c).length)return 'Nobody to attack.';
+ if(left.e<k.e)return `Needs ${k.e} energy. You’ll have ${Math.round(left.e)} after the rest of your plan.`;
+ if(left.f<k.f)return `Costs ${money(k.f)}. You’ll have ${money(left.f)} after the rest of your plan.`;return '';}
+function mcGo(){const c=myCand();const sel=(MP.cSel||[]).filter(st=>STATES[st]);const act=MP.cAct||'rally';if(!sel.length||mcProblem(act,sel))return;
+ const others=rivalsOf(c);const m={id:act,targets:[...sel],plank:MP.form.plank&&c.planks[MP.form.plank]?MP.form.plank:bestPlankC(c)?.area||null,tone:act==='ad'?(MP.form.tone||'pos'):'pos',target:others.some(o=>o.id===MP.form.target)?MP.form.target:others[0]?.id||'',opt:''};
+ const e=mcEst(act,sel);if(e)m.exp=Object.fromEntries(Object.entries(e).map(([st,g])=>[st,[g*0.7,g*1.3]]));
+ MP.draft.moves.push(m);MP.cSel=[];render();}
+const MC_NAT=[['media','National media'],['fund','Fundraise'],['press','Interview'],['oppo','Opposition research'],['prep','Debate prep'],['rest','Rest']];
+function mcPlanList(){const locked=mcLocked();
+ return `<ol class="mc-plan">${[0,1,2].map(i=>{const mv=MP.draft.moves[i];if(!mv)return `<li class="muted">Empty${i===MP.draft.moves.length&&!locked?' · pick a move below':''}</li>`;
+  const ex=mv.exp?Object.entries(mv.exp):[];return `<li><span>${esc(moveLabel(mv))}${ex.length?`<small class="muted">Expected: ${ex.map(([st,[lo,hi]])=>`${st} ${rng(lo,hi)}`).join(', ')}</small>`:''}</span>${locked?'':`<button class="link small" data-act="mpRemove" data-i="${i}">remove</button>`}</li>`;}).join('')}</ol>`;}
+function mcTray(){
+ const c=myCand();const sel=(MP.cSel||[]).filter(st=>STATES[st]);const n=sel.length;const act=MP.cAct||'rally';const stateMove=MC_STATE.includes(act);const locked=mcLocked();const left=mpPlanLeft();const used=MP.draft.moves.length;
+ const debAhead=M.steps.slice(M.step).some(s=>s.t==='debate');
+ const nat=[...MC_NAT.filter(([k])=>k!=='prep'||debAhead),...(M.track==='general'?[['natTV','National TV']]:[])];
+ const head=`<div class="cp-h"><b>This week’s plan</b><span class="lab">${used} of 3 moves used · after it: ${Math.round(left.e)} energy, ${money(left.f)}</span></div>${mcPlanList()}`;
+ if(locked)return `<section class="card pv-tray">${head}<p class="small muted">Locked in. Empty slots become rest.</p></section>`;
+ const picker=`<div class="mv-groups"><div><span class="lab">In your selected states</span><div class="seg pv-acts">${[['rally','Rally'],['stop','Town halls'],['ad','Ads']].map(([k,l])=>`<button class="${act===k?'on':''}" data-act="mc" data-do="act" data-k="${k}">${l}</button>`).join('')}</div></div>
+  <div><span class="lab">Whole campaign</span><div class="seg pv-acts">${nat.map(([k,l])=>`<button class="${act===k?'on':''}" data-act="mc" data-do="act" data-k="${k}">${l}</button>`).join('')}</div><p class="small muted" style="margin-top:4px">Change a position on the Platform tab. It uses one move too.</p></div></div>`;
+ let body='';
+ if(used>=3)body='<p class="small">All 3 moves are planned. Remove one to change it, or hit Ready.</p>';
+ else if(stateMove){
+  if(!n)body='<p class="small muted">Click states on the map, then confirm here. You see the cost and the expected effect before it goes in your plan.</p>';
+  else{const tone=MP.form.tone||'pos';const k=mpCost({id:act,targets:sel,tone});const prob=mcProblem(act,sel);const prim=M.track==='primary'&&c.inPrimary;let opts='';
+   if(act==='rally'){const ps=Object.values(c.planks).sort((a,b)=>(prim?b.pri-a.pri:b.gen-a.gen));const sp=MP.form.plank&&c.planks[MP.form.plank]?MP.form.plank:ps[0]?.area;const hot=sel.filter(st=>hotIn(st,sp));
+    opts=`<label class="fld"><span>Your message</span><select id="mp-plank">${ps.map(p=>`<option value="${p.area}" ${p.area===sp?'selected':''}>${esc(p.title)} (${Math.round(prim?p.pri:p.gen)})</option>`).join('')}</select></label>${hot.length&&sp?`<p class="small up">${AREA[sp].short} is a top issue in ${stNames(hot)}. Hits harder there.</p>`:''}`;}
+   else if(act==='ad'){const tg=rivalsOf(c);opts=`<div class="fld"><span>Tone</span><div class="seg">${[['pos','Positive'],['con','Contrast'],['atk','Attack']].map(([k2,l])=>`<button class="${tone===k2?'on':''}" data-act="mpTone" data-k="${k2}">${l}</button>`).join('')}</div></div>${tone==='atk'?`<label class="fld"><span>Target</span><select id="mp-target">${tg.map(t=>`<option value="${t.id}" ${MP.form.target===t.id?'selected':''}>${esc(t.name)} (${esc(ownerOf(t))})</option>`).join('')}</select></label><p class="small muted">About 1 in 5 attack ads backfires.</p>`:''}`;}
+   else opts='<p class="small muted">Small events. Steady gains, low risk.</p>';
+   const e=mcEst(act,sel);const est=!e&&M.track==='primary'&&!c.inPrimary?'<p class="small muted">No November polls yet. This builds your ground game in these states, and it carries into the general.</p>':e&&Object.keys(e).length?`<div class="pv-est"><span class="lab">Expected effect on your margin</span>${sel.filter(st=>e[st]!=null).map(st=>`<div class="kv"><span>${esc(STATES[st].n)}</span><b class="${e[st]>=0?'up':'down'}">${rng(e[st]*0.7,e[st]*1.3)} pts</b></div>`).join('')}<p class="small muted">From the game’s model, before rivals move and national swings.${act==='rally'?' Rallies also lift your momentum a little everywhere.':''} The real change shows after the week.</p></div>`:'';
+   const label=act==='rally'?(n>1?`Plan ${n} rallies`:'Plan the rally'):act==='stop'?`Plan town halls in ${n} state${n>1?'s':''}`:`Plan ads in ${n} state${n>1?'s':''}`;
+   body=`<div class="tchips">${sel.map(st=>`<span class="tchip">${STATES[st].n}<button data-act="mc" data-do="toggle" data-st="${st}" aria-label="Remove ${STATES[st].n}">✕</button></span>`).join('')}<button class="link small" data-act="mc" data-do="clear">Clear</button></div>
+    <div class="row" style="margin-top:10px">${opts}</div>${est}
+    <p class="pv-costline"><b>Costs ${k.e} energy${k.f?' · '+money(k.f):''} · 1 move.</b> <span class="muted">Paid when the week runs.</span></p>
+    ${prob?`<p class="small down">${esc(prob)}</p>`:''}<button class="btn gold pv-go" data-act="mc" data-do="go" ${prob?'disabled':''}>${label}</button>`;}}
+ else if(act==='natTV')body=`<p class="small">A national ad buy. Affects every state at once and lifts your momentum. Costs $6M and one move.</p><button class="btn gold pv-go" data-act="mc" data-do="nattv" ${left.f<6?'disabled':''}>Add national TV · $6M</button>`;
+ else{if(MP.mode!==act){MP.mode=act;MP.targets=[];}body=`<p class="small muted">Affects your whole campaign, not one state.</p>${vMPSetupMove().replace(/<button class="btn" data-act="mpMode"[^>]*>Cancel<\/button>/,'')}`;}
+ return `<section class="card pv-tray ${n&&stateMove?'has':''}">${head}${picker}${body}</section>`;}
+/* corner panel: the week, news, Riley, opponents, alerts */
+function mcNext(){const s=M.steps[M.step+1];if(!s)return 'Election Night';if(s.t==='debate')return s.name;if(s.t==='contest')return `${MPC[s.id].name} votes`;if(s.t==='conv')return 'The conventions';if(s.t==='night')return 'Election Night';return s.date||'Next week';}
+const mcNewsOpen=()=>{const w=M.week;return !!(w&&w.ev&&MP.draft.ev==null&&(MP.draft.evText||'').trim().length<8);};
+function mcAlerts(){const c=myCand();const out=[];const left=mpPlanLeft();
+ if(mcNewsOpen()&&!mcLocked())out.push({t:'This week’s news story needs an answer. Skipping it costs a little momentum.',act:'news',lab:'Answer it'});
+ if(c.energy<30)out.push({t:`Energy is ${Math.round(c.energy)}. Rest soon; gaffes go up when you’re tired.`});
+ if(c.funds<2)out.push({t:`Only ${money(c.funds)} left. Fundraise before buying ads.`});
+ if(c.scandal>35)out.push({t:`Scandal is ${Math.round(c.scandal)}. Stay off podcasts for a while.`});
+ const nx=M.steps[M.step+1];if(nx?.t==='debate')out.push({t:`${nx.name} is next.`});if(nx?.t==='contest')out.push({t:`${MPC[nx.id].name} vote${MPC[nx.id].name.endsWith('states')?'':'s'} when this week ends.`});
+ (M.lastWeek?.notes||[]).filter(n=>n.id===c.id).forEach(n=>out.push({t:n.txt}));
+ const L=MP.cLast&&MP.cLast.track===M.track?MP.cLast:null;if(L){const d=Object.entries(L.d).filter(([k,x])=>x.t<=-1).sort((a,b)=>a[1].t-b[1].t)[0];if(d)out.push({t:`You lost ${f1(-d[1].t)} in ${STATES[d[0]].n} last week.`,st:d[0]});}
+ if(M.forum&&M.forum.status==='pending'&&mpForumCard())out.push({t:'There’s a third-party forum invitation waiting.',more:'forum',lab:'See it'});
+ if(left.e<0||left.f<0)out.push({t:'Your plan costs more than you have.'});
+ return out;}
+function mcQuick(){
+ const c=myCand();const w=M.week;const locked=mcLocked();const tab=MP.quickOff?null:quickTab();const used=MP.draft.moves.length;
+ const waiting=actors().filter(p=>!w.ready[p.pid]).map(p=>p.name);
+ const head=`<div class="cp-wk"><div><b>${esc(w.date)}</b><span class="small muted">${locked?(waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'):`${used} of 3 moves planned · next: ${esc(mcNext())}`}</span></div>${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${locked?'<button class="btn sm" data-act="mpUnready">Change my plan</button>':'<button class="btn gold sm" data-act="mpSubmit">Ready</button>'}</div>${locked&&isHostMe()&&waiting.length?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}`;
+ const al=mcAlerts();const newsDot=mcNewsOpen()&&!locked;
+ const tabs=`<div class="qk-tabs" role="tablist">${QUICK.map(([k,l])=>`<button role="tab" class="${tab===k?'on':''}" aria-selected="${tab===k}" data-act="mc" data-do="quick" data-k="${k}">${l}${k==='news'&&newsDot?' •':k==='alerts'&&al.length?` (${al.length})`:''}</button>`).join('')}</div>`;
+ let body='';
+ if(tab==='news'){const ev=w.ev;if(!ev)body='<p class="small muted">No news this week.</p>';
+  else body=`<p class="lab">News</p><p class="qk-h">${esc(ev.headline)}</p><p class="small muted">${esc(ev.body)}</p>
+   <div class="qk-ch">${ev.choices.map((ch,i)=>`<button class="btn sm ${MP.draft.ev===i&&!(MP.draft.evText||'').trim()?'go':''}" data-act="mpEv" data-i="${i}" ${locked?'disabled':''}>${esc(ch.label)}</button>`).join('')}</div>
+   <label class="lab" for="mp-evtext" style="display:block;margin-top:8px">Or say it your way</label><textarea id="mp-evtext" rows="2" maxlength="400" placeholder="What you tell reporters" ${locked?'disabled':''}>${esc(MP.draft.evText||'')}</textarea>
+   <p class="small muted">Everyone gets the same story. A clear, specific answer of your own beats the buttons.</p>`;}
+ else if(tab==='adv'){const m=(MP.adv||[]).filter(x=>x.who!=='me').slice(-1)[0];body=`${m?`<p class="small qk-msg">${esc(m.txt)}</p>`:''}<div class="adv-ask"><input type="text" id="mp-advq" maxlength="200" placeholder="Ask Riley anything" value="${esc(MP.form['mp-advq']||'')}" autocomplete="off"><button class="btn go sm" data-act="mpAskAdv">Ask</button></div><button class="link small" data-act="mc" data-do="more" data-k="adv">Full conversation</button>`;}
+ else if(tab==='opp'){const v=viewCand();const prim=mcInPrim();const nat=prim?pollP(v.party):null;const pr=!prim&&M.track==='general'&&M.gen?mpProj():null;
+  const hits=(M.lastWeek?.notes||[]).filter(n=>n.id===c.id);
+  body=rivalsOf(v).sort((x,y)=>nat?(nat[y.id]||0)-(nat[x.id]||0):pr?(pr.ev[y.id]||0)-(pr.ev[x.id]||0):(y.recog||0)-(x.recog||0)).slice(0,5).map(x=>{const went=mpWentTo(x.id);const hit=hits.some(n=>n.txt.startsWith(x.name));
+   return `<div class="qk-opp"><div class="mp-close"><b style="color:${pr?mpKeyColor(x.id):x.color}">${esc(x.name)}</b><span class="small">${nat&&nat[x.id]!=null?f1(nat[x.id])+'%':pr?(pr.ev[x.id]||0)+' EV':esc(PARTIES[x.party].noun)}</span></div><p class="small muted">${esc(ownerOf(x))} · momentum ${sgn(x.mom)}${went.length?` · last week: ${esc(listJoin(went.slice(0,3)))}`:''}</p>${hit?`<p class="small down">Went after you last week.${locked?'':' Answer with ads or a rally where it hurt.'}</p>`:''}</div>`;}).join('')||'<p class="small muted">No opponents right now.</p>';}
+ else if(tab==='alerts')body=al.length?`<ul class="qk-al">${al.map(x=>`<li>${esc(x.t)}${x.act?` <button class="link small" data-act="mc" data-do="quick" data-k="${x.act}" data-open="1">${x.lab}</button>`:''}${x.more?` <button class="link small" data-act="mc" data-do="more" data-k="${x.more}">${x.lab}</button>`:''}${x.st?` <button class="link small" data-act="mc" data-do="focus" data-st="${x.st}">See it</button>`:''}</li>`).join('')}</ul>`:'<p class="small muted">Nothing needs your attention.</p>';
+ return `<section class="card cp-quick">${head}${tabs}${tab?`<div class="qk-body">${body}</div>`:''}</section>`;}
+/* lower tabs on desktop */
+function mcMoreTabs(){const t=[['stand','Where you stand']];if(mpVpCard(mcLocked()))t.push(['vp','Your running mate']);if(mpForumCard())t.push(['forum','Third-party forum']);
+ const seen=MP.chatSeen||0;const nw=Math.max(0,(M.chat||[]).filter(m=>m.n).length-seen);t.push(['adv','Riley · full chat'],['log','Last week'],['chat','Chat'+(nw&&MP.cMore!=='chat'?` (${nw} new)`:'')]);return t;}
+function mcMoreBody(k){const chat=`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
+ if(k==='chat'){MP.chatSeen=(M.chat||[]).filter(m=>m.n).length;return chat;}
+ return k==='vp'?mpVpCard(mcLocked()):k==='forum'?mpForumCard():k==='adv'?vMPAdv():k==='log'?(vLastWeek()||'<section class="card"><p class="small muted">Nothing yet. This fills in after the first week.</p></section>'):(mpStandCard()||'<section class="card"><p class="small muted">Shows up once you’re in a race with states left to win.</p></section>');}
+function vMPCamp(){
+ mcTrack();const v=viewCand();const view=MP.cView||'lead';const sel=MP.selSt&&STATES[MP.selSt]?MP.selSt:null;MP.cSel=(MP.cSel||[]).filter(st=>STATES[st]);
+ const up=mcInPrim()?upStatesMP(2,v.party):[];
+ if(pvLayout()==='sheet')return mcSheet(view,sel,up);
+ const tabs=mcMoreTabs();const mk=tabs.some(t=>t[0]===MP.cMore)?MP.cMore:'stand';
+ return `${mpVpBanner()}<div class="cockpit">
+  <section class="card cp-map">${mcSlim()}<div class="cp-maptop">${mcViewSeg(view)}</div>
+   <div class="cp-mapbox">${usMap(mcFill(view),{sel,targets:MP.cSel,up})}</div>
+   <div class="cp-foot"><div class="legend">${mcLegend(view)}${up.length?'<span>Dashed = votes soon</span>':''}<span>Gold outline = selected</span></div>${mcSmall(sel)}</div></section>
+  <aside class="cp-side">${mcQuick()}${mcTray()}<section class="card statepanel" id="statepanel" aria-live="polite" aria-label="State details">${mcPanel(sel)}</section></aside>
+ </div>
+ <section class="cp-more" id="cp-more"><div class="seg cp-moretabs" role="tablist">${tabs.map(([k,l])=>`<button class="${mk===k?'on':''}" role="tab" aria-selected="${mk===k}" data-act="mc" data-do="more" data-k="${k}">${l}</button>`).join('')}</div><div class="cp-morebody">${mcMoreBody(mk)}</div></section>`;}
+function mcSheet(view,sel,up){
+ const tab=MP.cTab||'state';const open=!!MP.cSheet;const n=MP.cSel.length;const locked=mcLocked();const newsDot=mcNewsOpen()&&!locked;
+ let sum,btn;
+ if(n&&!locked){const act=MP.cAct||'rally';const k=mpCost({id:MC_STATE.includes(act)?act:'rally',targets:MP.cSel,tone:MP.form.tone||'pos'});sum=`<b>${n} selected</b><span>${({rally:'Rally',stop:'Town halls',ad:'Ads'})[act]||'Rally'} · ${k.e} energy${k.f?' · '+money(k.f):''}</span>`;btn='<button class="btn gold" data-act="mc" data-do="tab" data-k="plan">Review plan</button>';}
+ else if(locked){const wl=actors().filter(p=>!M.week.ready[p.pid]).length;sum=`<b>Plan locked in</b><span>${wl?`Waiting on ${wl} player${wl>1?'s':''}`:'Everyone’s in'}</span>`;btn='<button class="btn" data-act="mpUnready">Change plan</button>';}
+ else{sum=`<b>${MP.draft.moves.length} of 3 moves planned</b><span>Next: ${esc(mcNext())}</span>`;btn='<button class="btn gold" data-act="mpSubmit">Ready</button>';}
+ const T=[['state','State'],['plan','Plan'+(n?` (${n})`:'')],['upd','Updates'+(newsDot?' •':'')]];
+ const chat=`<section class="card"><div class="card-h"><h2>Chat</h2></div>${mpChat(M.chat,'mp-chat','mpChat','Say something')}</section>`;
+ const body=tab==='state'?`<div class="statepanel" id="statepanel">${mcPanel(sel)}</div>`:tab==='plan'?mcTray():`${mcQuick()}${mpVpCard(locked)}${mpForumCard()}${mpStandCard()}${vLastWeek()}${chat}`;
+ return `${mpVpBanner()}<section class="card cp-map sheet-map">${mcSlim()}<div class="cp-maptop">${mcViewSeg(view)}</div><div class="mapwrap">${usMap(mcFill(view),{sel,targets:MP.cSel,up})}</div><div class="legend">${mcLegend(view)}</div>${mcSmall(sel)}</section>
+ <div class="sheet-pad ${open?'open':''}"></div>
+ <div class="sheet ${open?'open':''}" role="region" aria-label="Campaign panel">
+  <div class="sheet-tabs" role="tablist">${T.map(([k,l])=>`<button role="tab" class="${open&&tab===k?'on':''}" aria-selected="${open&&tab===k}" data-act="mc" data-do="tab" data-k="${k}">${l}</button>`).join('')}<button class="sheet-x" data-act="mc" data-do="sheet" aria-label="${open?'Close panel':'Open panel'}">${open?'▾':'▴'}</button></div>
+  ${open?`<div class="sheet-body">${body}</div>`:''}
+  <div class="sheet-act"><div>${sum}</div>${btn}</div>
+ </div>`;}
+function mcSheetScroll(){if(pvLayout()!=='sheet'||!MP.cSheet)return;requestAnimationFrame(()=>{const m=document.querySelector('.sheet-map .mapwrap');if(!m)return;const top=scrollY+m.getBoundingClientRect().top-8;if(Math.abs(top-scrollY)>4)window.scrollTo({top,behavior:'smooth'});});}
+const mcOn=()=>inMP&&M&&M.phase==='week'&&mcActive()&&(!MP.tab||MP.tab==='campaign');
+function mcDo(d){const k=d.do;
+ if(k==='view')MP.cView=d.k;
+ else if(k==='focus'){MP.selSt=d.st||null;if(d.st&&pvLayout()==='sheet'){MP.cTab='state';MP.cSheet=true;}}
+ else if(k==='toggle')mcToggle(d.st);
+ else if(k==='clear')MP.cSel=[];
+ else if(k==='act'){MP.cAct=d.k;if(MC_STATE.includes(d.k)){MP.mode=null;MP.targets=[];}}
+ else if(k==='go')return mcGo();
+ else if(k==='nattv'){if(mcLocked()||MP.draft.moves.length>=3)return;if(mpPlanLeft().f<6)return toast('Not enough cash for that.');MP.draft.moves.push({id:'ad',opt:'nat',targets:[],tone:'pos',target:'',plank:null});}
+ else if(k==='quick'){let cur=quickTab();if(d.open){MP.quickOff=false;cur=d.k;}else if(cur===d.k&&!MP.quickOff)MP.quickOff=true;else{MP.quickOff=false;cur=d.k;}try{localStorage.setItem('wibi-pv-quick',cur);}catch(e){}if(pvLayout()==='sheet'){MP.cTab='upd';MP.cSheet=true;}}
+ else if(k==='more'){MP.cMore=d.k;if(pvLayout()==='sheet'){MP.cTab='upd';MP.cSheet=true;}else requestAnimationFrame(()=>{const m=document.getElementById('cp-more');if(m)m.scrollIntoView({behavior:'smooth',block:'start'});});}
+ else if(k==='tab'){if(MP.cTab===d.k&&MP.cSheet)MP.cSheet=false;else{MP.cTab=d.k;MP.cSheet=true;}}
+ else if(k==='sheet')MP.cSheet=!MP.cSheet;
+ else if(k==='sec'){MP.cOpen=MP.cOpen||{};MP.cOpen[d.k]=!mcOpenSec(d.k);}
+ else if(k==='analytics'){MP.tab='map';MP.selSt=d.st;render();window.scrollTo(0,0);return;}
+ render();if(['focus','tab','sheet','quick'].includes(k))mcSheetScroll();}
+let mcLastLayout=null;addEventListener('resize',()=>{const l=pvLayout();if(mcLastLayout&&l!==mcLastLayout&&mcOn())render();mcLastLayout=l;});
 /* ========== saved candidates & policy library ========== */
 function getLib(){try{const l=JSON.parse(localStorage.getItem('wibi-lib'));if(l&&Array.isArray(l.cands))return{cands:l.cands,policies:l.policies||{}};}catch(e){}return{cands:[],policies:{}};}
 function setLib(l){try{localStorage.setItem('wibi-lib',JSON.stringify(l));}catch(e){}}
@@ -4064,6 +4322,7 @@ const H={
  mpVpLock(){if(MP.form.vp==null||!MP.form.speech)return;mpSend({t:'vp',i:+MP.form.vp,speech:MP.form.speech});},
  mpAck(){mpSend({t:'ack'});},
  mpRematch(){mpSend({t:'rematch'});},
+ mc(d){mcDo(d);},
  mpNightSkip(){MP.nightShown=M.night.order.length;MP.nightDone=true;render();},
  prefs(){openPrefs();},
  pvView(d){S.pvView=d.k;render();},
@@ -4129,7 +4388,7 @@ app.addEventListener('change',e=>{const el=e.target;
  if(el.id&&el.id.startsWith('mp-')&&MP){const v=el.value;
   if(el.id==='mp-priv'){MP.form.priv=el.checked;return;}
   if(['mp-src','mp-bg','mp-home','mp-ideo'].includes(el.id)){const q=mpQB();q[el.id.slice(3)]=v;if(el.id==='mp-src'&&v.startsWith('saved:')){const c=getLib().cands[+v.slice(6)];if(c)q.party=c.party;}qbChanged();return;}
-  if(el.id==='mp-plank')MP.form.plank=v;else if(el.id==='mp-target')MP.form.target=v;else if(el.id==='mp-dtarget')MP.form.dtarget=v;return;}
+  if(el.id==='mp-plank'){MP.form.plank=v;if(mcOn())render();}else if(el.id==='mp-target'){MP.form.target=v;if(mcOn())render();}else if(el.id==='mp-jump'){if(v){MP.selSt=v;render();}}else if(el.id==='mp-dtarget')MP.form.dtarget=v;return;}
  if(el.id==='pv-jump'){if(el.value){S.selSt=el.value;render();pvScroll();}return;}
  if(el.id==='f-plank'&&S.phase==='hq'){S.form.plank=el.value;render();return;}
  if(el.id==='f-state')S.cand.state=el.value;else if(el.name==='f-bg')S.cand.bg=el.value;
@@ -4156,6 +4415,14 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:2,date:'Nov 9, 2026',
+  add:['Multiplayer has the same campaign screen as single-player: the map, the state panel, the weekly plan with costs and expected effects, and the corner panel for news, Riley, opponents and alerts.',
+   'After each multiplayer week, every state shows why it moved: your campaigning, your rivals’, or national movement.',
+   'Multiplayer on phones uses the same bottom panel as single-player.'],
+  chg:['Greens, Libertarians and Independents in multiplayer see that they skip the primaries and go straight to November. The ground game they build before then now carries into the general.',
+   'Computer opponents in multiplayer keep track of their energy and money and go where the race is winnable, like in single-player.',
+   'Territories vote on the right date for each party in multiplayer.',
+   'If nobody gets 270 in multiplayer, the results screen explains the House and Senate vote.']},
  {v:1,date:'Nov 9, 2026',
   add:['The map is now the main campaign screen. Click a state to see who’s ahead, what voters there care about, and what’s happened there.',
    'Pick several states at once and see the cost before you confirm.',
