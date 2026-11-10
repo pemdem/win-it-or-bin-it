@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794280958;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794281113;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -1964,7 +1964,7 @@ function slicesSP(st){
  if(['night','end'].includes(S.phase)&&S.night){const n=S.night;if(S.phase==='night'&&!n.order.slice(0,n.shown).includes(st))return{label:'Not called yet',rows:[]};return slicesGen(n.first?.[st]||n.final[st],n.final[st],`Result · ${STATES[st].ev} electoral votes`);}
  const pr=projection();return slicesGen(pr.first?.[st]||pr.st[st],pr.st[st],`Forecast · ${STATES[st].ev} electoral votes`);}
 function statePeek(st){if(!st||!STATES[st])return '';let d=null;try{d=inMP?slicesMP(st):slicesSP(st);}catch(e){}return d&&d.rows.length?`<div class="peek">${tipHTML(st,d)}</div>`:'';}
-function vActBar(){if(S.tab==='campaign'&&pvLayout()==='sheet')return '';if(S.tab==='campaign'&&S.pvSel&&S.pvSel.length)return pvActBar();const ev=S.event;const blocked=ev&&!ev.done&&!ev.loading;
+function vActBar(){if(S.tab==='campaign'&&CVIEW!=='classic'&&pvLayout()==='sheet')return '';if(S.tab==='campaign'&&CVIEW!=='classic'&&S.pvSel&&S.pvSel.length)return pvActBar();const ev=S.event;const blocked=ev&&!ev.done&&!ev.loading;
  return `<div class="actbar" role="region" aria-label="This week"><div><b>${S.ap} of 3 moves left</b><span>Next: ${esc(nextLabel())}</span></div>${blocked?'<button class="btn gold" data-act="toNews">Answer the news</button>':'<button class="btn go" data-act="endTurn">End week</button>'}</div>`;}
 function tipHTML(st,d){
  const rows=[...d.rows].sort((a,b)=>b.pct-a.pct);let shown=rows.slice(0,5);const rest=rows.slice(5);if(rest.length)shown.push({name:'Others',color:'var(--none)',pct:rest.reduce((s,x)=>s+x.pct,0)});
@@ -2032,7 +2032,24 @@ function vpAct(){
  else{me.presence[vp.home]=(me.presence[vp.home]||0)+1.1;S.vp.went=[vp.home];txt=`${vp.name} spent the week in ${STATES[vp.home].n}.`;}
  if(txt){S.vp.log=txt;addFeed(txt);}}
 
-function vCampaign(){if(!S.pvSel)S.pvSel=[];return pvLayout()==='sheet'?vCampSheet():vCampDesk();}
+function vCampaign(){if(!S.pvSel)S.pvSel=[];if(CVIEW==='classic')return vCampClassic();return pvLayout()==='sheet'?vCampSheet():vCampDesk();}
+/* the classic campaign screen: pick a move at the top, click states on the map. Keeps the new map views and explanations */
+function vCampClassic(){
+ const view=S.pvView||'lead';const up=S.track==='primary'?upcomingStates(2):[];const T=S.targets;const sel=S.selSt&&STATES[S.selSt]?S.selSt:null;let quick='';
+ if(sel){const why=whyText(sel);if(S.track==='primary'){const p=statePoll(sel);const ids=Object.keys(p).sort((a,b)=>p[b]-p[a]);const done=S.contestLog.find(r=>r.st===sel);
+   quick=`<b>${STATES[sel].n}</b><span>${delsOf(sel)} delegates · ${CONTESTS[CONTEST_OF[sel]].date}</span><span>${done?`Won by ${done.w==='you'?'you':lastName(cand(done.w))}`:ids.slice(0,3).map(id=>`${lastName(cand(id))} ${f1(p[id])}%`).join(' · ')}</span>`;}
+  else if(S.gen){const sh=projection().st[sel];const m=myMargin(sel,sh);quick=`<b>${STATES[sel].n}</b><span>${STATES[sel].ev} EV · baseline ${leanText(sel)}</span><span class="${m>=0?'up':'down'}">You ${sgn(m)}</span>`;}
+  else quick=`<b>${STATES[sel].n}</b><span>${STATES[sel].ev} EV</span>`;
+  quick=`<div class="quick">${quick}<button class="link" data-act="openState" data-st="${sel}">Full analytics</button></div>${why?`<p class="small pv-why">${esc(why)}</p>`:''}${statePeek(sel)}`;}
+ const tb=MOVES.filter(m=>!m.third||(S.track==='third'&&Object.values(S.access).some(x=>!x))).map(m=>`<button class="mv ${S.mode===m.id?'on':''}" data-act="mode" data-k="${m.id}" ${!canStart(m.id)&&S.mode!==m.id?'disabled':''}>${m.name}<small>${m.lab}</small></button>`).join('');
+ return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vSetup()}
+  <div class="cp-maptop" style="margin-top:10px">${viewSeg(view)}</div>
+  <div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div>${quick}</section>
+  ${vStand()}</div>
+  <aside class="side">${vWeek()}${vWire()}${vVP()}${vAdvisor()}</aside></div>`;}
+/* classic moves still feed the week's explanation: what you did where, and what the model expected */
+function pvLogMove(kind,T,est){turnLog(kind,T);if(S.turn&&est){S.turn.exp=S.turn.exp||{};T.forEach(st=>{if(est[st]!=null){const g=est[st],o=S.turn.exp[st]||{lo:0,hi:0};S.turn.exp[st]={lo:o.lo+g*0.7,hi:o.hi+g*1.3};}});}mCache.k=null;}
+
 
 /* ========== map preview: the map is the campaign screen ========== */
 /* margins for every state, straight from the model (no randomness) */
@@ -3062,7 +3079,7 @@ function vMP(){
  if(MP.screen==='home'||!M)return vMPHome();
  if(M.phase==='lobby')return vMPRoom();
  const c=myCand();
- if(M.phase==='week'){if(!c||c.spec)return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatView():vMPWatch();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():vMPCamp();}
+ if(M.phase==='week'){if(!c||c.spec)return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatView():vMPWatch();mcTrack();return MP.tab==='map'?vMPMapTab():MP.tab==='platform'?vMPPlatTab():CVIEW==='classic'?vMPWeek():vMPCamp();}
  if(M.phase==='debate')return vMPDebate();
  if(M.phase==='contest')return vMPContest();
  if(M.phase==='conv')return vMPConv();
@@ -4043,7 +4060,7 @@ function mcSheet(view,sel,up){
   <div class="sheet-act"><div>${sum}</div>${btn}</div>
  </div>`;}
 function mcSheetScroll(){if(pvLayout()!=='sheet'||!MP.cSheet)return;requestAnimationFrame(()=>{const m=document.querySelector('.sheet-map .mapwrap');if(!m)return;const top=scrollY+m.getBoundingClientRect().top-8;if(Math.abs(top-scrollY)>4)window.scrollTo({top,behavior:'smooth'});});}
-const mcOn=()=>inMP&&M&&M.phase==='week'&&mcActive()&&(!MP.tab||MP.tab==='campaign');
+const mcOn=()=>inMP&&M&&M.phase==='week'&&mcActive()&&(!MP.tab||MP.tab==='campaign')&&CVIEW!=='classic';
 function mcDo(d){const k=d.do;
  if(k==='view')MP.cView=d.k;
  else if(k==='focus'){MP.selSt=d.st||null;if(d.st&&pvLayout()==='sheet'){MP.cTab='state';MP.cSheet=true;}}
@@ -4167,7 +4184,7 @@ const LOOKS=[
 ];
 const prefGet=(k,d)=>{try{return localStorage.getItem(k)||d;}catch(e){return d;}};
 const prefSet=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
-let THEME=prefGet('wibi-theme','auto'),LOOK=prefGet('wibi-lobby','classic');
+let THEME=prefGet('wibi-theme','auto'),LOOK=prefGet('wibi-lobby','classic'),CVIEW=prefGet('wibi-campview','new');if(!['new','classic'].includes(CVIEW))CVIEW='new';
 if(!THEMES.some(t=>t[0]===THEME))THEME='auto';if(!LOOKS.some(t=>t[0]===LOOK))LOOK='classic';
 function applyTheme(){const r=document.documentElement;if(THEME==='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',THEME);}
 applyTheme();
@@ -4180,12 +4197,14 @@ function lookPv(k){
  return '<span class="pv" style="grid-template-columns:2fr 1fr;grid-template-rows:1fr 1fr"><i style="grid-row:1/3"></i><i></i><i></i></span>';}
 function vPrefs(){return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Settings"><div class="card-h"><h2>Settings</h2><button class="btn sm" data-pact="close">Close</button></div>
  <div><p class="lab" style="margin-bottom:8px">Theme</p><div class="themes">${THEMES.map(t=>`<button class="theme ${THEME===t[0]?'on':''}" data-pact="theme" data-v="${t[0]}" aria-pressed="${THEME===t[0]}">${swatch(t)}<span>${t[1]}<br><small>${t[2]}</small></span></button>`).join('')}</div></div>
+ <div><p class="lab" style="margin-bottom:8px">Campaign screen</p><div class="seg">${[['new','Map first'],['classic','Moves on top (classic)']].map(([k,l])=>`<button class="${CVIEW===k?'on':''}" data-pact="cview" data-v="${k}" aria-pressed="${CVIEW===k}">${l}</button>`).join('')}</div><p class="small muted" style="margin-top:6px">${CVIEW==='classic'?'The old layout. Pick a move at the top, then click states on the map. Works in single-player and multiplayer.':'The map takes most of the screen. Click states, then plan your moves in the side panel.'}</p></div>
  <div><p class="lab" style="margin-bottom:8px">Multiplayer lobby</p><div class="looks">${LOOKS.map(l=>`<button class="look ${LOOK===l[0]?'on':''}" data-pact="look" data-v="${l[0]}" aria-pressed="${LOOK===l[0]}">${lookPv(l[0])}<span><b>${l[1]}</b><span class="small">${l[2]}</span></span></button>`).join('')}</div></div>
  <p class="small muted">Saved on this device. <button class="link small" data-pact="news">What’s new</button></p></section>`;}
 function openPrefs(fk){const el=$('#prefs');el.innerHTML=vPrefs();el.hidden=false;(fk&&el.querySelector(`[data-pact="${fk[0]}"][data-v="${fk[1]}"]`)||el.querySelector('button'))?.focus();}
 function closePrefs(){$('#prefs').hidden=true;}
 $('#prefs').addEventListener('click',e=>{const t=e.target.closest('[data-pact]');if(!t){if(e.target.id==='prefs')closePrefs();return;}const a=t.dataset.pact,v=t.dataset.v;
  if(a==='close')closePrefs();
+ else if(a==='cview'){CVIEW=v;prefSet('wibi-campview',v);openPrefs([a,v]);render();}
  else if(a==='news')openNews();
  else if(a==='theme'){THEME=v;prefSet('wibi-theme',v);applyTheme();openPrefs([a,v]);}
  else if(a==='look'){LOOK=v;prefSet('wibi-lobby',v);openPrefs([a,v]);if(typeof inMP!=='undefined'&&inMP)render();}});
@@ -4301,7 +4320,7 @@ const H={
   if(inMP){mpMapClick(d.st);return;}
   const st=d.st;if(S.phase!=='hq')return;
   if(S.tab==='map'){S.selSt=st;render();return;}
-  if(S.tab==='campaign'){if(window.__mods){pvToggle(st);}S.selSt=st;if(pvLayout()==='sheet'){S.pvTab='state';S.pvSheet=true;}render();pvSheetScroll();return;}
+  if(S.tab==='campaign'&&CVIEW!=='classic'){if(window.__mods){pvToggle(st);}S.selSt=st;if(pvLayout()==='sheet'){S.pvTab='state';S.pvSheet=true;}render();pvSheetScroll();return;}
   const mv=MOVES.find(m=>m.id===S.mode);
   if(mv&&mv.max){if(S.targets.includes(st)){S.targets=S.targets.filter(x=>x!==st);render();return;}
    if(!validTarget(st))return toast(`${STATES[st].n} doesn’t vote soon. Pick a state with a dashed outline.`);
@@ -4311,7 +4330,7 @@ const H={
   S.selSt=st;render();},
  untarget(d){S.targets=S.targets.filter(x=>x!==d.st);render();},
  tone(d){S.form.tone=d.k;const max=Math.floor(you().funds/(d.k==='con'?2:1.5));if(S.targets.length>max)S.targets=S.targets.slice(0,Math.max(0,max));render();},
- doMove(d){doMove(d.k,d.o);},
+ doMove(d){const T=[...(S.targets||[])],ap=S.ap,k=d.k,st=['rally','stop','ad'].includes(k)&&d.o!=='nat'&&T.length;const est=st?estGain(k,T):null;doMove(d.k,d.o);if(st&&S.ap<ap)pvLogMove(k==='ad'&&(S.form.tone||'pos')==='atk'?'atk':k,T,est);},
  endTurn(){if(S.event&&!S.event.done&&!S.event.loading)return;endTurn();},
  evChoice(d){const ev=S.event;if(!ev||ev.done)return;const c=ev.choices[+d.i];applyFx(c);ev.done=true;ev.choice=c.label;ev.result=c.result;addFeed(`${ev.headline}. You: ${c.label.toLowerCase()}.`);render();},
  bookPress(){bookPress();},
@@ -4487,6 +4506,8 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:4,date:'Nov 9, 2026',
+  add:['Miss the old campaign screen? Open Settings, go to Campaign screen and pick “Moves on top (classic)”. You pick a move at the top and click states on the map, like before. It keeps the new map views and the weekly explanations, and works in multiplayer too.']},
  {v:3,date:'Nov 9, 2026',
   add:['A long campaign: 11 primary weeks and 9 general-election weeks, with a third debate on each side. New single-player campaigns start long, and you can switch to Standard on the party screen. Multiplayer hosts can pick Long too.',
    'Free-for-all mode. Voters are irrational and party loyalty barely matters. Communists, Fascists and Anarchists can run, and anyone can win states. Turn it on when you pick your party, or when you host a multiplayer game.',
