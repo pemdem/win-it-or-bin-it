@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794283878;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794284207;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -1306,16 +1306,19 @@ function avatarPicker(cur,act,pane){if(cur==='trump')cur='mugshot';return `<div 
 const avImg=(id,col,label)=>`<span class="av av-img" style="background:${col}" title="${esc(label||'')}">${avatarSVG(id)}</span>`;
 let bizN=0,bizT=0;
 document.addEventListener('click',e=>{if(e.target.tagName!=='INPUT'||e.target.name!=='f-bg')return;const now=Date.now();if(e.target.value!=='biz'){bizN=0;return;}bizN=now-bizT<2500?bizN+1:1;bizT=now;
- if(bizN>=5){bizN=0;const u=unlocks();if(!u.includes('mugshot')){u.push('mugshot');try{localStorage.setItem('wibi-unlocks',JSON.stringify(u));}catch(err){}toast('Unlocked: the Trump mugshot profile picture. Find it in Profile.');award('secret');render();}}},true);
+ if(bizN>=5){bizN=0;unlockSecret();}},true);
+function unlockSecret(){const u=unlocks();if(u.includes('mugshot'))return;u.push('mugshot');try{localStorage.setItem('wibi-unlocks',JSON.stringify(u));}catch(err){}toast('Unlocked: the Trump mugshot profile picture. Find it in Profile.');award('secret');render();}
+let bgPress=0;document.addEventListener('pointerdown',e=>{const f=e.target.closest&&e.target.closest('.fld');const sel=f&&f.querySelector('#mp-bg');if(!sel)return;const now=Date.now();if(now-bgPress<150)return;bgPress=now;
+ if(sel.value!=='biz'){bizN=0;return;}bizN=now-bizT<2500?bizN+1:1;bizT=now;if(bizN>=5){bizN=0;unlockSecret();}},true);
 /* ========== profile: picture and trophies ========== */
 const myAv=()=>{const a=(typeof S!=='undefined'&&S&&S.avatar)||prefGet('wibi-avatar','');return AV_IDS.includes(a)?a:'';};
 function setAvatar(v){if(!AV_IDS.includes(v))return;prefSet('wibi-avatar',v);if(typeof S!=='undefined'&&S)S.avatar=v;
  if(typeof inMP!=='undefined'&&inMP&&M&&M.phase==='lobby'){mpQB().avatar=v;const me=meP();if(me&&me.setup)mpSend({t:'setup',setup:{...me.setup,avatar:v}});}}
-function vProfile(){const t=myTrophies();const n=TROPHIES.filter(x=>t[x[0]]).length;const cur=myAv();
+function vProfile(){const t=myTrophies();const n=shownT().filter(x=>t[x[0]]).length;const cur=myAv();
  return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Profile"><div class="card-h"><h2>Profile</h2><button class="btn sm" data-pact="close">Close</button></div>
  <div><p class="lab" style="margin-bottom:4px">Profile picture</p><p class="small muted">Shows next to your name in the race and in multiplayer.${cur?` Now: ${esc(avName(cur)||'your pick')}.`:''}</p>${avatarPicker(cur,'avatar',true)}</div>
- <div><p class="lab" style="margin-bottom:4px">Trophies</p><p class="small muted">${n} of ${TROPHIES.length} earned. Saved on this device.</p>
- <div class="trophies" style="margin-top:8px">${TROPHIES.map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></div></section>`;}
+ <div><p class="lab" style="margin-bottom:4px">Trophies</p><p class="small muted">${n} of ${shownT().length} earned. Saved on this device.</p>
+ <div class="trophies" style="margin-top:8px">${shownT().map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></div></section>`;}
 function openProfile(){const el=$('#prefs');el.innerHTML=vProfile();el.hidden=false;(el.querySelector('.avpick.on')||el.querySelector('button'))?.focus();}
 /* ask before doing something you can't take back */
 let pendingConfirm=null;
@@ -1331,6 +1334,8 @@ const TROPHIES=[['first','First Campaign','Finish a campaign.'],['debate','Debat
  ['landslide','Landslide','Win with 400 or more electoral votes.'],['squeaker','Squeaker','Win with 280 or fewer electoral votes.'],['third','Third Party, First Place','Win the presidency as a Libertarian, Green or Independent.'],
  ['fringe','Fringe Benefits','Win a state as a Communist, Fascist or Anarchist.'],['ffa','Chaos Agent','Win a free-for-all.'],['vp','Number Two','Win as the running mate.'],['house','Deadlocked','Send an election to the House.'],
  ['popnot','Popular, Not Elected','Win the popular vote and lose the Electoral College.'],['long','Long Haul','Finish a long campaign.'],['mp','Party Night','Finish a multiplayer game.'],['secret','Insider','Find the hidden profile picture.']];
+/* the secret's trophy only shows up once you've found it */
+const shownT=()=>TROPHIES.filter(x=>x[0]!=='secret'||myTrophies().secret);
 const myTrophies=()=>{try{return JSON.parse(localStorage.getItem('wibi-trophies')||'{}');}catch(e){return {};}};
 function award(...ids){const t=myTrophies();const got=ids.filter(id=>!t[id]&&TROPHIES.some(x=>x[0]===id));if(!got.length)return;const d=new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});got.forEach(id=>t[id]=d);
  try{localStorage.setItem('wibi-trophies',JSON.stringify(t));}catch(e){}setTimeout(()=>toast(`Trophy${got.length>1?'s':''}: ${listJoin(got.map(id=>TROPHIES.find(x=>x[0]===id)[1]))}`),900);}
@@ -1339,9 +1344,9 @@ function endTrophies({won,ev,pop,ce,party,vp,ffa,long,mp,popMax}){const ids=['fi
  if(['C','F','A'].includes(party)&&ev>0)ids.push('fringe');if(!won&&popMax)ids.push('popnot');award(...ids);}
 function spTrophies(){const e=S.end;if(!e)return;if(e.stage!=='general'){award('first');return;}const k=myKey();const ev=e.ev?.[k]||0;const pop=e.pop||{};const popMax=Object.keys(pop).every(x=>x===k||(pop[x]||0)<=(pop[k]||0));
  if(isMajor(S.origParty||S.party)&&!S.vpMode&&!S.origParty)award('nominee');endTrophies({won:e.won,ev,pop,ce:e.ce,party:S.party,vp:S.vpMode,ffa:S.ffa,long:S.len==='long',mp:false,popMax});}
-function vTrophies(){const t=myTrophies();const n=TROPHIES.filter(x=>t[x[0]]).length;
- return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Trophies"><div class="card-h"><h2>Trophies</h2><button class="btn sm" data-pact="close">Close</button></div><p class="small muted">${n} of ${TROPHIES.length} earned. Saved on this device.</p>
- <div class="trophies">${TROPHIES.map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></section>`;}
+function vTrophies(){const t=myTrophies();const n=shownT().filter(x=>t[x[0]]).length;
+ return `<section class="card prefs-box" role="dialog" aria-modal="true" aria-label="Trophies"><div class="card-h"><h2>Trophies</h2><button class="btn sm" data-pact="close">Close</button></div><p class="small muted">${n} of ${shownT().length} earned. Saved on this device.</p>
+ <div class="trophies">${shownT().map(([id,name,how])=>`<div class="trophy ${t[id]?'on':''}"><span class="tr-ic" aria-hidden="true">${t[id]?'★':'☆'}</span><div><b>${name}</b><span class="small muted">${t[id]?`${how} Earned ${t[id]}.`:how}</span></div></div>`).join('')}</div></section>`;}
 function openTrophies(){const el=$('#prefs');el.innerHTML=vTrophies();el.hidden=false;el.querySelector('button')?.focus();}
 
 /* ========== flow ========== */
@@ -4633,10 +4638,10 @@ function checkUpdate(){
 const CHANGES=[
  {v:7,date:'Nov 9, 2026',
   add:['New profile pictures: Schrödinger’s Mitch McConnell, John Politics, Jeffrey Epstein and Clavicular.'],
-  chg:['Biden, Harris, Trump with Kim and the hidden Trump mugshot were redrawn to look more like them.']},
+  chg:['Biden, Harris and Trump with Kim were redrawn to look more like them.']},
  {v:6,date:'Nov 9, 2026',
   add:['A Profile button next to Settings, with your profile picture and trophies in one place.',
-   'New profile pictures: Joe Biden, Kamala Harris, and Donald Trump with Kim Jong Un. The hidden one is now the Trump mugshot.',
+   'New profile pictures: Joe Biden, Kamala Harris, and Donald Trump with Kim Jong Un.',
    'Leaving a multiplayer game now asks you to confirm first.']},
  {v:5,date:'Nov 9, 2026',
   add:['Profile pictures. Pick one when you file your candidacy, or in the multiplayer setup.',
