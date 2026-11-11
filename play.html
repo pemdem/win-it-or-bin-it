@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794366597;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794367588;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -267,7 +267,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .quiz-side .compass{margin:8px auto 4px;max-width:17rem}
 .qs-m{list-style:none;padding:0;margin:4px 0 6px;display:flex;flex-direction:column;gap:4px}.qs-m li{display:flex;justify-content:space-between;gap:8px;font-size:.92rem}.qs-m li:first-child b{color:var(--gold)}
 @media(min-width:1000px){.quizgrid{grid-template-columns:minmax(0,1fr) 20rem;max-width:74rem}.quizgrid .quiz{max-width:none;margin:0}}
-@media(min-width:1000px) and (min-height:700px){.quizgrid .quiz,.quizgrid .quiz-side{min-height:27rem}}
+
 @media(min-width:1500px){.quizgrid{grid-template-columns:minmax(0,1fr) 24rem;max-width:88rem}.quiz-side .compass{max-width:21rem}.quizgrid .quiz-q{font-size:2.1rem}.quizgrid .lk{padding:16px 8px;font-size:1rem}}
 @media(max-width:999px){.quiz-side{display:none}}
 .prog{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-top:8px}
@@ -308,7 +308,7 @@ table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
 .badge.rec{background:var(--goodbg);color:var(--good)} .badge.hard{background:var(--badbg);color:var(--bad)}
 
 .form2{max-width:48.75rem;margin:0 auto;width:100%}
-@media(min-width:1300px){.form2{max-width:84rem}.cgrid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:36px}.cg-bglab{margin-top:0!important}
+@media(min-width:1000px){.form2{max-width:84rem}.cgrid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:36px}.cg-bglab{margin-top:0!important}
  .cgrid2 .bgs{grid-template-columns:repeat(2,minmax(0,1fr))}.cgrid2 .avpick{width:58px;height:58px}}
 
 .bgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-top:6px}
@@ -470,18 +470,18 @@ body.wide .wrap{max-width:none}
 @media(min-width:901px){body.wide main.wrap{padding-bottom:12px!important}}
 .cockpit>.cp-more{grid-column:1/-1}
 .cp-xtra{display:none}@media(min-width:1500px){body.wide .cp-xtra{display:block}}
-@media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - 9.5rem)}
+@media(min-width:901px) and (max-width:1499px){body.wide .cockpit{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr);height:calc(100vh - var(--hdr,94px) - 28px)}
  body.wide .cockpit>.cp-map{grid-row:1/3}body.wide .cockpit>.cp-side{grid-row:1}
  body.wide .cockpit>.cp-more{grid-column:2;grid-row:2;overflow:auto;min-height:0;margin-top:0}
  body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap}}
-@media(min-width:1500px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 23.75rem 26.25rem;grid-template-rows:calc(100vh - 9.5rem)}
+@media(min-width:1500px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 21.5rem 22rem;grid-template-rows:minmax(0,1fr)}
  body.wide .cockpit>.cp-more{grid-column:3;grid-row:1;margin-top:0;overflow:auto;min-height:0;display:flex;flex-direction:column}
  body.wide .cp-more .cp-moretabs{position:sticky;top:0;z-index:2;background:var(--bg);flex-wrap:wrap;padding-bottom:2px}
  body.wide .cp-more .cp-morebody>.card{margin-bottom:12px}}
-@media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 25rem 28rem}}
+@media(min-width:2100px){body.wide .cockpit{grid-template-columns:minmax(0,1fr) 22rem 24rem}}
 /* Map & Analytics and the classic screen fit on one screen too */
 @media(min-width:901px){
- body.mapscr main.wrap{display:grid;grid-template-columns:minmax(0,1fr) 22rem 30rem;grid-template-rows:auto auto minmax(0,1.2fr) minmax(0,1fr);height:calc(100vh - 6.25rem);gap:12px;padding-bottom:12px!important;align-content:stretch}
+ body.mapscr main.wrap{display:grid;grid-template-columns:minmax(0,1fr) 22rem 30rem;grid-template-rows:auto auto minmax(0,1.2fr) minmax(0,1fr);height:calc(100vh - var(--hdr,6.25rem));gap:12px;padding-bottom:12px!important;align-content:stretch}
  body.mapscr main.wrap>*{grid-column:1/-1;margin:0!important}
  body.mapscr main.wrap>.main2{display:contents}
  body.mapscr .mapcard{grid-column:1;grid-row:3/5;display:flex;flex-direction:column;min-height:0;overflow:hidden;margin:0}
@@ -489,7 +489,7 @@ body.wide .wrap{max-width:none}
  body.mapscr aside.sd{grid-column:2;grid-row:3/5;overflow:auto;min-height:0;margin:0}
  body.mapscr main.wrap>.atable{grid-column:3;grid-row:3;overflow:auto;min-height:0}
  body.mapscr main.wrap>.main2~.card:not(.atable){grid-column:3;grid-row:4;overflow:auto;min-height:0}
- body.classic main.wrap{display:flex;flex-direction:column;height:calc(100vh - 6.25rem);gap:12px;padding-bottom:12px!important}
+ body.classic main.wrap{display:flex;flex-direction:column;height:calc(100vh - var(--hdr,6.25rem));gap:12px;padding-bottom:12px!important}
  body.classic main.wrap>*{margin:0!important;flex:none}
  body.classic main.wrap>.main2{flex:1;min-height:0;grid-template-columns:minmax(0,1fr) 22rem 24rem;grid-template-rows:minmax(0,1fr);align-items:stretch}
  body.classic .main2>.side:first-child{display:contents}
@@ -511,7 +511,7 @@ body.wide .wrap{max-width:none}
  body.classic .main2>aside.side{grid-column:2;grid-row:1}
 }
 .cl-col{display:flex;flex-direction:column;gap:12px;min-height:0}
-@media(min-width:1101px){body.platscr main.wrap{height:calc(100vh - 6.25rem);padding-bottom:12px!important;display:flex;flex-direction:column;gap:10px}
+@media(min-width:1101px){body.platscr main.wrap{height:calc(100vh - var(--hdr,6.25rem));padding-bottom:12px!important;display:flex;flex-direction:column;gap:10px}
  body.platscr main.wrap>*{flex:none;margin-top:0;margin-bottom:0}body.platscr main.wrap>.plat{flex:1;min-height:0;align-items:stretch}
  body.platscr .plat>*{overflow:auto;min-height:0}}
 @media(min-width:1500px){body.wide .opts{grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr))}}
@@ -685,7 +685,7 @@ body.wide .wrap{max-width:none}
 @media(pointer:coarse){.pv-chip{min-height:44px}.pv-mover{padding-block:11px}}
 
 /* cockpit (desktop) */
-.cockpit{display:grid;grid-template-columns:minmax(0,1fr) 23.75rem;gap:14px;height:calc(100vh - 150px);min-height:560px}
+.cockpit{display:grid;grid-template-columns:minmax(0,1fr) 23.75rem;gap:14px;height:calc(100vh - var(--hdr,94px) - 28px);min-height:560px}
 .cp-map{display:flex;flex-direction:column;min-height:0;padding:12px 14px 10px}
 .cp-race{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.92rem;margin-bottom:8px}
 .cp-race .rbar{margin-top:0;height:16px}
@@ -747,8 +747,61 @@ body.wide .wrap{max-width:none}
 .w-ans li:first-child{border-top:0}
 .w-ans p{margin-top:4px;white-space:pre-wrap}
 .qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
-/* single-card screens: centered on tall, wide screens instead of hugging the top */
-@media(min-width:1000px) and (min-height:700px){body[data-ph=quiz] #app>main.wrap,body[data-ph=compass] #app>main.wrap,body[data-ph=candidate] #app>main.wrap,body[data-ph=debate] #app>main.wrap,body[data-ph=results] #app>main.wrap,body[data-ph=convention] #app>main.wrap,body[data-ph=night] #app>main.wrap,body[data-ph=end] #app>main.wrap,body[data-ph=mp-debate] #app>main.wrap,body[data-ph=mp-contest] #app>main.wrap,body[data-ph=mp-conv] #app>main.wrap,body[data-ph=mp-night] #app>main.wrap,body[data-ph=mp-end] #app>main.wrap{box-sizing:border-box;min-height:calc(100vh - 6.25rem);padding-bottom:16px;display:grid;align-content:center;grid-template-columns:minmax(0,1fr)}}
+/* setup and event screens: edge to edge, top to bottom, with type and buttons that grow with the screen */
+@media(min-width:1000px) and (min-height:640px){
+ body[data-ph=quiz] #app>main.wrap,body[data-ph=compass] #app>main.wrap,body[data-ph=candidate] #app>main.wrap,body[data-ph=debate] #app>main.wrap,body[data-ph=results] #app>main.wrap,body[data-ph=convention] #app>main.wrap,body[data-ph=night] #app>main.wrap,body[data-ph=end] #app>main.wrap,body[data-ph=mp-debate] #app>main.wrap,body[data-ph=mp-contest] #app>main.wrap,body[data-ph=mp-conv] #app>main.wrap,body[data-ph=mp-night] #app>main.wrap,body[data-ph=mp-end] #app>main.wrap{box-sizing:border-box;max-width:none;min-height:calc(100vh - var(--hdr,6.25rem));padding-bottom:16px;display:flex;flex-direction:column}
+ body[data-ph=quiz] #app>main.wrap>:last-child,body[data-ph=compass] #app>main.wrap>:last-child,body[data-ph=candidate] #app>main.wrap>:last-child,body[data-ph=debate] #app>main.wrap>:last-child,body[data-ph=results] #app>main.wrap>:last-child,body[data-ph=convention] #app>main.wrap>:last-child,body[data-ph=night] #app>main.wrap>:last-child,body[data-ph=end] #app>main.wrap>:last-child,body[data-ph=mp-debate] #app>main.wrap>:last-child,body[data-ph=mp-contest] #app>main.wrap>:last-child,body[data-ph=mp-conv] #app>main.wrap>:last-child,body[data-ph=mp-night] #app>main.wrap>:last-child,body[data-ph=mp-end] #app>main.wrap>:last-child{flex:1 0 auto}
+ body[data-ph=debate] #app>main.wrap>.card:last-child,body[data-ph=results] #app>main.wrap>.card:last-child,body[data-ph=convention] #app>main.wrap>.card:last-child,body[data-ph=night] #app>main.wrap>.card:last-child,body[data-ph=end] #app>main.wrap>.card:last-child,body[data-ph=mp-debate] #app>main.wrap>.card:last-child,body[data-ph=mp-contest] #app>main.wrap>.card:last-child,body[data-ph=mp-conv] #app>main.wrap>.card:last-child,body[data-ph=mp-night] #app>main.wrap>.card:last-child,body[data-ph=mp-end] #app>main.wrap>.card:last-child{display:flex;flex-direction:column;justify-content:center}
+ /* compass test */
+ .quizgrid{max-width:none;width:100%;grid-template-columns:minmax(0,1fr) clamp(20rem,30vw,40rem);align-items:stretch}
+ .quizgrid .quiz{display:flex;flex-direction:column;min-height:0}
+ .quizgrid .quiz-q{flex:1;display:flex;align-items:center;font-size:clamp(1.6rem,1.2vw + 2.4vh,3.4rem);min-height:0}
+ .quizgrid .likert{gap:12px}.quizgrid .lk{padding:clamp(14px,3.2vh,40px) 8px;font-size:clamp(.95rem,.5vw + .8vh,1.35rem)}
+ .quizgrid .quiz-side{display:flex;flex-direction:column}.quiz-side .compass{max-width:min(100%,56vh);margin:auto}
+ .qs-m li{font-size:clamp(.92rem,.4vw + .7vh,1.2rem)}
+ /* compass results */
+ .cmpgrid{align-items:stretch;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+ .cmpgrid>.card{display:flex;flex-direction:column;justify-content:center}
+ .cmpgrid .compass{max-width:min(100%,46vh)!important}.cmpgrid .res-grid>div{max-width:44rem!important}
+ .cmpgrid>section:last-child{display:flex;flex-direction:column}.cmpgrid .pgrid{flex:1;grid-auto-rows:1fr}
+ .cmpgrid .pcard{font-size:clamp(.95rem,.4vw + .6vh,1.2rem)}
+ /* candidate */
+ .form2{max-width:none!important;display:flex;flex-direction:column}.form2 .cgrid2{flex:1}
+ .cgrid2>div:last-child{display:flex;flex-direction:column}.cgrid2 .bgs{flex:1;grid-auto-rows:1fr}
+ .cgrid2 .avpick{width:clamp(48px,3.6vw,88px)!important;height:clamp(48px,3.6vw,88px)!important}
+ .cgrid2 .bgopt span{font-size:clamp(.9rem,.35vw + .6vh,1.15rem)}
+ /* debate */
+ body[data-ph=debate] .debate,body[data-ph=mp-debate] main>.card:last-child{font-size:clamp(1rem,.4vw + .7vh,1.3rem)}
+}
+.cand-prev{display:none}.cl-log{display:none}@media(min-width:901px){body.classic .cl-log{display:block}}
+@media(min-width:1000px) and (min-height:640px){
+ body[data-ph=quiz] .wrap,body[data-ph=compass] .wrap,body[data-ph=candidate] .wrap,body[data-ph=debate] .wrap,body[data-ph=results] .wrap,body[data-ph=convention] .wrap,body[data-ph=night] .wrap,body[data-ph=end] .wrap{max-width:none}
+ .cmpgrid .pgrid{grid-template-columns:repeat(auto-fit,minmax(14rem,1fr))}.cmpgrid .pcard{justify-content:space-between;padding:clamp(12px,2vh,24px) 16px}.cmpgrid .pcard .num{font-size:clamp(1.5rem,1vw + 1vh,2.4rem)}
+ body[data-ph=debate] .stage,body[data-ph=mp-debate] .stage{gap:12px;margin:2vh 0}
+ body[data-ph=debate] .pod,body[data-ph=mp-debate] .pod{padding:clamp(10px,1.6vh,22px) 16px;font-size:clamp(1rem,.4vw + .6vh,1.25rem)}body[data-ph=debate] .pod span,body[data-ph=mp-debate] .pod span{font-size:.85em}body[data-ph=debate] .pod .num,body[data-ph=mp-debate] .pod .num{font-size:clamp(1.5rem,1vw + 1.5vh,2.6rem)}
+ body[data-ph=debate] .modq,body[data-ph=mp-debate] .modq{font-size:clamp(1.45rem,1.1vw + 2vh,3rem);margin:2vh 0}
+ body[data-ph=debate] .dopts,body[data-ph=mp-debate] .dopts{gap:12px}body[data-ph=debate] .dopt,body[data-ph=mp-debate] .dopt{padding:clamp(12px,2.4vh,30px) 16px;font-size:clamp(1rem,.4vw + .7vh,1.3rem)}body[data-ph=debate] .dopt span,body[data-ph=mp-debate] .dopt span{font-size:.85em}
+ body[data-ph=debate] textarea,body[data-ph=mp-debate] textarea{min-height:12vh;font-size:clamp(1rem,.4vw + .6vh,1.2rem)}
+ .cgrid2 .bgopt{align-items:center;padding:12px 16px}.cgrid2 .bgopt input{margin-top:0}.cgrid2 .bgopt b{font-size:clamp(1rem,.4vw + .7vh,1.3rem)}
+ .cgrid2>div:first-child{display:flex;flex-direction:column}
+ .cand-prev{display:flex;flex:1;align-items:center;justify-content:center;gap:clamp(16px,2vw,40px);margin-top:16px;border:1px dashed var(--line);border-radius:10px;padding:16px}
+ .cpv-av .av{width:clamp(110px,16vh,220px);height:clamp(110px,16vh,220px);border-radius:50%;overflow:hidden;display:block}.cpv-av .av svg{width:100%;height:100%;display:block}
+ .cpv-t{display:flex;flex-direction:column;gap:4px;min-width:0;font-size:clamp(.95rem,.4vw + .7vh,1.25rem)}.cpv-t b{font-family:var(--display);font-size:clamp(1.6rem,1.2vw + 1.6vh,3rem);line-height:1.05;overflow-wrap:anywhere}
+}
+/* classic map card: one compact row above the map */
+.cl-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 6px}.cl-bar>.now-bar{flex:1 1 18rem;margin:0}.cl-bar>.cp-maptop{margin:0}.cl-bar:empty{display:none}
+.cl-card>.cp-race{margin-bottom:8px}
+.cl-plan .mp-plan{margin:0;border:0;padding:0;background:none}
+@media(min-width:901px){body.classic .cl-col>.setup{margin:0;padding:12px 14px;flex:none}body.classic .cl-col{display:flex;flex-direction:column;gap:12px}body.classic .cl-col>*{flex:none}}
+/* full-screen pages on shorter laptop screens: keep the stretch, drop the extra size */
+@media(min-width:1000px) and (max-height:859px){
+ .cmpgrid .compass{max-width:min(100%,30vh)!important}.cmpgrid .pgrid{grid-auto-rows:auto;flex:none;grid-template-columns:repeat(auto-fill,minmax(10.5rem,1fr))}.cmpgrid .pcard{gap:3px}.cmpgrid .pcard{padding:10px 14px}.cmpgrid .matches li{padding-block:4px}
+ .cand-prev{display:none!important}.cgrid2 .bgs{grid-auto-rows:auto;flex:none}.cgrid2 .avpick{width:44px!important;height:44px!important}
+ body[data-ph=debate] textarea,body[data-ph=mp-debate] textarea{min-height:0}body[data-ph=debate] .dopt,body[data-ph=mp-debate] .dopt{padding:10px 12px}body[data-ph=debate] .stage,body[data-ph=mp-debate] .stage{margin:8px 0}body[data-ph=debate] .modq,body[data-ph=mp-debate] .modq{margin:6px 0 10px}
+ .quizgrid .lk{padding:12px 6px}
+ body[data-ph=quiz] #app>main.wrap,body[data-ph=compass] #app>main.wrap,body[data-ph=candidate] #app>main.wrap,body[data-ph=debate] #app>main.wrap,body[data-ph=results] #app>main.wrap,body[data-ph=convention] #app>main.wrap,body[data-ph=night] #app>main.wrap,body[data-ph=end] #app>main.wrap,body[data-ph=mp-debate] #app>main.wrap,body[data-ph=mp-contest] #app>main.wrap,body[data-ph=mp-conv] #app>main.wrap,body[data-ph=mp-night] #app>main.wrap,body[data-ph=mp-end] #app>main.wrap{padding-top:10px;padding-bottom:4px}
+ body[data-ph=debate] .pod,body[data-ph=mp-debate] .pod{padding:7px 10px}body[data-ph=debate] .card-h,body[data-ph=mp-debate] .card-h{margin-bottom:0}
+}
 /* short screens, like phones turned sideways */
 @media(max-height:520px){.nav{position:static}.sheet{max-height:56vh}.sheet-pad.open{height:56vh}}
 /* multiplayer race bar: candidates side by side; move setup stays compact */
@@ -2305,6 +2358,9 @@ function vpAct(){
  if(txt){S.vp.log=txt;addFeed(txt);}}
 
 function vCampaign(){if(!S.pvSel)S.pvSel=[];if(CVIEW==='classic')return vCampClassic();return pvLayout()==='sheet'?vCampSheet():vCampDesk();}
+/* on desktop a move's setup goes in the column beside the map card, so the map never shrinks */
+const clDesk=()=>pvLayout()==='desk';
+{let n0=null;addEventListener('resize',()=>{const n=clDesk();if(n0!==null&&n!==n0&&document.body.classList.contains('classic'))render();n0=n;});}
 /* the classic campaign screen: pick a move at the top, click states on the map. Keeps the new map views and explanations */
 function vCampClassic(){
  const view=S.pvView||'lead';const up=S.track==='primary'?upcomingStates(2):[];const T=S.targets;const sel=S.selSt&&STATES[S.selSt]?S.selSt:null;let quick='';
@@ -2314,10 +2370,10 @@ function vCampClassic(){
   else quick=`<b>${STATES[sel].n}</b><span>${STATES[sel].ev} EV</span>`;
   quick=`<div class="quick">${quick}<button class="link" data-act="openState" data-st="${sel}">Full analytics</button></div>${why?`<p class="small pv-why">${esc(why)}</p>`:''}${statePeek(sel)}`;}
  const tb=MOVES.filter(m=>!m.third||(S.track==='third'&&Object.values(S.access).some(x=>!x))).map(m=>`<button class="mv ${S.mode===m.id?'on':''}" data-act="mode" data-k="${m.id}" ${!canStart(m.id)&&S.mode!==m.id?'disabled':''}>${m.name}<small>${m.lab}</small></button>`).join('');
- return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>
-  <div style="margin-top:10px">${nowBar()}</div><div class="cp-maptop">${viewSeg(view)}</div>
-  <div class="cl-zone"><div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div>${vSetup()}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div></section>
-  <div class="cl-col">${quick?`<section class="card">${quick}</section>`:''}${vStand()}</div></div>
+ return `<div class="main2"><div class="side"><section class="card cl-card">${slimRace()}<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>
+  <div class="cl-bar">${nowBar()}<div class="cp-maptop">${viewSeg(view)}</div></div>
+  <div class="cl-zone"><div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div>${clDesk()?'':vSetup()}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div></section>
+  <div class="cl-col">${clDesk()?vSetup():''}${quick?`<section class="card">${quick}</section>`:''}${vStand()}${S.feed.length?`<section class="card cl-log"><div class="card-h"><h2>Campaign log</h2></div><ul class="notes">${S.feed.slice(0,10).map(f=>`<li class="small"><span class="muted">${esc(f.t)}</span> ${esc(f.txt)}</li>`).join('')}</ul></section>`:''}</div></div>
   <aside class="side">${vWeek()}${vWire()}${vVP()}${vThirdPri()}${vAdvisor()}</aside></div>`;}
 /* classic moves still feed the week's explanation: what you did where, and what the model expected */
 function pvLogMove(kind,T,est){turnLog(kind,T);if(S.turn&&est){S.turn.exp=S.turn.exp||{};T.forEach(st=>{if(est[st]!=null){const g=est[st],o=S.turn.exp[st]||{lo:0,hi:0};S.turn.exp[st]={lo:o.lo+g*0.7,hi:o.hi+g*1.3};}});}mCache.k=null;}
@@ -2765,11 +2821,14 @@ function vCompass(){
   <label class="mp-check"><input type="checkbox" id="ffa-tog" ${S.ffa?'checked':''}> <span><b>Free-for-all.</b> Voters are irrational and party loyalty barely matters. Communists, Fascists and Anarchists can run, and anyone can win.</span></label></div>`}
  <div class="pgrid">${fits.map(f=>`<button class="pcard" data-act="chooseParty" data-k="${f.k}" style="--pc:${PARTIES[f.k].color}"><span class="ph"><b>${PARTIES[f.k].name}</b><span class="num">${f.fit}%</span></span><span class="small muted">${ffaOn()&&!isMajor(f.k)?(inMP?'No primary. You go straight to November.':'No primary. On every ballot in a free-for-all, and anyone can win.'):path[f.k]}</span>${f.k===rec?'<span class="badge rec">Recommended</span>':isMajor(f.k)?'':'<span class="badge hard">Hard mode</span>'}</button>`).join('')}</div></section></div>`;
 }
+function candPrev(){const c=S.cand;const b=BGS[c.bg]||{};const p=PARTIES[S.party]||{};
+ return `<div class="cand-prev" id="cand-prev"><div class="cpv-av">${avImg(myAv()||'a1',p.color||'#888','')}</div><div class="cpv-t"><span class="lab">How you’ll appear</span><b>${esc((c.name||'').trim()||'Your name')}</b><span>${esc(p.name||'')}${STATES[c.state]?` · ${esc(STATES[c.state].n)}`:''}</span>${b.name?`<span class="muted">${esc(b.name)} · ${money(b.funds)} to start</span>`:''}</div></div>`;}
+const updCandPrev=()=>{const e=document.getElementById('cand-prev');if(e)e.outerHTML=candPrev();};
 function vCandidate(){const c=S.cand;
  return `<section class="card form2" style="padding:clamp(18px,4vw,32px)"><span class="lab">Statement of Candidacy · President of the United States · ${PARTIES[S.party].name}</span><h2 style="font-size:2rem;margin:4px 0 14px">Who’s running?</h2>
  <div class="cgrid2"><div><div class="row"><label class="fld"><span>Name</span><input type="text" id="f-name" maxlength="40" value="${esc(c.name)}" placeholder="e.g. Jordan Avery" autocomplete="off"></label><label class="fld"><span>Home state</span><select id="f-state">${ST_KEYS.filter(s=>s!=='DC').map(s=>`<option value="${s}" ${s===c.state?'selected':''}>${STATES[s].n}</option>`).join('')}</select></label></div>
   <p class="lab" style="margin-top:16px">Profile picture</p>${avatarPicker(myAv()||'a1','pickAv')}
-  </div><div><p class="lab cg-bglab" style="margin-top:16px">Background</p><div class="bgs">${Object.entries(BGS).map(([k,b])=>`<label class="bgopt"><input type="radio" name="f-bg" value="${k}" ${k===c.bg?'checked':''}><span><b>${b.name}</b>${b.note} ${money(b.funds)} to start.</span></label>`).join('')}</div></div></div>
+  ${candPrev()}</div><div><p class="lab cg-bglab" style="margin-top:16px">Background</p><div class="bgs">${Object.entries(BGS).map(([k,b])=>`<label class="bgopt"><input type="radio" name="f-bg" value="${k}" ${k===c.bg?'checked':''}><span><b>${b.name}</b>${b.note} ${money(b.funds)} to start.</span></label>`).join('')}</div></div></div>
  <div class="btns" style="margin-top:18px"><button class="btn gold big" data-act="fileForm">Next: your platform</button><button class="btn" data-act="backCompass">Back</button></div></section>`;}
 
 /* ---- debate, results, convention, night, end ---- */
@@ -3589,13 +3648,12 @@ function vMPWeek(){
   intel=`<section class="card"><div class="card-h"><h2>Next: ${esc(C.name)}</h2><span class="lab">${esc(C.date)}</span></div><ul class="notes">${rows.map(r=>`<li class="mp-close"><span>${STATES[r.st].n} · ${delsP(c.party,r.st)} del.</span><b class="${r.gap>=0?'up':'down'}">${f1(r.me)}% ${r.gap>=0?'lead':'vs '+esc(cName(r.top,true))}</b></li>`).join('')}</ul></section>`;}}
  else intel=`<section class="card"><p class="small">${c.inPrimary?'Your primary is decided.':'You’re not in a primary.'} Use these weeks to build name ID, money and a ground game for November.</p></section>`;
  const vpc=mpVpCard(ready);
- return `${mpRaceBar()}${mpVpBanner()}<div class="main2"><div class="side"><section class="card">
-  <div class="mp-plan"><div><span class="lab">Your plan · ${esc(w.date)}</span><ol>${[0,1,2].map(i=>{const mv=MP.draft.moves[i];return `<li>${mv?`${esc(moveLabel(mv))}${ready?'':` <button class="link small" data-act="mpRemove" data-i="${i}">remove</button>`}`:'<span class="muted">Empty</span>'}</li>`;}).join('')}</ol>
+ return `${mpVpBanner()}<div class="main2"><div class="side"><section class="card cl-card">${mcSlim()}
+  ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>`}<div class="cl-bar">${nowBar()}</div>
+  <div class="cl-zone"><div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div>${ready||clDesk()?'':vMPSetupMove()}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>
+  <div class="cl-col">${!ready&&clDesk()?vMPSetupMove():''}<section class="card cl-plan"><div class="mp-plan"><div><span class="lab">Your plan · ${esc(w.date)}</span><ol>${[0,1,2].map(i=>{const mv=MP.draft.moves[i];return `<li>${mv?`${esc(moveLabel(mv))}${ready?'':` <button class="link small" data-act="mpRemove" data-i="${i}">remove</button>`}`:'<span class="muted">Empty</span>'}</li>`;}).join('')}</ol>
    <p class="small muted">After this plan: ${Math.round(left.e)} energy, ${money(left.f)}. Empty slots become rest.</p></div>
-   <div class="mp-readybox">${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${ready?`<button class="btn big" data-act="mpUnready">Change my plan</button>`:`<button class="btn gold big" data-act="mpSubmit">Ready</button>`}<span class="small muted">${waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'}</span>${isHostMe()&&waiting.length&&ready?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}</div></div>
-  ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>`}
-  <div class="cl-zone"><div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div>${ready?'':vMPSetupMove()}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>
-  <div class="cl-col">${MP.selSt&&!MP.mode?`<section class="card">${statePeek(MP.selSt)}</section>`:''}${mpStandCard()}</div></div>
+   <div class="mp-readybox">${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${ready?`<button class="btn big" data-act="mpUnready">Change my plan</button>`:`<button class="btn gold big" data-act="mpSubmit">Ready</button>`}<span class="small muted">${waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'}</span>${isHostMe()&&waiting.length&&ready?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}</div></div></section>${MP.selSt&&!MP.mode?`<section class="card">${statePeek(MP.selSt)}</section>`:''}${mpStandCard()}</div></div>
   <aside class="side">
    <section class="card wire"><span class="lab">News</span><h3>${esc(w.ev.headline)}</h3><p class="small">${esc(w.ev.body)}</p><div class="wire-ch">${w.ev.choices.map((ch,i)=>`<button class="btn ${MP.draft.ev===i&&!(MP.draft.evText||'').trim()?'go':''}" data-act="mpEv" data-i="${i}" ${ready?'disabled':''}>${esc(ch.label)}</button>`).join('')}</div>
     <label class="lab" for="mp-evtext" style="display:block;margin-top:10px">Or say it your way</label><textarea id="mp-evtext" rows="2" maxlength="400" placeholder="What you tell reporters" ${ready?'disabled':''}>${esc(MP.draft.evText||'')}</textarea>
@@ -4575,11 +4633,14 @@ function vSync(){
 const app=$('#app');
 let lastTabKey='';
 function tabFade(){let k='';try{k=inMP?(M?M.phase+':'+(MP.tab||'campaign'):'mp'):S.phase+':'+(S.tab||'');}catch(e){}if(k!==lastTabKey){lastTabKey=k;const m=document.querySelector('#app main');if(m){m.classList.remove('tabin');void m.offsetWidth;m.classList.add('tabin');}}}
+/* the top bar's real height, so full-screen layouts end exactly at the bottom edge */
+function setHdr(){const mt=document.querySelector('#app>main');if(!mt)return;const h=Math.round(mt.getBoundingClientRect().top+scrollY);if(h>0&&h!==setHdr.h){setHdr.h=h;document.documentElement.style.setProperty('--hdr',h+'px');}}
+addEventListener('resize',()=>setHdr());
 function render(){
  setTimeout(tabFade,0);try{document.body.dataset.ph=inMP?(M?'mp-'+M.phase:'mp'):S.phase;}catch(e){}document.body.classList.toggle('phone',LAYOUTP==='phone');
  {let ms=false,cl=false;try{if(inMP){ms=!!(M&&M.phase==='week'&&MP.tab==='map');cl=!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign')&&CVIEW==='classic');}else{ms=S.phase==='hq'&&S.tab==='map';cl=S.phase==='hq'&&(!S.tab||S.tab==='campaign')&&CVIEW==='classic';}}catch(e){}document.body.classList.toggle('mapscr',ms);{let ps=false;try{ps=inMP?!!(M&&M.phase==='week'&&MP.tab==='platform'):(S.phase==='hq'&&S.tab==='platform');}catch(e){}document.body.classList.toggle('platscr',ps);}document.body.classList.toggle('classic',cl);}
  {let wide=false;try{wide=inMP?!!(M&&M.phase==='week'&&(!MP.tab||MP.tab==='campaign'||MP.tab==='map'||MP.tab==='platform')):(S.phase==='hq'&&(!S.tab||S.tab==='campaign'||S.tab==='map'||S.tab==='platform'));}catch(e){}document.body.classList.toggle('wide',wide);}const ae=document.activeElement;const fid=ae&&ae.id;const sel=ae&&'selectionStart' in ae?ae.selectionStart:null;
- if(inMP){if(tut)endTut();const ab=mpActBar();document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`+ab;
+ if(inMP){if(tut)endTut();const ab=mpActBar();document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vMPNav()+`<main class="wrap">${vMP()}</main>`+ab;setHdr();
   if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
   document.querySelectorAll('.mp-chatlog').forEach(l=>l.scrollTop=l.scrollHeight);return;}
  if(S.phase==='title'){if(tut)endTut();document.body.classList.remove('has-actbar');app.innerHTML=vTitle();return;}
@@ -4587,7 +4648,7 @@ function render(){
  let body='';
  if(S.phase==='hq')body=S.tab==='map'?vMapTab():S.tab==='platform'?vPlatformBody():vCampaign();
  else body=({quiz:vQuiz,compass:vCompass,candidate:vCandidate,platform:vPlatform,debate:vDebate,results:vResults,convention:vConvention,night:vNight,end:vEnd}[S.phase]||(()=>''))();
- const ab=S.phase==='hq'?vActBar():'';document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vNav()+`<main class="wrap">${body}</main>`+ab;
+ const ab=S.phase==='hq'?vActBar():'';document.body.classList.toggle('has-actbar',!!ab);app.innerHTML=vNav()+`<main class="wrap">${body}</main>`+ab;setHdr();
  if(fid){const el=document.getElementById(fid);if(el){el.focus({preventScroll:true});if(sel!=null&&el.setSelectionRange){try{el.setSelectionRange(sel,sel);}catch(e){}}}}
  save();
  if(tut){if(tutKey()!==tut.k)endTut();else requestAnimationFrame(placeTut);}else setTimeout(maybeTutorial,80);
@@ -4787,7 +4848,7 @@ app.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t||t
 app.addEventListener('input',e=>{const id=e.target.id||'';
  if(id.startsWith('mp-')&&MP){const v=e.target.value;{const cn=document.querySelector('[data-cnt="'+id+'"]');if(cn&&e.target.maxLength>0)cn.textContent=v.length+'/'+e.target.maxLength;}if(id==='mp-evtext'){MP.draft.evText=v;return;}if(id==='mp-name'){MP.form.name=v;setMpName(cleanTxt(v,24));}else if(id==='mp-cname'){mpQB().name=v;if(meP()?.ready)mpSend({t:'ready',v:false});}else if(id==='mp-gname')MP.form.gname=v;else if(e.target.type!=='checkbox'&&e.target.tagName!=='SELECT')MP.form[id]=v;return;}
  if(id==='sync-code'&&SYNC){SYNC.input=e.target.value;return;}
- if(id.startsWith('cx-'))S.drafts[id.slice(3)]=e.target.value;else if(id==='press-ans')S.pressDraft=e.target.value;else if(id==='db-ans')S.dbDraft=e.target.value;else if(id==='f-name')S.cand.name=e.target.value;else if(id==='quiz-own')S.quizDraft=e.target.value;else if(id==='adv-q')S.advDraft=e.target.value;});
+ if(id.startsWith('cx-'))S.drafts[id.slice(3)]=e.target.value;else if(id==='press-ans')S.pressDraft=e.target.value;else if(id==='db-ans')S.dbDraft=e.target.value;else if(id==='f-name'){S.cand.name=e.target.value;updCandPrev();}else if(id==='quiz-own')S.quizDraft=e.target.value;else if(id==='adv-q')S.advDraft=e.target.value;});
 app.addEventListener('change',e=>{const el=e.target;
  if(el.id==='imp-file'){importSave(el.files&&el.files[0]);el.value='';return;}
  if(el.id==='ffa-tog'){S.ffa=el.checked;render();return;}
@@ -4798,7 +4859,7 @@ app.addEventListener('change',e=>{const el=e.target;
   if(el.id==='mp-plank'){MP.form.plank=v;if(mcOn())render();}else if(el.id==='mp-target'){MP.form.target=v;if(mcOn())render();}else if(el.id==='mp-jump'){if(v){MP.selSt=v;render();}}else if(el.id==='mp-dtarget')MP.form.dtarget=v;return;}
  if(el.id==='pv-jump'){if(el.value){S.selSt=el.value;render();pvScroll();}return;}
  if(el.id==='f-plank'&&S.phase==='hq'){S.form.plank=el.value;render();return;}
- if(el.id==='f-state')S.cand.state=el.value;else if(el.name==='f-bg')S.cand.bg=el.value;
+ if(el.id==='f-state'){S.cand.state=el.value;updCandPrev();}else if(el.name==='f-bg'){S.cand.bg=el.value;updCandPrev();}
  else if(el.id==='f-plank')S.form.plank=el.value;else if(el.id==='f-target')S.form.target=el.value;else if(el.id==='f-region')S.form.region=el.value;else if(el.id==='f-dbtarget')S.form.dbTarget=el.value;});
 app.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const id=e.target.id;
  if(id==='adv-q'){e.preventDefault();askAdvisor();}else if(id==='mp-chat'){e.preventDefault();H.mpChat();}else if(id==='mp-lchat'){e.preventDefault();H.mpLChat();}else if(id==='mp-code'){e.preventDefault();H.mpJoinCode();}else if(id==='mp-advq'){e.preventDefault();H.mpAskAdv();}else if(id==='sync-code'){e.preventDefault();H.syncGet();}});
@@ -4822,6 +4883,12 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:16,date:'Nov 10, 2026',
+  chg:['Every screen fills the whole window, edge to edge and top to bottom, on any monitor size.',
+   'Bigger maps. The classic Moves-on-top map went from about 760 pixels wide to about 1,000 on a 1080p screen, and the regular campaign map grew too.',
+   'Classic screen: picking Rally, Ads and the rest opens the setup in the column next to the map, so the map stays full size.',
+   'Classic screen: the race bar is one slim line inside the map card. In multiplayer, your plan and the Ready button sit beside the map.',
+   'The compass test, results, candidate and debate screens scale their text and buttons up on big screens. The candidate screen shows how you’ll appear on the ballot.']},
  {v:15,date:'Nov 10, 2026',
   fix:['Compass test answers register right away. Fast clicks used to get ignored.',
    'Clicking a state on the campaign map opens its panel at the top of the right column, with Select for this week right under the name. Clicking another state switches the panel instead of losing it.',
