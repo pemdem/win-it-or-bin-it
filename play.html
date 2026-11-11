@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>var WIBI_BUILD=1794333935;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
+<script>var WIBI_BUILD=1794360673;(function(){try{if(location.protocol!=='file:'&&!/[?&]updtest/.test(location.search))return;var c=JSON.parse(localStorage.getItem('wibi-update')||'null');if(!c||!(c.build>WIBI_BUILD)||typeof c.html!=='string'||c.html.indexOf('var WIBI_BUILD='+c.build+';')<0)return;window.WIBI_SWAP=c.build;setTimeout(function(){if(!window.WIBI_BOOTED){try{localStorage.removeItem('wibi-update');}catch(e){}location.reload();}},6000);document.write(c.html.replace(/<!doctype html>/i,'')+'<plaintext hidden style="display:none">');}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>html,body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
 <link rel="manifest" href="manifest.webmanifest">
@@ -733,6 +733,16 @@ body.wide .wrap{max-width:none}
 .qb-src{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
 /* short screens, like phones turned sideways */
 @media(max-height:520px){.nav{position:static}.sheet{max-height:56vh}.sheet-pad.open{height:56vh}}
+/* multiplayer race bar: candidates side by side; move setup stays compact */
+.race-top>div:first-child{flex:1;min-width:0}
+.setup>.fld{flex:none}
+body.classic .mp-plan{padding:8px 12px;margin-bottom:8px}body.classic .mp-plan ol{display:flex;flex-wrap:wrap;gap:2px 18px;padding-left:0;margin:4px 0;list-style-position:inside}body.classic .mp-plan li{display:list-item}
+body.classic .setup{margin-bottom:8px;padding:10px}
+/* classic: a move's setup sits beside the map so the map keeps its height */
+.cl-zone{display:flex;flex-direction:column;gap:10px}.cl-zone>.setup{order:-1;margin:0}
+@media(min-width:901px){body.classic .cl-zone{flex:1 1 auto!important;min-height:0;flex-direction:row;align-items:stretch}
+ body.classic .cl-zone>.mapwrap{flex:1 1 0!important;min-width:0}
+ body.classic .cl-zone>.setup{order:0;flex:0 0 18rem;align-self:flex-start;max-height:100%;overflow:auto}}
 </style></head>
 <body>
 
@@ -2286,9 +2296,9 @@ function vCampClassic(){
   else quick=`<b>${STATES[sel].n}</b><span>${STATES[sel].ev} EV</span>`;
   quick=`<div class="quick">${quick}<button class="link" data-act="openState" data-st="${sel}">Full analytics</button></div>${why?`<p class="small pv-why">${esc(why)}</p>`:''}${statePeek(sel)}`;}
  const tb=MOVES.filter(m=>!m.third||(S.track==='third'&&Object.values(S.access).some(x=>!x))).map(m=>`<button class="mv ${S.mode===m.id?'on':''}" data-act="mode" data-k="${m.id}" ${!canStart(m.id)&&S.mode!==m.id?'disabled':''}>${m.name}<small>${m.lab}</small></button>`).join('');
- return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vSetup()}
+ return `${vRace()}<div class="main2"><div class="side"><section class="card"><div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>
   <div style="margin-top:10px">${nowBar()}</div><div class="cp-maptop">${viewSeg(view)}</div>
-  <div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div></section>
+  <div class="cl-zone"><div class="mapwrap">${usMap(campFill(view),{sel,targets:T,up})}</div>${vSetup()}</div><div class="legend">${campLegend(view)}<span>Hover or tap a state for the full breakdown</span></div></section>
   <div class="cl-col">${quick?`<section class="card">${quick}</section>`:''}${vStand()}</div></div>
   <aside class="side">${vWeek()}${vWire()}${vVP()}${vThirdPri()}${vAdvisor()}</aside></div>`;}
 /* classic moves still feed the week's explanation: what you did where, and what the model expected */
@@ -3556,8 +3566,8 @@ function vMPWeek(){
   <div class="mp-plan"><div><span class="lab">Your plan · ${esc(w.date)}</span><ol>${[0,1,2].map(i=>{const mv=MP.draft.moves[i];return `<li>${mv?`${esc(moveLabel(mv))}${ready?'':` <button class="link small" data-act="mpRemove" data-i="${i}">remove</button>`}`:'<span class="muted">Empty</span>'}</li>`;}).join('')}</ol>
    <p class="small muted">After this plan: ${Math.round(left.e)} energy, ${money(left.f)}. Empty slots become rest.</p></div>
    <div class="mp-readybox">${M.timer?`<span class="mp-timer" id="mp-timer">${mpTimeLeft()}</span>`:''}${ready?`<button class="btn big" data-act="mpUnready">Change my plan</button>`:`<button class="btn gold big" data-act="mpSubmit">Ready</button>`}<span class="small muted">${waiting.length?'Waiting on '+esc(listJoin(waiting)):'Everyone’s in'}</span>${isHostMe()&&waiting.length&&ready?'<button class="link small" data-act="mpForce">Don’t wait, play the week</button>':''}</div></div>
-  ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>${vMPSetupMove()}`}
-  <div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>
+  ${ready?'':`<div class="toolbar" role="toolbar" aria-label="Moves">${tb}</div>`}
+  <div class="cl-zone"><div class="mapwrap">${usMap(mpFill(),{targets:MP.targets,sel:MP.selSt,up})}</div>${ready?'':vMPSetupMove()}</div><div class="legend"><span>Hover or tap a state for the full breakdown</span></div></section>
   <div class="cl-col">${MP.selSt&&!MP.mode?`<section class="card">${statePeek(MP.selSt)}</section>`:''}${mpStandCard()}</div></div>
   <aside class="side">
    <section class="card wire"><span class="lab">News</span><h3>${esc(w.ev.headline)}</h3><p class="small">${esc(w.ev.body)}</p><div class="wire-ch">${w.ev.choices.map((ch,i)=>`<button class="btn ${MP.draft.ev===i&&!(MP.draft.evText||'').trim()?'go':''}" data-act="mpEv" data-i="${i}" ${ready?'disabled':''}>${esc(ch.label)}</button>`).join('')}</div>
@@ -4784,6 +4794,8 @@ function checkUpdate(){
 }
 /* What's new. Add a new entry at the TOP with the next v number each time an update goes out. */
 const CHANGES=[
+ {v:14,date:'Nov 10, 2026',
+  chg:['Bigger map on the classic Moves-on-top screen. A move’s setup now sits beside the map instead of above it, and the multiplayer race bar takes one row.']},
  {v:13,date:'Nov 10, 2026',
   add:['The political compass test has 42 questions and 27 ideologies to match, from Social Democrat and Left Populist to Neoliberal, Paleoconservative and Minarchist.'],
   chg:['Skipping a question in the compass test no longer pulls you toward the middle.','On phones, the top bar no longer hides under the notch, so Profile and Settings are always reachable. Phones turned sideways show more of the map.']},
